@@ -7,8 +7,8 @@ import { strict as assert } from "node:assert";
 }
 {
     const conditions = new AeroflyMissionConditions();
-    conditions.visibility = 15_000;
-    assert.deepStrictEqual(conditions.visibility, 15_000);
+    conditions.visibility = 15000;
+    assert.deepStrictEqual(conditions.visibility, 15000);
     console.log("✅ AeroflyMissionConditions test successful");
 }
 {

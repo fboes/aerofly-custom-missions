@@ -158,7 +158,7 @@ export class AeroflyMissionConditions {
         direction: 0,
         speed: 0,
         gusts: 0,
-    }, turbulenceStrength = 0, thermalStrength = 0, visibility = 25_000, clouds = [], } = {}) {
+    }, turbulenceStrength = 0, thermalStrength = 0, visibility = 25000, clouds = [], } = {}) {
         /**
          * @property {AeroflyMissionConditionsCloud[]} clouds for the whole flight
          */
@@ -342,11 +342,11 @@ export class AeroflyMissionCheckpoint {
         if (!this.frequency) {
             return "None";
         }
-        if (this.frequency > 1_000_000) {
-            return String(this.frequency / 1_000_000) + " MHz";
+        if (this.frequency > 1000000) {
+            return String(this.frequency / 1000000) + " MHz";
         }
-        if (this.frequency > 1_000) {
-            return String(this.frequency / 1_000) + " kHz";
+        if (this.frequency > 1000) {
+            return String(this.frequency / 1000) + " kHz";
         }
         return String(this.frequency) + " Hz";
     }
