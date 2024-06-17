@@ -10,3 +10,7 @@ charset = utf-8
 indent_style = space
 indent_size = 2
 max_line_length = 120
+
+# To accomodate TypeScript compiler
+[*.{js,ts}]
+indent_size = 4

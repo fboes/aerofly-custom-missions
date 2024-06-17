@@ -10,7 +10,7 @@
     "eslint": "npx eslint **/*.js --fix",
     "tsc": "npx tsc --build",
     "tsc-watch": "npx tsc --watch",
-    "build": "npm run eslint && npm run prettier && npm run tsc"
+    "build": "npm run tsc && npm run eslint && npm run prettier"
   },
   "keywords": [
     "aerofly-fs4",

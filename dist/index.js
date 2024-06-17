@@ -1,6 +1,7 @@
 const feetPerMeter = 3.28084;
 const meterPerStatuteMile = 1609.344;
 /**
+ * @class
  * A list of flight plans.
  *
  * The purpose of this class is to collect data needed for Aerofly FS4's
@@ -9,13 +10,13 @@ const meterPerStatuteMile = 1609.344;
  */
 export class AeroflyMissionsList {
     /**
-     * @param missions to add to mission list
+     * @param {AeroflyMission[]} missions in this mission list
      */
     constructor(missions = []) {
         this.missions = missions;
     }
     /**
-     * @returns String to use in Aerofly FS4's `custom_missions_user.tmc`
+     * @returns {string} to use in Aerofly FS4's `custom_missions_user.tmc`
      */
     toString() {
         const separator = "\n// -----------------------------------------------------------------------------\n";
@@ -27,6 +28,7 @@ export class AeroflyMissionsList {
     }
 }
 /**
+ * @class
  * A single flighplan, containing aircraft and weather data as well.
  *
  * The purpose of this class is to collect data needed for Aerofly FS4's
@@ -35,71 +37,46 @@ export class AeroflyMissionsList {
  */
 export class AeroflyMission {
     /**
-     *
-     * @param title of this flight plan
-     * @param additionalAttributes allows to set additional attributes on creation
+     * @param {string} title of this flight plan
+     * @param {object} [additionalAttributes] allows to set additional attributes on creation
+     * @param {string} [additionalAttributes.description] text, mission briefing, etc
+     * @param {"taxi"|"takeoff"|"cruise"|"approach"|"landing"} [additionalAttributes.flightSetting] of aircraft, like "taxi", "cruise"
+     * @param {{name:string,livery:string,icao:string}} [additionalAttributes.aircraft] for this mission
+     * @param {string} [additionalAttributes.callsign] of aircraft, uppercased
+     * @param {object} [additionalAttributes.origin] position of aircraft, as well as name of starting airport. Position does not have match airport.
+     * @param {object} [additionalAttributes.destination] position of aircraft, as well as name of destination airport. Position does not have match airport.
+     * @param {AeroflyMissionConditions} [additionalAttributes.conditions] like time and weather for mission
+     * @param {AeroflyMissionCheckpoint[]} [additionalAttributes.checkpoints] form the actual flight plan
      */
-    constructor(title, additionalAttributes = {}) {
-        /**
-         * Additional description text, mission briefing, etc
-         */
-        this.description = "";
-        /**
-         * Flight settings of aircraft, like "taxi", "cruise"
-         */
-        this.flightSetting = "taxi";
-        /**
-         * Aircraft for this mission
-         */
-        this.aircraft = {
-            name: "c172",
-            livery: "",
-            icao: "",
-        };
-        /**
-         * Uppercase callsign of aircraft
-         */
-        this.callsign = "";
-        /**
-         * Starting position of aircraft, as well as name of starting airport. Position does not have match airport.
-         */
-        this.origin = {
-            icao: "",
-            longitude: 0,
-            latitude: 0,
-            dir: 0,
-            alt: 0,
-        };
-        /**
-         * Intended end position of aircraft, as well as name of destination airport. Position does not have match airport.
-         */
-        this.destination = {
-            icao: "",
-            longitude: 0,
-            latitude: 0,
-            dir: 0,
-            alt: 0,
-        };
-        /**
-         * Time and weather for mission
-         */
-        this.conditions = new AeroflyMissionConditions();
-        /**
-         * The actual flight plan
-         */
-        this.checkpoints = [];
+    constructor(title, { description = "", flightSetting = "taxi", aircraft = {
+        name: "c172",
+        livery: "",
+        icao: "",
+    }, callsign = "", origin = {
+        icao: "",
+        longitude: 0,
+        latitude: 0,
+        dir: 0,
+        alt: 0,
+    }, destination = {
+        icao: "",
+        longitude: 0,
+        latitude: 0,
+        dir: 0,
+        alt: 0,
+    }, conditions = new AeroflyMissionConditions(), checkpoints = [], } = {}) {
         this.title = title;
-        this.checkpoints = additionalAttributes.checkpoints ?? this.checkpoints;
-        this.description = additionalAttributes.description ?? this.description;
-        this.flightSetting = additionalAttributes.flightSetting ?? this.flightSetting;
-        this.aircraft = additionalAttributes.aircraft ?? this.aircraft;
-        this.callsign = additionalAttributes.callsign ?? this.callsign;
-        this.origin = additionalAttributes.origin ?? this.origin;
-        this.destination = additionalAttributes.destination ?? this.destination;
-        this.conditions = additionalAttributes.conditions ?? this.conditions;
+        this.checkpoints = checkpoints;
+        this.description = description;
+        this.flightSetting = flightSetting;
+        this.aircraft = aircraft;
+        this.callsign = callsign;
+        this.origin = origin;
+        this.destination = destination;
+        this.conditions = conditions;
     }
     /**
-     * @returns indexed checkpoints
+     * @returns {string} indexed checkpoints
      */
     getCheckpointsString() {
         return this.checkpoints
@@ -110,7 +87,7 @@ export class AeroflyMission {
     }
     /**
      * @throws {Error} on missing waypoints
-     * @returns String to use in Aerofly FS4's `custom_missions_user.tmc`
+     * @returns {string} to use in Aerofly FS4's `custom_missions_user.tmc`
      */
     toString() {
         if (this.checkpoints.length < 2) {
@@ -159,6 +136,7 @@ ${this.getCheckpointsString()}
     }
 }
 /**
+ * @class
  * Time and weather data for the given flight plan
  *
  * The purpose of this class is to collect data needed for Aerofly FS4's
@@ -167,51 +145,39 @@ ${this.getCheckpointsString()}
  */
 export class AeroflyMissionConditions {
     /**
-     * @param additionalAttributes allows to set additional attributes on creation
+     * @param {object} additionalAttributes allows to set additional attributes on creation
+     * @param {Date} [additionalAttributes.time]  of flight plan. Relevant is the UTC part, so
+     *    consider setting this date in UTC.
+     * @param {{direction: number, speed: number, gusts: number}} [additionalAttributes.wind] state
+     * @param {number} [additionalAttributes.turbulenceStrength] 0..1, percentage
+     * @param {number} [additionalAttributes.thermalStrength] 0..1, percentage
+     * @param {number} [additionalAttributes.visibility] in meters
+     * @param {AeroflyMissionConditionsCloud[]} [additionalAttributes.clouds] for the whole flight
      */
-    constructor(additionalAttributes = {}) {
+    constructor({ time = new Date(), wind = {
+        direction: 0,
+        speed: 0,
+        gusts: 0,
+    }, turbulenceStrength = 0, thermalStrength = 0, visibility = 25_000, clouds = [], } = {}) {
         /**
-         * Start time of flight plan. Relevant is the UTC part, so
-         *    consider setting this date in UTC.
+         * @property {AeroflyMissionConditionsCloud[]} clouds for the whole flight
          */
-        this.time = new Date();
-        /**
-         * Current wind state
-         */
-        this.wind = {
-            direction: 0,
-            speed: 0,
-            gusts: 0,
-        };
-        /**
-         * 0..1, percentage
-         */
-        this.turbulenceStrength = 0;
-        /**
-         * 0..1, percentage
-         */
-        this.thermalStrength = 0;
-        /**
-         * Visibility in meters
-         */
-        this.visibility = 25000;
         this.clouds = [];
-        this.time = additionalAttributes.time ?? this.time;
-        this.wind.direction = additionalAttributes.wind?.direction ?? this.wind.direction;
-        this.wind.speed = additionalAttributes.wind?.speed ?? this.wind.speed;
-        this.wind.gusts = additionalAttributes.wind?.gusts ?? this.wind.gusts;
-        this.turbulenceStrength = additionalAttributes.turbulenceStrength ?? this.turbulenceStrength;
-        this.visibility = additionalAttributes.visibility ?? this.visibility;
-        this.clouds = additionalAttributes.clouds ?? this.clouds;
+        this.time = time;
+        this.wind = wind;
+        this.turbulenceStrength = turbulenceStrength;
+        this.thermalStrength = thermalStrength;
+        this.visibility = visibility;
+        this.clouds = clouds;
     }
     /**
-     * @returns the Aerofly value for UTC hours + minutes/60 + seconds/3600. Ignores milliseconds ;)
+     * @returns {number} the Aerofly value for UTC hours + minutes/60 + seconds/3600. Ignores milliseconds ;)
      */
     get time_hours() {
         return this.time.getUTCHours() + this.time.getUTCMinutes() / 60 + this.time.getUTCSeconds() / 3600;
     }
     /**
-     * @returns Time representation like "20:15:00"
+     * @returns {string} Time representation like "20:15:00"
      */
     get time_presentational() {
         return [this.time.getUTCHours(), this.time.getUTCMinutes(), this.time.getUTCSeconds()]
@@ -221,13 +187,13 @@ export class AeroflyMissionConditions {
             .join(":");
     }
     /**
-     * @param visibility_sm `this.visibility` in statute miles instead of meters
+     * @param {number} visibility_sm `this.visibility` in statute miles instead of meters
      */
     set visibility_sm(visibility_sm) {
         this.visibility = visibility_sm * meterPerStatuteMile;
     }
     /**
-     * @returns
+     * @returns {string}
      */
     getCloudsString() {
         return this.clouds
@@ -237,7 +203,7 @@ export class AeroflyMissionConditions {
             .join("\n");
     }
     /**
-     * @returns String to use in Aerofly FS4's `custom_missions_user.tmc`
+     * @returns {string} to use in Aerofly FS4's `custom_missions_user.tmc`
      */
     toString() {
         if (this.clouds.length < 1) {
@@ -261,6 +227,7 @@ ${this.getCloudsString()}
     }
 }
 /**
+ * @class
  * A cloud layer for the current flight plan's weather data
  *
  * The purpose of this class is to collect data needed for Aerofly FS4's
@@ -269,29 +236,29 @@ ${this.getCloudsString()}
  */
 export class AeroflyMissionConditionsCloud {
     /**
-     * @param cover 0..1, percentage
-     * @param base in meters AGL
+     * @param {number} cover 0..1, percentage
+     * @param {number} base altitude in meters AGL
      */
     constructor(cover, base) {
         this.cover = cover;
         this.base = base;
     }
     /**
-     * @param cover 0..1, percentage
-     * @param base_feet base, but in feet AGL instead of meters AGL
+     * @param {number} cover 0..1, percentage
+     * @param {number} base_feet altitude, but in feet AGL instead of meters AGL
      * @returns {AeroflyMissionConditionsCloud}
      */
     static createInFeet(cover, base_feet) {
         return new AeroflyMissionConditionsCloud(cover, base_feet / feetPerMeter);
     }
     /**
-     * @param base_feet `this.base` in feet instead of meters
+     * @param {number} base_feet `this.base` in feet instead of meters
      */
     set base_feet(base_feet) {
         this.base = base_feet / feetPerMeter;
     }
     /**
-     * @returns Cloud coverage as text representation like "OVC" for `this.cover`
+     * @returns {string} Cloud coverage as text representation like "OVC" for `this.cover`
      */
     get cover_code() {
         if (this.cover < 1 / 8) {
@@ -309,8 +276,8 @@ export class AeroflyMissionConditionsCloud {
         return "OVC";
     }
     /**
-     * @param index if used in an array will se the array index
-     * @returns String to use in Aerofly FS4's `custom_missions_user.tmc`
+     * @param {number} index if used in an array will se the array index
+     * @returns {string} to use in Aerofly FS4's `custom_missions_user.tmc`
      */
     toString(index = 0) {
         const indexString = index === 0 ? "" : String(index + 1);
@@ -320,6 +287,7 @@ export class AeroflyMissionConditionsCloud {
     }
 }
 /**
+ * @class
  * A single way point for the given flight plan
  *
  * The purpose of this class is to collect data needed for Aerofly FS4's
@@ -328,73 +296,63 @@ export class AeroflyMissionConditionsCloud {
  */
 export class AeroflyMissionCheckpoint {
     /**
-     * @param name ICAO code for airport, runway designator, navaid
+     * @param {string} name ICAO code for airport, runway designator, navaid
      *    designator, fix name, or custom name
-     * @param type Type of checkpoint, like "departure_runway"
-     * @param longitude easting, using the World Geodetic
+     * @param {"origin"|"departure_runway"|"departure"|"waypoint"|"arrival"|"approach"|"destination_runway"|"destination"} type Type of checkpoint, like "departure_runway"
+     * @param {number} longitude easting, using the World Geodetic
      *    System 1984 (WGS 84) [WGS84] datum, with longitude and latitude units
      *    of decimal degrees; -180..180
-     * @param latitude northing, using the World Geodetic
+     * @param {number} latitude northing, using the World Geodetic
      *    System 1984 (WGS 84) [WGS84] datum, with longitude and latitude units
      *    of decimal degrees; -90..90
-     * @param additionalAttributes allows to set additional attributes on creation
+     * @param {object} additionalAttributes allows to set additional attributes on creation
+     * @param {number} [additionalAttributes.altitude] The height in meters above or below the WGS
+     *    84 reference ellipsoid
+     * @param {number?} [additionalAttributes.altitude_feet] The height in feet above or below the WGS
+     *    84 reference ellipsoid
+     * @param {number} [additionalAttributes.direction] of runway, in degree
+     * @param {number?} [additionalAttributes.slope] of runway
+     * @param {number?} [additionalAttributes.length] of runway, in meters
+     * @param {number?} [additionalAttributes.frequency] of runways or navigational aids, in Hz; multiply by 1000 for kHz, 1_000_000 for MHz
      */
-    constructor(name, type, longitude, latitude, additionalAttributes = {}) {
-        /**
-         * The height in meters above or below the WGS
-         *    84 reference ellipsoid
-         */
-        this.altitude = 0;
-        /**
-         * For runways: in degree
-         */
-        this.direction = null;
-        /**
-         * For runways
-         */
-        this.slope = null;
-        /**
-         * For runways: in meters
-         */
-        this.length = null;
-        /**
-         * For runways and navigational aids, in Hz; multiply by 1000 for kHz, 1_000_000 for MHz
-         */
-        this.frequency = null;
+    constructor(name, type, longitude, latitude, { altitude = 0, altitude_feet = null, direction = null, slope = null, length = null, frequency = null, } = {}) {
+        if (altitude_feet) {
+            altitude = altitude_feet / feetPerMeter;
+        }
         this.type = type;
         this.name = name;
         this.longitude = longitude;
         this.latitude = latitude;
-        if (additionalAttributes.altitude_feet) {
-            additionalAttributes.altitude = additionalAttributes.altitude_feet / feetPerMeter;
-        }
-        this.altitude = additionalAttributes.altitude ?? this.altitude;
-        this.direction = additionalAttributes.direction ?? this.direction;
-        this.slope = additionalAttributes.slope ?? this.slope;
-        this.length = additionalAttributes.length ?? this.length;
-        this.frequency = additionalAttributes.frequency ?? this.frequency;
+        this.altitude = altitude;
+        this.direction = direction;
+        this.slope = slope;
+        this.length = length;
+        this.frequency = frequency;
     }
     /**
-     * @param altitude_feet
+     * @param {number} altitude_feet
      */
     set altitude_feet(altitude_feet) {
         this.altitude = altitude_feet / feetPerMeter;
     }
+    /**
+     * @returns {string}
+     */
     get frequency_string() {
         if (!this.frequency) {
             return "None";
         }
-        if (this.frequency > 1000000) {
-            return String(this.frequency / 1000000) + " MHz";
+        if (this.frequency > 1_000_000) {
+            return String(this.frequency / 1_000_000) + " MHz";
         }
-        if (this.frequency > 1000) {
-            return String(this.frequency / 1000) + " kHz";
+        if (this.frequency > 1_000) {
+            return String(this.frequency / 1_000) + " kHz";
         }
         return String(this.frequency) + " Hz";
     }
     /**
-     * @param index if used in an array will se the array index
-     * @returns String to use in Aerofly FS4's `custom_missions_user.tmc`
+     * @param {number} index if used in an array will se the array index
+     * @returns {string} to use in Aerofly FS4's `custom_missions_user.tmc`
      */
     toString(index = 0) {
         return `                    <[tmmission_checkpoint][element][${index}]
