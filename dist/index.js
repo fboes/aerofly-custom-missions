@@ -152,17 +152,21 @@ export class AeroflyMissionConditions {
      * @param {number} [additionalAttributes.turbulenceStrength] 0..1, percentage
      * @param {number} [additionalAttributes.thermalStrength] 0..1, percentage
      * @param {number} [additionalAttributes.visibility] in meters
+     * @param {number?} [additionalAttributes.visibility_sm] in statute miles
      * @param {AeroflyMissionConditionsCloud[]} [additionalAttributes.clouds] for the whole flight
      */
     constructor({ time = new Date(), wind = {
         direction: 0,
         speed: 0,
         gusts: 0,
-    }, turbulenceStrength = 0, thermalStrength = 0, visibility = 25000, clouds = [], } = {}) {
+    }, turbulenceStrength = 0, thermalStrength = 0, visibility = 25_000, visibility_sm = null, clouds = [], } = {}) {
         /**
          * @property {AeroflyMissionConditionsCloud[]} clouds for the whole flight
          */
         this.clouds = [];
+        if (visibility_sm) {
+            visibility = visibility_sm * meterPerStatuteMile;
+        }
         this.time = time;
         this.wind = wind;
         this.turbulenceStrength = turbulenceStrength;
@@ -193,6 +197,12 @@ export class AeroflyMissionConditions {
         this.visibility = visibility_sm * meterPerStatuteMile;
     }
     /**
+     * @returns {number} `this.visibility` in statute miles instead of meters
+     */
+    get visibility_sm() {
+        return this.visibility / meterPerStatuteMile;
+    }
+    /**
      * @returns {string}
      */
     getCloudsString() {
@@ -221,7 +231,7 @@ export class AeroflyMissionConditions {
                     <[float64][wind_gusts][${this.wind.gusts}]> // kts
                     <[float64][turbulence_strength][${this.turbulenceStrength}]>
                     <[float64][thermal_strength][${this.thermalStrength}]>
-                    <[float64][visibility][${this.visibility}]> // ${this.visibility / meterPerStatuteMile} SM
+                    <[float64][visibility][${this.visibility}]> // ${this.visibility_sm} SM
 ${this.getCloudsString()}
                 >`;
     }
@@ -258,6 +268,12 @@ export class AeroflyMissionConditionsCloud {
         this.base = base_feet / feetPerMeter;
     }
     /**
+     * @returns {number} `this.base` in feet instead of meters
+     */
+    get base_feet() {
+        return this.base * feetPerMeter;
+    }
+    /**
      * @returns {string} Cloud coverage as text representation like "OVC" for `this.cover`
      */
     get cover_code() {
@@ -283,7 +299,7 @@ export class AeroflyMissionConditionsCloud {
         const indexString = index === 0 ? "" : String(index + 1);
         const comment = index === 0 ? "" : "//";
         return `                    ${comment}<[float64][cloud_cover${indexString}][${this.cover ?? 0}]> // ${this.cover_code}
-                    ${comment}<[float64][cloud_base${indexString}][${this.base}]> // ${this.base * feetPerMeter} ft AGL`;
+                    ${comment}<[float64][cloud_base${indexString}][${this.base}]> // ${this.base_feet} ft AGL`;
     }
 }
 /**
@@ -313,11 +329,15 @@ export class AeroflyMissionCheckpoint {
      * @param {number} [additionalAttributes.direction] of runway, in degree
      * @param {number?} [additionalAttributes.slope] of runway
      * @param {number?} [additionalAttributes.length] of runway, in meters
+     * @param {number?} [additionalAttributes.length_feet] of runway, in feet
      * @param {number?} [additionalAttributes.frequency] of runways or navigational aids, in Hz; multiply by 1000 for kHz, 1_000_000 for MHz
      */
-    constructor(name, type, longitude, latitude, { altitude = 0, altitude_feet = null, direction = null, slope = null, length = null, frequency = null, } = {}) {
+    constructor(name, type, longitude, latitude, { altitude = 0, altitude_feet = null, direction = null, slope = null, length = null, length_feet = null, frequency = null, } = {}) {
         if (altitude_feet) {
             altitude = altitude_feet / feetPerMeter;
+        }
+        if (length_feet) {
+            length = length_feet / feetPerMeter;
         }
         this.type = type;
         this.name = name;
@@ -336,17 +356,35 @@ export class AeroflyMissionCheckpoint {
         this.altitude = altitude_feet / feetPerMeter;
     }
     /**
+     * @returns {number} altitude_feet
+     */
+    get altitude_feet() {
+        return this.altitude * feetPerMeter;
+    }
+    /**
+     * @param {number} length_feet
+     */
+    set length_feet(length_feet) {
+        this.length = length_feet / feetPerMeter;
+    }
+    /**
+     * @returns {number} length_feet
+     */
+    get length_feet() {
+        return (this.length ?? 0) * feetPerMeter;
+    }
+    /**
      * @returns {string}
      */
     get frequency_string() {
         if (!this.frequency) {
             return "None";
         }
-        if (this.frequency > 1000000) {
-            return String(this.frequency / 1000000) + " MHz";
+        if (this.frequency > 1_000_000) {
+            return String(this.frequency / 1_000_000) + " MHz";
         }
-        if (this.frequency > 1000) {
-            return String(this.frequency / 1000) + " kHz";
+        if (this.frequency > 1_000) {
+            return String(this.frequency / 1_000) + " kHz";
         }
         return String(this.frequency) + " Hz";
     }
@@ -359,10 +397,10 @@ export class AeroflyMissionCheckpoint {
                         <[string8u][type][${this.type}]>
                         <[string8u][name][${this.name}]>
                         <[vector2_float64][lon_lat][${this.longitude} ${this.latitude}]>
-                        <[float64][altitude][${this.altitude}]> // ${this.altitude * feetPerMeter} ft
+                        <[float64][altitude][${this.altitude}]> // ${this.altitude_feet} ft
                         <[float64][direction][${this.direction ?? (index === 0 ? -1 : 0)}]>
                         <[float64][slope][${this.slope ?? 0}]>
-                        <[float64][length][${this.length ?? 0}]> // ${(this.length ?? 0) * feetPerMeter} ft
+                        <[float64][length][${this.length ?? 0}]> // ${this.length_feet} ft
                         <[float64][frequency][${this.frequency ?? 0}]> // ${this.frequency_string}
                     >`;
     }

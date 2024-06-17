@@ -7,8 +7,26 @@ import { strict as assert } from "node:assert";
 }
 {
     const conditions = new AeroflyMissionConditions();
-    conditions.visibility = 15000;
-    assert.deepStrictEqual(conditions.visibility, 15000);
+    conditions.visibility = 15_000;
+    assert.deepStrictEqual(conditions.visibility, 15_000);
+    conditions.visibility_sm = 10;
+    assert.notDeepStrictEqual(conditions.visibility, 10);
+    assert.deepStrictEqual(Math.round(conditions.visibility_sm), 10);
+    console.log("✅ AeroflyMissionConditions test successful");
+}
+{
+    const conditions = new AeroflyMissionConditions({
+        visibility: 15_000,
+    });
+    assert.deepStrictEqual(conditions.visibility, 15_000);
+    console.log("✅ AeroflyMissionConditions test successful");
+}
+{
+    const conditions = new AeroflyMissionConditions({
+        visibility_sm: 10,
+    });
+    assert.notDeepStrictEqual(conditions.visibility, 10);
+    assert.deepStrictEqual(Math.round(conditions.visibility_sm), 10);
     console.log("✅ AeroflyMissionConditions test successful");
 }
 {
@@ -21,6 +39,9 @@ import { strict as assert } from "node:assert";
     const cloud = new AeroflyMissionConditionsCloud(1, 1000);
     assert.deepStrictEqual(cloud.cover, 1);
     assert.deepStrictEqual(cloud.base, 1000);
+    cloud.base_feet = 1000;
+    assert.notDeepStrictEqual(cloud.base, 1000);
+    assert.deepStrictEqual(Math.round(cloud.base_feet), 1000);
     console.log("✅ AeroflyMissionConditionsCloud test successful");
 }
 {
@@ -39,6 +60,12 @@ import { strict as assert } from "node:assert";
             AeroflyMissionConditionsCloud.createInFeet(0.2, 7500),
         ],
     });
+    assert.strictEqual(conditions.wind.direction, 190);
+    assert.strictEqual(conditions.wind.speed, 11);
+    assert.strictEqual(conditions.wind.gusts, 22);
+    assert.strictEqual(conditions.turbulenceStrength, 1);
+    assert.strictEqual(conditions.thermalStrength, 0.31200000000000006);
+    assert.strictEqual(conditions.visibility, 14484.096000000001);
     const checkpoints = [
         new AeroflyMissionCheckpoint("KCCR", "origin", -122.057, 37.9897, {
             altitude: 8,
@@ -88,9 +115,9 @@ import { strict as assert } from "node:assert";
     assert.strictEqual(missionList.missions.length, 1);
     assert.strictEqual(missionList.missions[0].aircraft.name, "c172");
     assert.strictEqual(missionList.missions[0].aircraft.icao, "C172");
-    console.dir(missionList.missions[0], { depth: null });
+    //console.dir(missionList.missions[0], { depth: null });
     const missionListString = missionList.toString();
-    console.log(missionListString);
+    //console.log(missionListString);
     assert.ok(missionListString.includes("[origin]"));
     assert.ok(missionListString.includes("[tmmission_definition]"));
     assert.ok(missionListString.includes("[list_tmmission_checkpoint]"));

@@ -25,7 +25,15 @@ export type AeroflyMissionSetting = "taxi" | "takeoff" | "cruise" | "approach" |
 /**
  * Types of checkpoints. Required are usually "origin", "departure_runway" at the start and "destination_runway", "destination" at the end.
  */
-export type AeroflyMissionCheckpointType = "origin" | "departure_runway" | "departure" | "waypoint" | "arrival" | "approach" | "destination_runway" | "destination";
+export type AeroflyMissionCheckpointType =
+    | "origin"
+    | "departure_runway"
+    | "departure"
+    | "waypoint"
+    | "arrival"
+    | "approach"
+    | "destination_runway"
+    | "destination";
 /**
  * Data for the aircraft to use on this mission
  * @property name lowercase Aerofly aircraft ID
@@ -131,16 +139,28 @@ export declare class AeroflyMission {
      * @param {AeroflyMissionConditions} [additionalAttributes.conditions] like time and weather for mission
      * @param {AeroflyMissionCheckpoint[]} [additionalAttributes.checkpoints] form the actual flight plan
      */
-    constructor(title: string, { description, flightSetting, aircraft, callsign, origin, destination, conditions, checkpoints, }?: {
-        description?: string;
-        flightSetting?: AeroflyMissionSetting;
-        aircraft?: AeroflyMissionAircraft;
-        callsign?: string;
-        origin?: AeroflyMissionPosition;
-        destination?: AeroflyMissionPosition;
-        conditions?: AeroflyMissionConditions;
-        checkpoints?: AeroflyMissionCheckpoint[];
-    });
+    constructor(
+        title: string,
+        {
+            description,
+            flightSetting,
+            aircraft,
+            callsign,
+            origin,
+            destination,
+            conditions,
+            checkpoints,
+        }?: {
+            description?: string;
+            flightSetting?: AeroflyMissionSetting;
+            aircraft?: AeroflyMissionAircraft;
+            callsign?: string;
+            origin?: AeroflyMissionPosition;
+            destination?: AeroflyMissionPosition;
+            conditions?: AeroflyMissionConditions;
+            checkpoints?: AeroflyMissionCheckpoint[];
+        },
+    );
     /**
      * @returns {string} indexed checkpoints
      */
@@ -193,9 +213,18 @@ export declare class AeroflyMissionConditions {
      * @param {number} [additionalAttributes.turbulenceStrength] 0..1, percentage
      * @param {number} [additionalAttributes.thermalStrength] 0..1, percentage
      * @param {number} [additionalAttributes.visibility] in meters
+     * @param {number?} [additionalAttributes.visibility_sm] in statute miles
      * @param {AeroflyMissionConditionsCloud[]} [additionalAttributes.clouds] for the whole flight
      */
-    constructor({ time, wind, turbulenceStrength, thermalStrength, visibility, clouds, }?: {
+    constructor({
+        time,
+        wind,
+        turbulenceStrength,
+        thermalStrength,
+        visibility,
+        visibility_sm,
+        clouds,
+    }?: {
         time?: Date;
         wind?: {
             direction: number;
@@ -205,6 +234,7 @@ export declare class AeroflyMissionConditions {
         turbulenceStrength?: number;
         thermalStrength?: number;
         visibility?: number;
+        visibility_sm?: number | null;
         clouds?: AeroflyMissionConditionsCloud[];
     });
     /**
@@ -219,6 +249,10 @@ export declare class AeroflyMissionConditions {
      * @param {number} visibility_sm `this.visibility` in statute miles instead of meters
      */
     set visibility_sm(visibility_sm: number);
+    /**
+     * @returns {number} `this.visibility` in statute miles instead of meters
+     */
+    get visibility_sm(): number;
     /**
      * @returns {string}
      */
@@ -260,6 +294,10 @@ export declare class AeroflyMissionConditionsCloud {
      * @param {number} base_feet `this.base` in feet instead of meters
      */
     set base_feet(base_feet: number);
+    /**
+     * @returns {number} `this.base` in feet instead of meters
+     */
+    get base_feet(): number;
     /**
      * @returns {string} Cloud coverage as text representation like "OVC" for `this.cover`
      */
@@ -339,20 +377,48 @@ export declare class AeroflyMissionCheckpoint {
      * @param {number} [additionalAttributes.direction] of runway, in degree
      * @param {number?} [additionalAttributes.slope] of runway
      * @param {number?} [additionalAttributes.length] of runway, in meters
+     * @param {number?} [additionalAttributes.length_feet] of runway, in feet
      * @param {number?} [additionalAttributes.frequency] of runways or navigational aids, in Hz; multiply by 1000 for kHz, 1_000_000 for MHz
      */
-    constructor(name: string, type: AeroflyMissionCheckpointType, longitude: number, latitude: number, { altitude, altitude_feet, direction, slope, length, frequency, }?: {
-        altitude?: number;
-        altitude_feet?: number | null;
-        direction?: number | null;
-        slope?: number | null;
-        length?: number | null;
-        frequency?: number | null;
-    });
+    constructor(
+        name: string,
+        type: AeroflyMissionCheckpointType,
+        longitude: number,
+        latitude: number,
+        {
+            altitude,
+            altitude_feet,
+            direction,
+            slope,
+            length,
+            length_feet,
+            frequency,
+        }?: {
+            altitude?: number;
+            altitude_feet?: number | null;
+            direction?: number | null;
+            slope?: number | null;
+            length?: number | null;
+            length_feet?: number | null;
+            frequency?: number | null;
+        },
+    );
     /**
      * @param {number} altitude_feet
      */
     set altitude_feet(altitude_feet: number);
+    /**
+     * @returns {number} altitude_feet
+     */
+    get altitude_feet(): number;
+    /**
+     * @param {number} length_feet
+     */
+    set length_feet(length_feet: number);
+    /**
+     * @returns {number} length_feet
+     */
+    get length_feet(): number;
     /**
      * @returns {string}
      */

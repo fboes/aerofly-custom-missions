@@ -331,6 +331,7 @@ export class AeroflyMissionConditions {
      * @param {number} [additionalAttributes.turbulenceStrength] 0..1, percentage
      * @param {number} [additionalAttributes.thermalStrength] 0..1, percentage
      * @param {number} [additionalAttributes.visibility] in meters
+     * @param {number?} [additionalAttributes.visibility_sm] in statute miles
      * @param {AeroflyMissionConditionsCloud[]} [additionalAttributes.clouds] for the whole flight
      */
     constructor({
@@ -343,6 +344,7 @@ export class AeroflyMissionConditions {
         turbulenceStrength = 0,
         thermalStrength = 0,
         visibility = 25_000,
+        visibility_sm = null,
         clouds = [],
     }: {
         time?: Date;
@@ -354,8 +356,12 @@ export class AeroflyMissionConditions {
         turbulenceStrength?: number;
         thermalStrength?: number;
         visibility?: number;
+        visibility_sm?: number | null;
         clouds?: AeroflyMissionConditionsCloud[];
     } = {}) {
+        if (visibility_sm) {
+            visibility = visibility_sm * meterPerStatuteMile;
+        }
         this.time = time;
         this.wind = wind;
         this.turbulenceStrength = turbulenceStrength;
@@ -390,6 +396,13 @@ export class AeroflyMissionConditions {
     }
 
     /**
+     * @returns {number} `this.visibility` in statute miles instead of meters
+     */
+    get visibility_sm(): number {
+        return this.visibility / meterPerStatuteMile;
+    }
+
+    /**
      * @returns {string}
      */
     getCloudsString(): string {
@@ -420,7 +433,7 @@ export class AeroflyMissionConditions {
                     <[float64][wind_gusts][${this.wind.gusts}]> // kts
                     <[float64][turbulence_strength][${this.turbulenceStrength}]>
                     <[float64][thermal_strength][${this.thermalStrength}]>
-                    <[float64][visibility][${this.visibility}]> // ${this.visibility / meterPerStatuteMile} SM
+                    <[float64][visibility][${this.visibility}]> // ${this.visibility_sm} SM
 ${this.getCloudsString()}
                 >`;
     }
@@ -471,6 +484,13 @@ export class AeroflyMissionConditionsCloud {
     }
 
     /**
+     * @returns {number} `this.base` in feet instead of meters
+     */
+    get base_feet(): number {
+        return this.base * feetPerMeter;
+    }
+
+    /**
      * @returns {string} Cloud coverage as text representation like "OVC" for `this.cover`
      */
     get cover_code(): AeroflyMissionConditionsCloudCoverCode {
@@ -495,7 +515,7 @@ export class AeroflyMissionConditionsCloud {
         const comment = index === 0 ? "" : "//";
 
         return `                    ${comment}<[float64][cloud_cover${indexString}][${this.cover ?? 0}]> // ${this.cover_code}
-                    ${comment}<[float64][cloud_base${indexString}][${this.base}]> // ${this.base * feetPerMeter} ft AGL`;
+                    ${comment}<[float64][cloud_base${indexString}][${this.base}]> // ${this.base_feet} ft AGL`;
     }
 }
 
@@ -577,6 +597,7 @@ export class AeroflyMissionCheckpoint {
      * @param {number} [additionalAttributes.direction] of runway, in degree
      * @param {number?} [additionalAttributes.slope] of runway
      * @param {number?} [additionalAttributes.length] of runway, in meters
+     * @param {number?} [additionalAttributes.length_feet] of runway, in feet
      * @param {number?} [additionalAttributes.frequency] of runways or navigational aids, in Hz; multiply by 1000 for kHz, 1_000_000 for MHz
      */
     constructor(
@@ -590,6 +611,7 @@ export class AeroflyMissionCheckpoint {
             direction = null,
             slope = null,
             length = null,
+            length_feet = null,
             frequency = null,
         }: {
             altitude?: number;
@@ -597,11 +619,15 @@ export class AeroflyMissionCheckpoint {
             direction?: number | null;
             slope?: number | null;
             length?: number | null;
+            length_feet?: number | null;
             frequency?: number | null;
         } = {},
     ) {
         if (altitude_feet) {
             altitude = altitude_feet / feetPerMeter;
+        }
+        if (length_feet) {
+            length = length_feet / feetPerMeter;
         }
 
         this.type = type;
@@ -620,6 +646,27 @@ export class AeroflyMissionCheckpoint {
      */
     set altitude_feet(altitude_feet: number) {
         this.altitude = altitude_feet / feetPerMeter;
+    }
+
+    /**
+     * @returns {number} altitude_feet
+     */
+    get altitude_feet(): number {
+        return this.altitude * feetPerMeter;
+    }
+
+    /**
+     * @param {number} length_feet
+     */
+    set length_feet(length_feet: number) {
+        this.length = length_feet / feetPerMeter;
+    }
+
+    /**
+     * @returns {number} length_feet
+     */
+    get length_feet(): number {
+        return (this.length ?? 0) * feetPerMeter;
     }
 
     /**
@@ -648,10 +695,10 @@ export class AeroflyMissionCheckpoint {
                         <[string8u][type][${this.type}]>
                         <[string8u][name][${this.name}]>
                         <[vector2_float64][lon_lat][${this.longitude} ${this.latitude}]>
-                        <[float64][altitude][${this.altitude}]> // ${this.altitude * feetPerMeter} ft
+                        <[float64][altitude][${this.altitude}]> // ${this.altitude_feet} ft
                         <[float64][direction][${this.direction ?? (index === 0 ? -1 : 0)}]>
                         <[float64][slope][${this.slope ?? 0}]>
-                        <[float64][length][${this.length ?? 0}]> // ${(this.length ?? 0) * feetPerMeter} ft
+                        <[float64][length][${this.length ?? 0}]> // ${this.length_feet} ft
                         <[float64][frequency][${this.frequency ?? 0}]> // ${this.frequency_string}
                     >`;
     }

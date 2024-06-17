@@ -2,19 +2,19 @@
 
 > Builder for Aerofly FS4 Custom Missions Files
 
-[Aerofly Flight Simulator 4](https://www.aerofly.com/) has a custom missions file `custom_missions_user.tmc` with a very unique format. To help build this format file, this JavaScript / TypeScript library offers Data Transfers Objects (DTOs) to create this file containing multiple flight plans programatically.
+[Aerofly Flight Simulator 4](https://www.aerofly.com/) has a custom mission file `custom_missions_user.tmc` with a very unique format. To help build this format file, this JavaScript / TypeScript library offers Data Transfers Objects (DTOs) to create this flight plan files programatically.
 
 This library is intended to work in modern browsers as well as [Node.js](https://nodejs.org/en).
 
 ## Installation
 
-Either download the [`dist/index.js`](dist/index.js) to a sensible location in your web project, or do a NPM installation in your web / Node.js project:
+Either download the [`dist/index.js`](dist/index.js) to a sensible location in your web project, or do a NPM installation:
 
 ```bash
 npm install @fboes/aerofly-custom-missions --save
 ```
 
-Instead of a local installation you may also load the library from https://unpkg.com/ for a web project. Beware: This makes https://unpkg.com/ a dependency of your project and may pose data protection issues.
+Instead of a local installation you may also load the library from https://unpkg.com/. Beware: This makes https://unpkg.com/ a dependency of your project and may pose data protection issues.
 
 ```html
 <script type="module" src="https://unpkg.com/@fboes/aerofly-custom-missions@latest/dist/index.js"></script>
@@ -50,7 +50,7 @@ You might want to enable TypeScript type checking by adding `// @ts-check` as yo
 
 ### Basic idea
 
-All objects are basic structures needed for the mission list contained in the `custom_missions_user.tmc`. The constructors tell you which properties are required, and will start with sensible defaults for all other properties.
+All objects are basic structures needed for the mission list. The constructors tell you which properties are required, and will start with sensible defaults for all other properties.
 
 You can alter the properties of the objects afterwards, or (in some cases) by passing an optional configuration object to the constructor.
 
@@ -58,7 +58,7 @@ All objects can be exported as JSON or as string via the `toString()` methods. E
 
 ### Building a missions file
 
-A missions file can contains multiple missions. Building this file starts with the outer container, wich contains the missions:
+A mission file contains multiple missions. Build this file starts with the outer container, wich contains the missions:
 
 ```javascript
 // Build a missions list
@@ -119,17 +119,17 @@ const missionList = new AeroflyMissionsList([mission]);
 console.log(missionList.toString());
 ```
 
-As there are lots of properties for the mission and its flight plan, check the type hinting on the various objects to find out which properties you are able to set.
+As there are lots of properties for the flight plan as well as explanation for the properties mentioned above, check the type hinting on the various objects to find out which properties you are able to set.
 
 ### Important notices
 
 - Be aware that `mission.origin` and `mission.destination` do not need to match the flight plan. In case of `origin` you may want to set the position to the actual parking position of your aircraft, which may not be the first way point in your flight plan.
-- Flight plans almost always require at least 4 checkpoints:
+- Flightplan almost always require at least 4 checkpoint:
   - `origin`
   - `departure_runway`
   - `destination_runway`
   - `destination`
-- Be aware that all untis for altitude, elevation or distance are measured in meters! In most cases there will be helper functions for defining these values in feet (for altitude, elevation, length) or statute miles (for visbility).
+- Be aware that all untis for altitude, elevation or distance are measured in meters! In most cases there will be helper functions for defining these values in feet or statute miles (for visibility).
 
 ## Status
 
