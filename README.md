@@ -2,7 +2,7 @@
 
 > Builder for Aerofly FS4 Custom Missions Files
 
-[Aerofly Flight Simulator 4](https://www.aerofly.com/) has a custom missions file `custom_missions_user.tmc` with a very unique format. To help build this custom missions file, this JavaScript / TypeScript library offers Data Transfers Objects (DTOs) to create this flight plan(s) programatically.
+[Aerofly Flight Simulator 4](https://www.aerofly.com/) has a custom missions file `custom_missions_user.tmc` with a very unique format. To help you build this custom missions file, this JavaScript / TypeScript library offers Data Objects to create this file programatically.
 
 This library is intended to work in modern browsers as well as [Node.js](https://nodejs.org/en).
 
@@ -103,8 +103,8 @@ const checkpoints = [
 const mission = new AeroflyMission("From Concord to Martha's Vineyard", {
   aircraft: {
     name: "c172",
-    livery: "",
     icao: "C172",
+    livery: "",
   },
   checkpoints,
   conditions,
@@ -129,11 +129,18 @@ As there are lots of properties for the mission object, check the type hinting o
   - `destination`
 - Be aware that all units for altitude, elevation or distance are measured in meters! In most cases there will be helper functions for defining these values in feet (for length, altitude, elevation) or statute miles (for visibility).
 
+### Known issues
+
+- `AeroflyMissionConditions.time`: Even though a date property is available in Aerofly FS 4 (which is not accessible to the user), [the custom missions cannot change the date in Aerofly FS 4](https://www.aerofly.com/community/forum/index.php?thread/22487-more-settings-for-environment-conditions/&pageNo=1).
+- `AeroflyMissionConditions.clouds`: Even though Aerofly FS 4 is able to handle three levels of clouds (two of which are accessible to the user), the custom missions can only set one level in Aerofly FS 4.
+- `AeroflyMissionCheckpoint.type`: Even though internal flight plans of Aerofly FS 4 has types `"departure"|"arrival"|"approach"`, [Aerofly FS 4 dumps SIDs and STARs on loading a custom missions](https://www.aerofly.com/community/forum/index.php?thread/22156-flight-plans/).
+- `AeroflyMission.aircraft.livery`: Even though Aerofly FS 4 knows multiple liveries per plane, [the custom missions file is not able to set liveries to any other but the standard livery](https://www.aerofly.com/community/forum/index.php?thread/19105-user-created-custom-missions/).
+
 ## Status
 
-[![GitHub version](https://badge.fury.io/gh/fboes%2Faerofly-custom-missions.svg)](https://badge.fury.io/gh/fboes%2Faerofly-custom-missions)
-[![`npm` version](https://badge.fury.io/js/@fboes%2Faerofly-custom-missions.svg)](https://badge.fury.io/js/@fboes%2Faerofly-custom-missions)
-![MIT license](https://img.shields.io/github/license/fboes/aerofly-custom-missions.svg)
+[![GitHub Tag](https://img.shields.io/github/v/tag/fboes/aerofly-custom-missions)](https://github.com/fboes/aerofly-custom-missions)
+[![NPM Version](https://img.shields.io/npm/v/%40fboes%2Faerofly-custom-missions.svg)](https://www.npmjs.com/package/@fboes/aerofly-custom-missions)
+![GitHub License](https://img.shields.io/github/license/fboes/aerofly-custom-missions)
 
 ## Legal stuff
 

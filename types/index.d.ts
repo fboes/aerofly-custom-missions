@@ -37,13 +37,13 @@ export type AeroflyMissionCheckpointType =
 /**
  * Data for the aircraft to use on this mission
  * @property name lowercase Aerofly aircraft ID
- * @property livery (not used yet)
  * @property icao ICAO aircraft code
+ * @property livery (not used yet)
  */
 export type AeroflyMissionAircraft = {
     name: string;
-    livery: string;
     icao: string;
+    livery: string;
 };
 /**
  * Weather data for wind
@@ -253,6 +253,11 @@ export declare class AeroflyMissionConditions {
      * @returns {number} `this.visibility` in statute miles instead of meters
      */
     get visibility_sm(): number;
+    /**
+     * Will set `this.thermalStrength`
+     * @param {number} temperature in °C
+     */
+    set temperature(temperature: number);
     /**
      * @returns {string}
      */

@@ -50,8 +50,8 @@ export class AeroflyMission {
      */
     constructor(title, { description = "", flightSetting = "taxi", aircraft = {
         name: "c172",
-        livery: "",
         icao: "",
+        livery: "",
     }, callsign = "", origin = {
         icao: "",
         longitude: 0,
@@ -201,6 +201,14 @@ export class AeroflyMissionConditions {
      */
     get visibility_sm() {
         return this.visibility / meterPerStatuteMile;
+    }
+    /**
+     * Will set `this.thermalStrength`
+     * @param {number} temperature in °C
+     */
+    set temperature(temperature) {
+        // Range from 5°C to 30°C
+        this.thermalStrength = Math.max(0, (temperature - 5) / 25);
     }
     /**
      * @returns {string}

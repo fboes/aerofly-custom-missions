@@ -43,13 +43,13 @@ export type AeroflyMissionCheckpointType =
 /**
  * Data for the aircraft to use on this mission
  * @property name lowercase Aerofly aircraft ID
- * @property livery (not used yet)
  * @property icao ICAO aircraft code
+ * @property livery (not used yet)
  */
 export type AeroflyMissionAircraft = {
     name: string;
-    livery: string;
     icao: string;
+    livery: string;
 };
 
 /**
@@ -176,8 +176,8 @@ export class AeroflyMission {
             flightSetting = "taxi",
             aircraft = {
                 name: "c172",
-                livery: "",
                 icao: "",
+                livery: "",
             },
             callsign = "",
             origin = {
@@ -400,6 +400,15 @@ export class AeroflyMissionConditions {
      */
     get visibility_sm(): number {
         return this.visibility / meterPerStatuteMile;
+    }
+
+    /**
+     * Will set `this.thermalStrength`
+     * @param {number} temperature in °C
+     */
+    set temperature(temperature: number) {
+        // Range from 5°C to 30°C
+        this.thermalStrength = Math.max(0, (temperature - 5) / 25);
     }
 
     /**
