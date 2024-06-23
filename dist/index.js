@@ -152,27 +152,31 @@ export class AeroflyMissionConditions {
      * @param {number} [additionalAttributes.turbulenceStrength] 0..1, percentage
      * @param {number} [additionalAttributes.thermalStrength] 0..1, percentage
      * @param {number} [additionalAttributes.visibility] in meters
-     * @param {number?} [additionalAttributes.visibility_sm] in statute miles
+     * @param {number?} [additionalAttributes.visibility_sm] in statute miles, will overwrite visibility
+     * @param {number?} [additionalAttributes.temperature] in °C, will overwrite thermalStrength
      * @param {AeroflyMissionConditionsCloud[]} [additionalAttributes.clouds] for the whole flight
      */
     constructor({ time = new Date(), wind = {
         direction: 0,
         speed: 0,
         gusts: 0,
-    }, turbulenceStrength = 0, thermalStrength = 0, visibility = 25_000, visibility_sm = null, clouds = [], } = {}) {
+    }, turbulenceStrength = 0, thermalStrength = 0, visibility = 25_000, visibility_sm = null, temperature = null, clouds = [], } = {}) {
         /**
          * @property {AeroflyMissionConditionsCloud[]} clouds for the whole flight
          */
         this.clouds = [];
-        if (visibility_sm) {
-            visibility = visibility_sm * meterPerStatuteMile;
-        }
         this.time = time;
         this.wind = wind;
         this.turbulenceStrength = turbulenceStrength;
         this.thermalStrength = thermalStrength;
         this.visibility = visibility;
         this.clouds = clouds;
+        if (visibility_sm) {
+            this.visibility_sm = visibility_sm;
+        }
+        if (temperature) {
+            this.temperature = temperature;
+        }
     }
     /**
      * @returns {number} the Aerofly value for UTC hours + minutes/60 + seconds/3600. Ignores milliseconds ;)
@@ -207,8 +211,14 @@ export class AeroflyMissionConditions {
      * @param {number} temperature in °C
      */
     set temperature(temperature) {
-        // Range from 5°C to 30°C
-        this.thermalStrength = Math.max(0, (temperature - 5) / 25);
+        // Range from -15°C to 35°C
+        this.thermalStrength = Math.max(0, (temperature + 15) / 50) ** 2;
+    }
+    /**
+     * @returns {number} in °C
+     */
+    get temperature() {
+        return Math.sqrt(this.thermalStrength) * 50 - 15;
     }
     /**
      * @returns {string}
@@ -238,7 +248,7 @@ export class AeroflyMissionConditions {
                     <[float64][wind_speed][${this.wind.speed}]> // kts
                     <[float64][wind_gusts][${this.wind.gusts}]> // kts
                     <[float64][turbulence_strength][${this.turbulenceStrength}]>
-                    <[float64][thermal_strength][${this.thermalStrength}]>
+                    <[float64][thermal_strength][${this.thermalStrength}]> // ${this.temperature} °C
                     <[float64][visibility][${this.visibility}]> // ${this.visibility_sm} SM
 ${this.getCloudsString()}
                 >`;
@@ -333,20 +343,14 @@ export class AeroflyMissionCheckpoint {
      * @param {number} [additionalAttributes.altitude] The height in meters above or below the WGS
      *    84 reference ellipsoid
      * @param {number?} [additionalAttributes.altitude_feet] The height in feet above or below the WGS
-     *    84 reference ellipsoid
+     *    84 reference ellipsoid. Will overwrite altitude
      * @param {number} [additionalAttributes.direction] of runway, in degree
      * @param {number?} [additionalAttributes.slope] of runway
      * @param {number?} [additionalAttributes.length] of runway, in meters
-     * @param {number?} [additionalAttributes.length_feet] of runway, in feet
+     * @param {number?} [additionalAttributes.length_feet] of runway, in feet. Will overwrite length
      * @param {number?} [additionalAttributes.frequency] of runways or navigational aids, in Hz; multiply by 1000 for kHz, 1_000_000 for MHz
      */
     constructor(name, type, longitude, latitude, { altitude = 0, altitude_feet = null, direction = null, slope = null, length = null, length_feet = null, frequency = null, } = {}) {
-        if (altitude_feet) {
-            altitude = altitude_feet / feetPerMeter;
-        }
-        if (length_feet) {
-            length = length_feet / feetPerMeter;
-        }
         this.type = type;
         this.name = name;
         this.longitude = longitude;
@@ -356,6 +360,12 @@ export class AeroflyMissionCheckpoint {
         this.slope = slope;
         this.length = length;
         this.frequency = frequency;
+        if (altitude_feet) {
+            this.altitude_feet = altitude_feet;
+        }
+        if (length_feet) {
+            this.length_feet = length_feet;
+        }
     }
     /**
      * @param {number} altitude_feet

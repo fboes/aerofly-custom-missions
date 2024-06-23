@@ -213,7 +213,8 @@ export declare class AeroflyMissionConditions {
      * @param {number} [additionalAttributes.turbulenceStrength] 0..1, percentage
      * @param {number} [additionalAttributes.thermalStrength] 0..1, percentage
      * @param {number} [additionalAttributes.visibility] in meters
-     * @param {number?} [additionalAttributes.visibility_sm] in statute miles
+     * @param {number?} [additionalAttributes.visibility_sm] in statute miles, will overwrite visibility
+     * @param {number?} [additionalAttributes.temperature] in °C, will overwrite thermalStrength
      * @param {AeroflyMissionConditionsCloud[]} [additionalAttributes.clouds] for the whole flight
      */
     constructor({
@@ -223,6 +224,7 @@ export declare class AeroflyMissionConditions {
         thermalStrength,
         visibility,
         visibility_sm,
+        temperature,
         clouds,
     }?: {
         time?: Date;
@@ -235,6 +237,7 @@ export declare class AeroflyMissionConditions {
         thermalStrength?: number;
         visibility?: number;
         visibility_sm?: number | null;
+        temperature?: number | null;
         clouds?: AeroflyMissionConditionsCloud[];
     });
     /**
@@ -258,6 +261,10 @@ export declare class AeroflyMissionConditions {
      * @param {number} temperature in °C
      */
     set temperature(temperature: number);
+    /**
+     * @returns {number} in °C
+     */
+    get temperature(): number;
     /**
      * @returns {string}
      */
@@ -378,11 +385,11 @@ export declare class AeroflyMissionCheckpoint {
      * @param {number} [additionalAttributes.altitude] The height in meters above or below the WGS
      *    84 reference ellipsoid
      * @param {number?} [additionalAttributes.altitude_feet] The height in feet above or below the WGS
-     *    84 reference ellipsoid
+     *    84 reference ellipsoid. Will overwrite altitude
      * @param {number} [additionalAttributes.direction] of runway, in degree
      * @param {number?} [additionalAttributes.slope] of runway
      * @param {number?} [additionalAttributes.length] of runway, in meters
-     * @param {number?} [additionalAttributes.length_feet] of runway, in feet
+     * @param {number?} [additionalAttributes.length_feet] of runway, in feet. Will overwrite length
      * @param {number?} [additionalAttributes.frequency] of runways or navigational aids, in Hz; multiply by 1000 for kHz, 1_000_000 for MHz
      */
     constructor(

@@ -1,5 +1,9 @@
 # Changelog
 
+- Improved temperature property
+
+## 1.0.4
+
 - Added documentation for known issues
 - Added property `AeroflyMissionConditions.temperature`
 

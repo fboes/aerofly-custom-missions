@@ -53,7 +53,7 @@ import { strict as assert } from "node:assert";
             gusts: 22,
         },
         turbulenceStrength: 1,
-        thermalStrength: 0.31200000000000006,
+        temperature: 21,
         visibility: 14484.096000000001,
         clouds: [
             AeroflyMissionConditionsCloud.createInFeet(0.1, 5000),
@@ -64,7 +64,7 @@ import { strict as assert } from "node:assert";
     assert.strictEqual(conditions.wind.speed, 11);
     assert.strictEqual(conditions.wind.gusts, 22);
     assert.strictEqual(conditions.turbulenceStrength, 1);
-    assert.strictEqual(conditions.thermalStrength, 0.31200000000000006);
+    assert.strictEqual(conditions.temperature, 21);
     assert.strictEqual(conditions.visibility, 14484.096000000001);
     const checkpoints = [
         new AeroflyMissionCheckpoint("KCCR", "origin", -122.057, 37.9897, {
