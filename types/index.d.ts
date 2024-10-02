@@ -21,7 +21,7 @@ export type AeroflyMissionPosition = {
 /**
  * State of aircraft systems. Configures power settings, flap positions etc
  */
-export type AeroflyMissionSetting = "taxi" | "takeoff" | "cruise" | "approach" | "landing";
+export type AeroflyMissionSetting = "taxi" | "takeoff" | "cruise" | "approach" | "landing" | "winch_launch" | "aerotow";
 /**
  * Types of checkpoints. Required are usually "origin", "departure_runway" at the start and "destination_runway", "destination" at the end.
  */
@@ -100,7 +100,23 @@ export declare class AeroflyMission {
      */
     description: string;
     /**
-     * @property {"taxi"|"takeoff"|"cruise"|"approach"|"landing"} flightSetting of aircraft, like "taxi", "cruise"
+     * @property {AeroflyLocalizedText[]} localizedTexts for title and description
+     */
+    localizedTexts: AeroflyLocalizedText[];
+    /**
+     * @property {string[]} tags
+     */
+    tags: string[];
+    /**
+     * @property {boolean} isFeatured makes this mission pop up in "Challenges"
+     */
+    isFeatured: boolean;
+    /**
+     * @property {number|undefined} difficulty in 0..1, percentage
+     */
+    difficulty: number | undefined;
+    /**
+     * @property {"taxi"|"takeoff"|"cruise"|"approach"|"landing"|"winch_launch"|"aerotow"} flightSetting of aircraft, like "taxi", "cruise"
      */
     flightSetting: AeroflyMissionSetting;
     /**
@@ -120,6 +136,14 @@ export declare class AeroflyMission {
      */
     destination: AeroflyMissionPosition;
     /**
+     * @property {number} in meters
+     */
+    distance: number;
+    /**
+     * @property {number} in seconds
+     */
+    duration: number;
+    /**
      * @property {AeroflyMissionConditions} conditions like time and weather for mission
      */
     conditions: AeroflyMissionConditions;
@@ -131,11 +155,17 @@ export declare class AeroflyMission {
      * @param {string} title of this flight plan
      * @param {object} [additionalAttributes] allows to set additional attributes on creation
      * @param {string} [additionalAttributes.description] text, mission briefing, etc
-     * @param {"taxi"|"takeoff"|"cruise"|"approach"|"landing"} [additionalAttributes.flightSetting] of aircraft, like "taxi", "cruise"
+     * @param {AeroflyLocalizedText[]} [additionalAttributes.localizedTexts] translations for title and description
+     * @param {string[]} [additionalAttributes.tags]
+     * @param {boolean} [additionalAttributes.isFeatured] makes this mission pop up in "Challenges"
+     * @param {number|undefined} [additionalAttributes.difficulty] 0..1, percentage
+     * @param {"taxi"|"takeoff"|"cruise"|"approach"|"landing"|"winch_launch"|"aerotow"} [additionalAttributes.flightSetting] of aircraft, like "taxi", "cruise"
      * @param {{name:string,livery:string,icao:string}} [additionalAttributes.aircraft] for this mission
      * @param {string} [additionalAttributes.callsign] of aircraft, uppercased
      * @param {object} [additionalAttributes.origin] position of aircraft, as well as name of starting airport. Position does not have match airport.
      * @param {object} [additionalAttributes.destination] position of aircraft, as well as name of destination airport. Position does not have match airport.
+     * @param {number} [additionalAttributes.distance] in meters
+     * @param {number} [additionalAttributes.duration] in seconds
      * @param {AeroflyMissionConditions} [additionalAttributes.conditions] like time and weather for mission
      * @param {AeroflyMissionCheckpoint[]} [additionalAttributes.checkpoints] form the actual flight plan
      */
@@ -143,20 +173,32 @@ export declare class AeroflyMission {
         title: string,
         {
             description,
+            localizedTexts,
+            tags,
+            isFeatured,
+            difficulty,
             flightSetting,
             aircraft,
             callsign,
             origin,
             destination,
+            distance,
+            duration,
             conditions,
             checkpoints,
         }?: {
             description?: string;
+            localizedTexts?: AeroflyLocalizedText[];
+            tags?: string[];
+            isFeatured?: boolean;
+            difficulty?: number | undefined;
             flightSetting?: AeroflyMissionSetting;
             aircraft?: AeroflyMissionAircraft;
             callsign?: string;
             origin?: AeroflyMissionPosition;
             destination?: AeroflyMissionPosition;
+            distance?: number;
+            duration?: number;
             conditions?: AeroflyMissionConditions;
             checkpoints?: AeroflyMissionCheckpoint[];
         },
@@ -165,6 +207,10 @@ export declare class AeroflyMission {
      * @returns {string} indexed checkpoints
      */
     getCheckpointsString(): string;
+    /**
+     * @returns {string} indexed checkpoints
+     */
+    getLocalizedTextsString(): string;
     /**
      * @throws {Error} on missing waypoints
      * @returns {string} to use in Aerofly FS4's `custom_missions_user.tmc`
@@ -441,12 +487,62 @@ export declare class AeroflyMissionCheckpoint {
      */
     toString(index?: number): string;
 }
+export declare class AeroflyLocalizedText {
+    /**
+     * @property {string} language like
+     * - br
+     * - cn
+     * - de
+     * - es
+     * - fr
+     * - id
+     * - it
+     * - jp
+     * - kr
+     * - pl
+     * - sv
+     * - tr
+     */
+    language: string;
+    /**
+     * @property {string} title of this flight plan
+     */
+    title: string;
+    /**
+     * @property {string} description text, mission briefing, etc
+     */
+    description: string;
+    /**
+     * @param {string} language  like
+     * - br
+     * - cn
+     * - de
+     * - es
+     * - fr
+     * - id
+     * - it
+     * - jp
+     * - kr
+     * - pl
+     * - sv
+     * - tr
+     * @param {string} title of this flight plan
+     * @param {string} description text, mission briefing, etc
+     */
+    constructor(language: string, title: string, description: string);
+    /**
+     * @param {number} index if used in an array will se the array index
+     * @returns {string} to use in Aerofly FS4's `custom_missions_user.tmc`
+     */
+    toString(index: number): string;
+}
 declare const _default: {
     AeroflyMissionsList: typeof AeroflyMissionsList;
     AeroflyMission: typeof AeroflyMission;
     AeroflyMissionConditions: typeof AeroflyMissionConditions;
     AeroflyMissionConditionsCloud: typeof AeroflyMissionConditionsCloud;
     AeroflyMissionCheckpoint: typeof AeroflyMissionCheckpoint;
+    AeroflyLocalizedText: typeof AeroflyLocalizedText;
 };
 export default _default;
 //# sourceMappingURL=index.d.ts.map

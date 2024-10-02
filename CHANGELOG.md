@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.0
+
+- Added new mission properties `tags`, `isFeatured`, `difficulty`, `distance`, `duration` and translations
+- Added new flight settings `"winch_launch`, `aerotow`
 - Improved temperature property
 
 ## 1.0.4

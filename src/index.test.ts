@@ -4,6 +4,7 @@ import {
     AeroflyMissionConditions,
     AeroflyMissionConditionsCloud,
     AeroflyMissionCheckpoint,
+    AeroflyLocalizedText,
 } from "./index.js";
 import { strict as assert } from "node:assert";
 
@@ -137,11 +138,7 @@ import { strict as assert } from "node:assert";
     assert.strictEqual(missionList.missions[0].aircraft.name, "c172");
     assert.strictEqual(missionList.missions[0].aircraft.icao, "C172");
 
-    //console.dir(missionList.missions[0], { depth: null });
-
-    const missionListString = missionList.toString();
-
-    //console.log(missionListString);
+    let missionListString = missionList.toString();
 
     assert.ok(missionListString.includes("[origin]"));
     assert.ok(missionListString.includes("[tmmission_definition]"));
@@ -155,6 +152,35 @@ import { strict as assert } from "node:assert";
     assert.ok(missionListString.includes("[tmmission_checkpoint][element][2]"));
     assert.ok(missionListString.includes("[tmmission_checkpoint][element][3]"));
     assert.ok(missionListString.includes("<[float64][length][844.2959729825288]>"));
+    assert.ok(!missionListString.includes("[tags]"));
+    assert.ok(!missionListString.includes("[difficulty]"));
+    assert.ok(!missionListString.includes("[is_featured]"));
+    assert.ok(!missionListString.includes("[tmmission_definition_localized]"), "has `tmmission_definition_localized`");
+    assert.ok(!missionListString.includes("[distance]"));
+    assert.ok(!missionListString.includes("[duration]"));
+
+    //console.log(missionListString);
+
+    mission.difficulty = 1.0;
+    mission.isFeatured = true;
+    mission.localizedTexts.push(new AeroflyLocalizedText("de", "Landeübung #1", "Probier die Landung"));
+    mission.distance = 1400;
+    mission.duration = 2 * 60 * 60;
+    mission.tags.push("approach");
+    mission.tags.push("pattern");
+    missionListString = missionList.toString();
+
+    assert.ok(missionListString.includes("[tags]"));
+    assert.ok(missionListString.includes("[difficulty]"));
+    assert.ok(missionListString.includes("[is_featured]"));
+    assert.ok(missionListString.includes("true"));
+    assert.ok(missionListString.includes("[tmmission_definition_localized]"), "has `tmmission_definition_localized`");
+    assert.ok(missionListString.includes("Landeübung"));
+    assert.ok(missionListString.includes("[distance]"));
+    assert.ok(missionListString.includes("[duration]"));
+
+    //console.dir(missionList.missions[0], { depth: null });
+    //console.log(missionListString);
 
     console.log("✅ AeroflyMissionsList test successful");
 }
