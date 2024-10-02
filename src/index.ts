@@ -340,7 +340,9 @@ ${this.getLocalizedTextsString()}
             optionalProperties.push(`                <[float64]   [difficulty]         [${this.difficulty}]>`);
         }
         if (this.isFeatured) {
-            optionalProperties.push(`                <[bool][is_featured][[${this.isFeatured ? "true" : "false"}]>`);
+            optionalProperties.push(
+                `                <[bool]      [is_featured]        [${this.isFeatured ? "true" : "false"}]>`,
+            );
         }
 
         const moreOptionalProperties = [];
@@ -357,8 +359,7 @@ ${this.getLocalizedTextsString()}
 
         return `            <[tmmission_definition][mission][]
                 <[string8][title][${this.title}]>
-                <[string8][description][${this.description}]>
-${optionalProperties.join("\n")}
+                <[string8][description][${this.description}]>${optionalProperties.length > 0 ? "\n" + optionalProperties.join("\n") : ""}
                 <[string8]   [flight_setting]     [${this.flightSetting}]>
                 <[string8u]  [aircraft_name]      [${this.aircraft.name}]>
                 //<[string8u][aircraft_livery]    [${this.aircraft.livery}]>
@@ -366,13 +367,12 @@ ${optionalProperties.join("\n")}
                 <[stringt8c] [callsign]           [${this.callsign}]>
                 <[stringt8c] [origin_icao]        [${this.origin.icao}]>
                 <[tmvector2d][origin_lon_lat]     [${this.origin.longitude} ${this.origin.latitude}]>
-                <[float64]   [origin_alt]         [${this.origin.alt}]> // ${this.origin.alt * feetPerMeter} ft MSL
+                <[float64]   [origin_alt]         [${this.origin.alt}]> // ${Math.ceil(this.origin.alt * feetPerMeter)} ft MSL
                 <[float64]   [origin_dir]         [${this.origin.dir}]>
                 <[stringt8c] [destination_icao]   [${this.destination.icao}]>
                 <[tmvector2d][destination_lon_lat][${this.destination.longitude} ${this.destination.latitude}]>
-                <[float64]   [destination_alt]    [${this.destination.alt}]> // ${this.destination.alt * feetPerMeter} ft MSL
-                <[float64]   [destination_dir]    [${this.destination.dir}]>
-${moreOptionalProperties.join("\n")}
+                <[float64]   [destination_alt]    [${this.destination.alt}]> // ${Math.ceil(this.destination.alt * feetPerMeter)} ft MSL
+                <[float64]   [destination_dir]    [${this.destination.dir}]>${moreOptionalProperties.length > 0 ? "\n" + moreOptionalProperties.join("\n") : ""}
 ${this.conditions}
                 <[list_tmmission_checkpoint][checkpoints][]
 ${this.getCheckpointsString()}
@@ -816,10 +816,10 @@ export class AeroflyMissionCheckpoint {
                         <[string8u][type][${this.type}]>
                         <[string8u][name][${this.name}]>
                         <[vector2_float64][lon_lat][${this.longitude} ${this.latitude}]>
-                        <[float64][altitude][${this.altitude}]> // ${this.altitude_feet} ft
+                        <[float64][altitude][${this.altitude}]> // ${Math.ceil(this.altitude_feet)} ft
                         <[float64][direction][${this.direction ?? (index === 0 ? -1 : 0)}]>
                         <[float64][slope][${this.slope ?? 0}]>
-                        <[float64][length][${this.length ?? 0}]> // ${this.length_feet} ft
+                        <[float64][length][${this.length ?? 0}]> // ${Math.floor(this.length_feet)} ft
                         <[float64][frequency][${this.frequency ?? 0}]> // ${this.frequency_string}
                     >`;
     }
