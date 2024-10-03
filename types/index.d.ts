@@ -112,7 +112,7 @@ export declare class AeroflyMission {
      */
     isFeatured: boolean;
     /**
-     * @property {number|undefined} difficulty in 0..1, percentage
+     * @property {number|undefined} difficulty in 0..2, percentage
      */
     difficulty: number | undefined;
     /**
@@ -418,6 +418,10 @@ export declare class AeroflyMissionCheckpoint {
      */
     frequency: number | null;
     /**
+     * @property {boolean} flyOver if waypoint is meant to be flown over
+     */
+    flyOver: boolean;
+    /**
      * @param {string} name ICAO code for airport, runway designator, navaid
      *    designator, fix name, or custom name
      * @param {"origin"|"departure_runway"|"departure"|"waypoint"|"arrival"|"approach"|"destination_runway"|"destination"} type Type of checkpoint, like "departure_runway"
@@ -437,6 +441,7 @@ export declare class AeroflyMissionCheckpoint {
      * @param {number?} [additionalAttributes.length] of runway, in meters
      * @param {number?} [additionalAttributes.length_feet] of runway, in feet. Will overwrite length
      * @param {number?} [additionalAttributes.frequency] of runways or navigational aids, in Hz; multiply by 1000 for kHz, 1_000_000 for MHz
+     * @param {boolean} [additionalAttributes.flyOver] if waypoint is meant to be flown over
      */
     constructor(
         name: string,
@@ -451,6 +456,7 @@ export declare class AeroflyMissionCheckpoint {
             length,
             length_feet,
             frequency,
+            flyOver,
         }?: {
             altitude?: number;
             altitude_feet?: number | null;
@@ -459,6 +465,7 @@ export declare class AeroflyMissionCheckpoint {
             length?: number | null;
             length_feet?: number | null;
             frequency?: number | null;
+            flyOver?: boolean;
         },
     );
     /**
@@ -489,7 +496,7 @@ export declare class AeroflyMissionCheckpoint {
 }
 export declare class AeroflyLocalizedText {
     /**
-     * @property {string} language like
+     * @property {string} language ISO 639-1 like
      * - br
      * - cn
      * - de
@@ -513,7 +520,7 @@ export declare class AeroflyLocalizedText {
      */
     description: string;
     /**
-     * @param {string} language  like
+     * @param {string} language ISO 639-1 like
      * - br
      * - cn
      * - de

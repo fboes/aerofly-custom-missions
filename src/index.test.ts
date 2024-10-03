@@ -99,6 +99,7 @@ import { strict as assert } from "node:assert";
         }),
         new AeroflyMissionCheckpoint("KMVY", "destination", -70.6139, 41.3934, {
             altitude: 20,
+            flyOver: false,
         }),
     ];
 
@@ -146,7 +147,7 @@ import { strict as assert } from "node:assert";
     assert.ok(missionListString.includes("[tmmission_checkpoint]"));
     assert.ok(missionListString.includes("[departure_runway]"));
     assert.ok(missionListString.includes("[cloud_cover]"));
-    assert.ok(missionListString.includes("[cloud_cover2]"));
+    assert.ok(missionListString.includes("[cirrus_cover]"));
     assert.ok(missionListString.includes("[tmmission_checkpoint][element][0]"));
     assert.ok(missionListString.includes("[tmmission_checkpoint][element][1]"));
     assert.ok(missionListString.includes("[tmmission_checkpoint][element][2]"));
@@ -180,7 +181,7 @@ import { strict as assert } from "node:assert";
     assert.ok(missionListString.includes("[duration]"));
 
     //console.dir(missionList.missions[0], { depth: null });
-    //console.log(missionListString);
+    console.log(missionListString);
 
     console.log("✅ AeroflyMissionsList test successful");
 }

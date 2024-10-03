@@ -140,7 +140,7 @@ export class AeroflyMission {
     isFeatured: boolean;
 
     /**
-     * @property {number|undefined} difficulty in 0..1, percentage
+     * @property {number|undefined} difficulty in 0..2, percentage
      */
     difficulty: number | undefined;
 
@@ -632,11 +632,19 @@ export class AeroflyMissionConditionsCloud {
      * @returns {string} to use in Aerofly FS4's `custom_missions_user.tmc`
      */
     toString(index: number = 0): string {
-        const indexString = index === 0 ? "" : String(index + 1);
-        const comment = index === 0 ? "" : "//";
+        let indexString = "cloud";
 
-        return `                    ${comment}<[float64][cloud_cover${indexString}][${this.cover ?? 0}]> // ${this.cover_code}
-                    ${comment}<[float64][cloud_base${indexString}][${this.base}]> // ${this.base_feet} ft AGL`;
+        switch (index) {
+            case 1:
+                indexString = "cirrus";
+                break;
+            case 2:
+                indexString = "cumulus_mediocris";
+                break;
+        }
+
+        return `                    <[float64][${indexString}_cover][${this.cover ?? 0}]> // ${this.cover_code}
+                    <[float64][${indexString}_base][${this.base}]> // ${this.base_feet} ft AGL`;
     }
 }
 
@@ -701,6 +709,11 @@ export class AeroflyMissionCheckpoint {
     frequency: number | null;
 
     /**
+     * @property {boolean} flyOver if waypoint is meant to be flown over
+     */
+    flyOver: boolean;
+
+    /**
      * @param {string} name ICAO code for airport, runway designator, navaid
      *    designator, fix name, or custom name
      * @param {"origin"|"departure_runway"|"departure"|"waypoint"|"arrival"|"approach"|"destination_runway"|"destination"} type Type of checkpoint, like "departure_runway"
@@ -720,6 +733,7 @@ export class AeroflyMissionCheckpoint {
      * @param {number?} [additionalAttributes.length] of runway, in meters
      * @param {number?} [additionalAttributes.length_feet] of runway, in feet. Will overwrite length
      * @param {number?} [additionalAttributes.frequency] of runways or navigational aids, in Hz; multiply by 1000 for kHz, 1_000_000 for MHz
+     * @param {boolean} [additionalAttributes.flyOver] if waypoint is meant to be flown over
      */
     constructor(
         name: string,
@@ -734,6 +748,7 @@ export class AeroflyMissionCheckpoint {
             length = null,
             length_feet = null,
             frequency = null,
+            flyOver = true,
         }: {
             altitude?: number;
             altitude_feet?: number | null;
@@ -742,6 +757,7 @@ export class AeroflyMissionCheckpoint {
             length?: number | null;
             length_feet?: number | null;
             frequency?: number | null;
+            flyOver?: boolean;
         } = {},
     ) {
         this.type = type;
@@ -753,6 +769,7 @@ export class AeroflyMissionCheckpoint {
         this.slope = slope;
         this.length = length;
         this.frequency = frequency;
+        this.flyOver = flyOver;
 
         if (altitude_feet) {
             this.altitude_feet = altitude_feet;
@@ -812,22 +829,35 @@ export class AeroflyMissionCheckpoint {
      * @returns {string} to use in Aerofly FS4's `custom_missions_user.tmc`
      */
     toString(index: number = 0): string {
+        const optionalProperties = [];
+        if (this.length) {
+            optionalProperties.push(
+                `                        <[float64][length][${this.length ?? 0}]> // ${Math.floor(this.length_feet)} ft`,
+            );
+        }
+        if (this.frequency) {
+            optionalProperties.push(
+                `                        <[float64][frequency][${this.frequency ?? 0}]> // ${this.frequency_string}`,
+            );
+        }
+        if (this.flyOver === false) {
+            optionalProperties.push(`                        <[bool][fly_over][false]>`);
+        }
+
         return `                    <[tmmission_checkpoint][element][${index}]
                         <[string8u][type][${this.type}]>
                         <[string8u][name][${this.name}]>
                         <[vector2_float64][lon_lat][${this.longitude} ${this.latitude}]>
                         <[float64][altitude][${this.altitude}]> // ${Math.ceil(this.altitude_feet)} ft
                         <[float64][direction][${this.direction ?? (index === 0 ? -1 : 0)}]>
-                        <[float64][slope][${this.slope ?? 0}]>
-                        <[float64][length][${this.length ?? 0}]> // ${Math.floor(this.length_feet)} ft
-                        <[float64][frequency][${this.frequency ?? 0}]> // ${this.frequency_string}
+                        <[float64][slope][${this.slope ?? 0}]>${optionalProperties.length > 0 ? "\n" + optionalProperties.join("\n") : ""}
                     >`;
     }
 }
 
 export class AeroflyLocalizedText {
     /**
-     * @property {string} language like
+     * @property {string} language ISO 639-1 like
      * - br
      * - cn
      * - de
@@ -854,7 +884,7 @@ export class AeroflyLocalizedText {
     description: string;
 
     /**
-     * @param {string} language  like
+     * @param {string} language ISO 639-1 like
      * - br
      * - cn
      * - de

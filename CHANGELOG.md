@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.2.0
+
+- Adding new cloud level `cirrus_cover` / `cirrus_base`
+- Adding new waypoint property `fly_over`
+
 ## 1.1.1
 
 - Minor styling fixes
