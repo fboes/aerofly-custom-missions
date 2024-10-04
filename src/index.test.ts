@@ -5,8 +5,19 @@ import {
     AeroflyMissionConditionsCloud,
     AeroflyMissionCheckpoint,
     AeroflyLocalizedText,
+    AeroflyMissionTargetPlane,
 } from "./index.js";
 import { strict as assert } from "node:assert";
+
+const validityCheck = (aeroflyString: string): void => {
+    const openingBrackets = aeroflyString.match(/</g);
+    const closingBrackets = aeroflyString.match(/>/g);
+    const openingBrackets2 = aeroflyString.match(/\[/g);
+    const closingBrackets2 = aeroflyString.match(/\]/g);
+
+    assert.strictEqual(openingBrackets?.length, closingBrackets?.length, "Number of <> matches");
+    assert.strictEqual(openingBrackets2?.length, closingBrackets2?.length, "Number of [] matches");
+};
 
 {
     const mission = new AeroflyMission("Title");
@@ -22,7 +33,7 @@ import { strict as assert } from "node:assert";
     conditions.visibility_sm = 10;
     assert.notDeepStrictEqual(conditions.visibility, 10);
     assert.deepStrictEqual(Math.round(conditions.visibility_sm), 10);
-
+    validityCheck(conditions.toString());
     console.log("✅ AeroflyMissionConditions test successful");
 }
 
@@ -31,6 +42,7 @@ import { strict as assert } from "node:assert";
         visibility: 15_000,
     });
     assert.deepStrictEqual(conditions.visibility, 15_000);
+    validityCheck(conditions.toString());
     console.log("✅ AeroflyMissionConditions test successful");
 }
 
@@ -40,6 +52,7 @@ import { strict as assert } from "node:assert";
     });
     assert.notDeepStrictEqual(conditions.visibility, 10);
     assert.deepStrictEqual(Math.round(conditions.visibility_sm), 10);
+    validityCheck(conditions.toString());
     console.log("✅ AeroflyMissionConditions test successful");
 }
 
@@ -47,6 +60,7 @@ import { strict as assert } from "node:assert";
     const cloud = new AeroflyMissionConditionsCloud(0, 0);
     assert.deepStrictEqual(cloud.cover, 0);
     assert.deepStrictEqual(cloud.base, 0);
+    validityCheck(cloud.toString());
     console.log("✅ AeroflyMissionConditionsCloud test successful");
 }
 
@@ -58,7 +72,27 @@ import { strict as assert } from "node:assert";
     cloud.base_feet = 1000;
     assert.notDeepStrictEqual(cloud.base, 1000);
     assert.deepStrictEqual(Math.round(cloud.base_feet), 1000);
+    validityCheck(cloud.toString());
     console.log("✅ AeroflyMissionConditionsCloud test successful");
+}
+
+{
+    const localizedText = new AeroflyLocalizedText("de", "Test", "Test2");
+    assert.deepStrictEqual(localizedText.language, "de");
+    assert.deepStrictEqual(localizedText.title, "Test");
+    assert.deepStrictEqual(localizedText.description, "Test2");
+    validityCheck(localizedText.toString());
+    console.log("✅ AeroflyLocalizedText test successful");
+}
+
+{
+    const targetPlane = new AeroflyMissionTargetPlane(0, 1, 2, "Test2");
+    assert.deepStrictEqual(targetPlane.longitude, 0);
+    assert.deepStrictEqual(targetPlane.latitude, 1);
+    assert.deepStrictEqual(targetPlane.dir, 2);
+    assert.deepStrictEqual(targetPlane.name, "Test2");
+    validityCheck(targetPlane.toString());
+    console.log("✅ AeroflyMissionTargetPlane test successful");
 }
 
 {
@@ -159,6 +193,7 @@ import { strict as assert } from "node:assert";
     assert.ok(!missionListString.includes("[tmmission_definition_localized]"), "has `tmmission_definition_localized`");
     assert.ok(!missionListString.includes("[distance]"));
     assert.ok(!missionListString.includes("[duration]"));
+    validityCheck(missionListString);
 
     //console.log(missionListString);
 
@@ -169,6 +204,7 @@ import { strict as assert } from "node:assert";
     mission.duration = 2 * 60 * 60;
     mission.tags.push("approach");
     mission.tags.push("pattern");
+    mission.finish = new AeroflyMissionTargetPlane(0, 1, 2);
     missionListString = missionList.toString();
 
     assert.ok(missionListString.includes("[tags]"));
@@ -179,6 +215,8 @@ import { strict as assert } from "node:assert";
     assert.ok(missionListString.includes("Landeübung"));
     assert.ok(missionListString.includes("[distance]"));
     assert.ok(missionListString.includes("[duration]"));
+    assert.ok(missionListString.includes("[finish]"));
+    validityCheck(missionListString);
 
     //console.dir(missionList.missions[0], { depth: null });
     console.log(missionListString);

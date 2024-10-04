@@ -140,7 +140,7 @@ export class AeroflyMission {
     isFeatured: boolean;
 
     /**
-     * @property {number|undefined} difficulty in 0..2, percentage
+     * @property {number|undefined} difficulty values between 0.00 and 2.00 have been encountered, but they seem to be without limit
      */
     difficulty: number | undefined;
 
@@ -180,6 +180,11 @@ export class AeroflyMission {
     duration: number;
 
     /**
+     * @property {?AeroflyMissionTargetPlane} finish as finish condition
+     */
+    finish: AeroflyMissionTargetPlane | null;
+
+    /**
      * @property {AeroflyMissionConditions} conditions like time and weather for mission
      */
     conditions: AeroflyMissionConditions;
@@ -196,7 +201,7 @@ export class AeroflyMission {
      * @param {AeroflyLocalizedText[]} [additionalAttributes.localizedTexts] translations for title and description
      * @param {string[]} [additionalAttributes.tags]
      * @param {boolean} [additionalAttributes.isFeatured] makes this mission pop up in "Challenges"
-     * @param {number|undefined} [additionalAttributes.difficulty] 0..1, percentage
+     * @param {number|undefined} [additionalAttributes.difficulty] values between 0.00 and 2.00 have been encountered, but they seem to be without limit
      * @param {"taxi"|"takeoff"|"cruise"|"approach"|"landing"|"winch_launch"|"aerotow"} [additionalAttributes.flightSetting] of aircraft, like "taxi", "cruise"
      * @param {{name:string,livery:string,icao:string}} [additionalAttributes.aircraft] for this mission
      * @param {string} [additionalAttributes.callsign] of aircraft, uppercased
@@ -204,6 +209,7 @@ export class AeroflyMission {
      * @param {object} [additionalAttributes.destination] position of aircraft, as well as name of destination airport. Position does not have match airport.
      * @param {number} [additionalAttributes.distance] in meters
      * @param {number} [additionalAttributes.duration] in seconds
+     * @param {?AeroflyMissionTargetPlane} [additionalAttributes.finish] as finish condition
      * @param {AeroflyMissionConditions} [additionalAttributes.conditions] like time and weather for mission
      * @param {AeroflyMissionCheckpoint[]} [additionalAttributes.checkpoints] form the actual flight plan
      */
@@ -238,6 +244,7 @@ export class AeroflyMission {
             },
             distance = 0,
             duration = 0,
+            finish = null,
             conditions = new AeroflyMissionConditions(),
             checkpoints = [],
         }: {
@@ -253,6 +260,7 @@ export class AeroflyMission {
             destination?: AeroflyMissionPosition;
             distance?: number;
             duration?: number;
+            finish?: AeroflyMissionTargetPlane | null;
             conditions?: AeroflyMissionConditions;
             checkpoints?: AeroflyMissionCheckpoint[];
         } = {},
@@ -271,6 +279,7 @@ export class AeroflyMission {
         this.destination = destination;
         this.distance = distance;
         this.duration = duration;
+        this.finish = finish;
         this.conditions = conditions;
     }
 
@@ -355,6 +364,9 @@ ${this.getLocalizedTextsString()}
             moreOptionalProperties.push(
                 `                <[float64]   [duration]           [${this.duration}]> // ${Math.ceil(this.duration / 60)} min`,
             );
+        }
+        if (this.finish) {
+            moreOptionalProperties.push(this.finish.toString());
         }
 
         return `            <[tmmission_definition][mission][]
@@ -709,9 +721,9 @@ export class AeroflyMissionCheckpoint {
     frequency: number | null;
 
     /**
-     * @property {boolean} flyOver if waypoint is meant to be flown over
+     * @property {boolean|undefined} flyOver if waypoint is meant to be flown over
      */
-    flyOver: boolean;
+    flyOver: boolean | undefined;
 
     /**
      * @param {string} name ICAO code for airport, runway designator, navaid
@@ -733,7 +745,7 @@ export class AeroflyMissionCheckpoint {
      * @param {number?} [additionalAttributes.length] of runway, in meters
      * @param {number?} [additionalAttributes.length_feet] of runway, in feet. Will overwrite length
      * @param {number?} [additionalAttributes.frequency] of runways or navigational aids, in Hz; multiply by 1000 for kHz, 1_000_000 for MHz
-     * @param {boolean} [additionalAttributes.flyOver] if waypoint is meant to be flown over
+     * @param {boolean|undefined} [additionalAttributes.flyOver] if waypoint is meant to be flown over
      */
     constructor(
         name: string,
@@ -748,7 +760,7 @@ export class AeroflyMissionCheckpoint {
             length = null,
             length_feet = null,
             frequency = null,
-            flyOver = true,
+            flyOver = undefined,
         }: {
             altitude?: number;
             altitude_feet?: number | null;
@@ -757,7 +769,7 @@ export class AeroflyMissionCheckpoint {
             length?: number | null;
             length_feet?: number | null;
             frequency?: number | null;
-            flyOver?: boolean;
+            flyOver?: boolean | undefined;
         } = {},
     ) {
         this.type = type;
@@ -840,8 +852,8 @@ export class AeroflyMissionCheckpoint {
                 `                        <[float64][frequency][${this.frequency ?? 0}]> // ${this.frequency_string}`,
             );
         }
-        if (this.flyOver === false) {
-            optionalProperties.push(`                        <[bool][fly_over][false]>`);
+        if (this.flyOver !== undefined) {
+            optionalProperties.push(`                        <[bool][fly_over][${this.flyOver ? "true" : "false"}]>`);
         }
 
         return `                    <[tmmission_checkpoint][element][${index}]
@@ -910,12 +922,63 @@ export class AeroflyLocalizedText {
      * @param {number} index if used in an array will se the array index
      * @returns {string} to use in Aerofly FS4's `custom_missions_user.tmc`
      */
-    toString(index: number): string {
+    toString(index: number = 0): string {
         return `                   <[tmmission_definition_localized][element][${index}]
                         <[string8u][language][${this.language}]>
                         <[string8][title][${this.title}]>
                         <[string8][description][${this.description}]>
                     >`;
+    }
+}
+
+export class AeroflyMissionTargetPlane {
+    /**
+     * @property {number} longitude easting, using the World Geodetic
+     *    System 1984 (WGS 84) [WGS84] datum, with longitude and latitude units
+     *    of decimal degrees; -180..180
+     */
+    longitude: number;
+
+    /**
+     * @property {number} latitude northing, using the World Geodetic
+     *    System 1984 (WGS 84) [WGS84] datum, with longitude and latitude units
+     *    of decimal degrees; -90..90
+     */
+    latitude: number;
+
+    /**
+     * @property {number} dir in degree
+     */
+    dir: number;
+
+    /**
+     * @property {string} name of property
+     */
+    name: string;
+
+    /**
+     *
+     * @param {number} longitude easting, using the World Geodetic
+     *    System 1984 (WGS 84) [WGS84] datum, with longitude and latitude units
+     *    of decimal degrees; -180..180
+     * @param {number}latitude northing, using the World Geodetic
+     *    System 1984 (WGS 84) [WGS84] datum, with longitude and latitude units
+     *    of decimal degrees; -90..90
+     * @param {number} dir in degree
+     * @param {string} name of property
+     */
+    constructor(longitude: number, latitude: number, dir: number, name: string = "finish") {
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.dir = dir;
+        this.name = name;
+    }
+
+    toString(): string {
+        return `                <[tmmission_target_plane][${this.name}][]
+                    <[vector2_float64][lon_lat][${this.longitude} ${this.latitude}]>
+                    <[float64][direction][${this.dir}]>
+                >`;
     }
 }
 
@@ -926,4 +989,5 @@ export default {
     AeroflyMissionConditionsCloud,
     AeroflyMissionCheckpoint,
     AeroflyLocalizedText,
+    AeroflyMissionTargetPlane,
 };

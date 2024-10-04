@@ -34,6 +34,8 @@ import {
   AeroflyMissionConditions,
   AeroflyMissionConditionsCloud,
   AeroflyMissionCheckpoint,
+  AeroflyLocalizedText,
+  AeroflyMissionTargetPlane,
 } from "@fboes/aerofly-custom-missions";
 
 // 2. Local installation and/or browser usage
@@ -43,6 +45,8 @@ import {
   AeroflyMissionConditions,
   AeroflyMissionConditionsCloud,
   AeroflyMissionCheckpoint,
+  AeroflyLocalizedText,
+  AeroflyMissionTargetPlane,
 } from "dist/index.js";
 ```
 
@@ -172,17 +176,13 @@ There are also some unsupported properties, which are present in Aerofly FS4, bu
 ```
 <[string8][tutorial_name][c172]> // Opens https://www.aerofly.com/aircraft-tutorials/${tutorial_name}
 <[bool][is_scheduled][true]>
-<[tmmission_target_plane][finish][]
-    <[vector2_float64][lon_lat][-122.0 37.3617]>
-    <[float64][direction][270.0]>
->
 ```
 
 ### Known issues
 
-- `AeroflyMissionConditions.time`: Even though a date property is available in Aerofly FS 4 (which is not accessible to the user), [the custom missions cannot change the date in Aerofly FS 4](https://www.aerofly.com/community/forum/index.php?thread/22487-more-settings-for-environment-conditions/&pageNo=1).
-- `AeroflyMissionConditions.clouds`: Even though Aerofly FS 4 is able to handle three levels of clouds, the custom missions can only set two levels in Aerofly FS 4.
-- `AeroflyMissionCheckpoint.type`: Even though internal flight plans of Aerofly FS 4 has types `"departure"|"arrival"|"approach"`, [Aerofly FS 4 dumps SIDs and STARs on loading a custom missions](https://www.aerofly.com/community/forum/index.php?thread/22156-flight-plans/).
+- `AeroflyMissionConditions.time`: Even though a date property is available in Aerofly FS 4, [the custom missions cannot change the date in Aerofly FS 4](https://www.aerofly.com/community/forum/index.php?thread/22487-more-settings-for-environment-conditions/&pageNo=1). This is obviously as the date cannot be changed inside the simulation.
+- `AeroflyMissionConditions.clouds`: Even though Aerofly FS 4 is able to handle three levels of clouds, the custom missions can only set two levels in Aerofly FS 4. This is obviously as the third cloud layer cannot be changed inside the simulation.
+- `AeroflyMissionCheckpoint.type`: Even though internal flight plans of Aerofly FS 4 have types `"departure"|"arrival"|"approach"`, [Aerofly FS 4 dumps SIDs and STARs on loading a custom missions](https://www.aerofly.com/community/forum/index.php?thread/22156-flight-plans/).
 - `AeroflyMission.aircraft.livery`: Even though Aerofly FS 4 knows multiple liveries per plane, [the custom missions file is not able to set liveries to any other but the standard livery](https://www.aerofly.com/community/forum/index.php?thread/19105-user-created-custom-missions/).
 
 ## Status

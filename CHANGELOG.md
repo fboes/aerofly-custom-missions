@@ -4,6 +4,7 @@
 
 - Adding new cloud level `cirrus_cover` / `cirrus_base`
 - Adding new waypoint property `fly_over`
+- Adding `finish` property
 
 ## 1.1.1
 
