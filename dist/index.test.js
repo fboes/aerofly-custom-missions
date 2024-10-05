@@ -15,8 +15,8 @@ const validityCheck = (aeroflyString) => {
 }
 {
     const conditions = new AeroflyMissionConditions();
-    conditions.visibility = 15_000;
-    assert.deepStrictEqual(conditions.visibility, 15_000);
+    conditions.visibility = 15000;
+    assert.deepStrictEqual(conditions.visibility, 15000);
     conditions.visibility_sm = 10;
     assert.notDeepStrictEqual(conditions.visibility, 10);
     assert.deepStrictEqual(Math.round(conditions.visibility_sm), 10);
@@ -25,9 +25,9 @@ const validityCheck = (aeroflyString) => {
 }
 {
     const conditions = new AeroflyMissionConditions({
-        visibility: 15_000,
+        visibility: 15000,
     });
-    assert.deepStrictEqual(conditions.visibility, 15_000);
+    assert.deepStrictEqual(conditions.visibility, 15000);
     validityCheck(conditions.toString());
     console.log("✅ AeroflyMissionConditions test successful");
 }

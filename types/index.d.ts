@@ -25,15 +25,7 @@ export type AeroflyMissionSetting = "taxi" | "takeoff" | "cruise" | "approach" |
 /**
  * Types of checkpoints. Required are usually "origin", "departure_runway" at the start and "destination_runway", "destination" at the end.
  */
-export type AeroflyMissionCheckpointType =
-    | "origin"
-    | "departure_runway"
-    | "departure"
-    | "waypoint"
-    | "arrival"
-    | "approach"
-    | "destination_runway"
-    | "destination";
+export type AeroflyMissionCheckpointType = "origin" | "departure_runway" | "departure" | "waypoint" | "arrival" | "approach" | "destination_runway" | "destination";
 /**
  * Data for the aircraft to use on this mission
  * @property name lowercase Aerofly aircraft ID
@@ -108,13 +100,13 @@ export declare class AeroflyMission {
      */
     tags: string[];
     /**
-     * @property {boolean} isFeatured makes this mission pop up in "Challenges"
+     * @property {?boolean} isFeatured makes this mission pop up in "Challenges"
      */
-    isFeatured: boolean;
+    isFeatured: boolean | null;
     /**
-     * @property {number|undefined} difficulty values between 0.00 and 2.00 have been encountered, but they seem to be without limit
+     * @property {?number} difficulty values between 0.00 and 2.00 have been encountered, but they seem to be without limit
      */
-    difficulty: number | undefined;
+    difficulty: number | null;
     /**
      * @property {"taxi"|"takeoff"|"cruise"|"approach"|"landing"|"winch_launch"|"aerotow"} flightSetting of aircraft, like "taxi", "cruise"
      */
@@ -136,13 +128,13 @@ export declare class AeroflyMission {
      */
     destination: AeroflyMissionPosition;
     /**
-     * @property {number} in meters
+     * @property {?number} distance in meters
      */
-    distance: number;
+    distance: number | null;
     /**
-     * @property {number} in seconds
+     * @property {?number} duration in seconds
      */
-    duration: number;
+    duration: number | null;
     /**
      * @property {?AeroflyMissionTargetPlane} finish as finish condition
      */
@@ -161,55 +153,36 @@ export declare class AeroflyMission {
      * @param {string} [additionalAttributes.description] text, mission briefing, etc
      * @param {AeroflyLocalizedText[]} [additionalAttributes.localizedTexts] translations for title and description
      * @param {string[]} [additionalAttributes.tags]
-     * @param {boolean} [additionalAttributes.isFeatured] makes this mission pop up in "Challenges"
-     * @param {number|undefined} [additionalAttributes.difficulty] values between 0.00 and 2.00 have been encountered, but they seem to be without limit
+     * @param {?boolean} [additionalAttributes.isFeatured] makes this mission pop up in "Challenges"
+     * @param {?number} [additionalAttributes.difficulty] values between 0.00 and 2.00 have been encountered, but they seem to be without limit
      * @param {"taxi"|"takeoff"|"cruise"|"approach"|"landing"|"winch_launch"|"aerotow"} [additionalAttributes.flightSetting] of aircraft, like "taxi", "cruise"
      * @param {{name:string,livery:string,icao:string}} [additionalAttributes.aircraft] for this mission
      * @param {string} [additionalAttributes.callsign] of aircraft, uppercased
      * @param {object} [additionalAttributes.origin] position of aircraft, as well as name of starting airport. Position does not have match airport.
      * @param {object} [additionalAttributes.destination] position of aircraft, as well as name of destination airport. Position does not have match airport.
-     * @param {number} [additionalAttributes.distance] in meters
-     * @param {number} [additionalAttributes.duration] in seconds
+     * @param {?number} [additionalAttributes.distance] in meters
+     * @param {?number} [additionalAttributes.duration] in seconds
      * @param {?AeroflyMissionTargetPlane} [additionalAttributes.finish] as finish condition
      * @param {AeroflyMissionConditions} [additionalAttributes.conditions] like time and weather for mission
      * @param {AeroflyMissionCheckpoint[]} [additionalAttributes.checkpoints] form the actual flight plan
      */
-    constructor(
-        title: string,
-        {
-            description,
-            localizedTexts,
-            tags,
-            isFeatured,
-            difficulty,
-            flightSetting,
-            aircraft,
-            callsign,
-            origin,
-            destination,
-            distance,
-            duration,
-            finish,
-            conditions,
-            checkpoints,
-        }?: {
-            description?: string;
-            localizedTexts?: AeroflyLocalizedText[];
-            tags?: string[];
-            isFeatured?: boolean;
-            difficulty?: number | undefined;
-            flightSetting?: AeroflyMissionSetting;
-            aircraft?: AeroflyMissionAircraft;
-            callsign?: string;
-            origin?: AeroflyMissionPosition;
-            destination?: AeroflyMissionPosition;
-            distance?: number;
-            duration?: number;
-            finish?: AeroflyMissionTargetPlane | null;
-            conditions?: AeroflyMissionConditions;
-            checkpoints?: AeroflyMissionCheckpoint[];
-        },
-    );
+    constructor(title: string, { description, localizedTexts, tags, isFeatured, difficulty, flightSetting, aircraft, callsign, origin, destination, distance, duration, finish, conditions, checkpoints, }?: {
+        description?: string;
+        localizedTexts?: AeroflyLocalizedText[];
+        tags?: string[];
+        isFeatured?: boolean | null;
+        difficulty?: number | null;
+        flightSetting?: AeroflyMissionSetting;
+        aircraft?: AeroflyMissionAircraft;
+        callsign?: string;
+        origin?: AeroflyMissionPosition;
+        destination?: AeroflyMissionPosition;
+        distance?: number | null;
+        duration?: number | null;
+        finish?: AeroflyMissionTargetPlane | null;
+        conditions?: AeroflyMissionConditions;
+        checkpoints?: AeroflyMissionCheckpoint[];
+    });
     /**
      * @returns {string} indexed checkpoints
      */
@@ -266,20 +239,11 @@ export declare class AeroflyMissionConditions {
      * @param {number} [additionalAttributes.turbulenceStrength] 0..1, percentage
      * @param {number} [additionalAttributes.thermalStrength] 0..1, percentage
      * @param {number} [additionalAttributes.visibility] in meters
-     * @param {number?} [additionalAttributes.visibility_sm] in statute miles, will overwrite visibility
-     * @param {number?} [additionalAttributes.temperature] in °C, will overwrite thermalStrength
+     * @param {?number} [additionalAttributes.visibility_sm] in statute miles, will overwrite visibility
+     * @param {?number} [additionalAttributes.temperature] in °C, will overwrite thermalStrength
      * @param {AeroflyMissionConditionsCloud[]} [additionalAttributes.clouds] for the whole flight
      */
-    constructor({
-        time,
-        wind,
-        turbulenceStrength,
-        thermalStrength,
-        visibility,
-        visibility_sm,
-        temperature,
-        clouds,
-    }?: {
+    constructor({ time, wind, turbulenceStrength, thermalStrength, visibility, visibility_sm, temperature, clouds, }?: {
         time?: Date;
         wind?: {
             direction: number;
@@ -425,9 +389,9 @@ export declare class AeroflyMissionCheckpoint {
      */
     frequency: number | null;
     /**
-     * @property {boolean|undefined} flyOver if waypoint is meant to be flown over
+     * @property {?boolean} flyOver if waypoint is meant to be flown over
      */
-    flyOver: boolean | undefined;
+    flyOver: boolean | null;
     /**
      * @param {string} name ICAO code for airport, runway designator, navaid
      *    designator, fix name, or custom name
@@ -441,40 +405,25 @@ export declare class AeroflyMissionCheckpoint {
      * @param {object} additionalAttributes allows to set additional attributes on creation
      * @param {number} [additionalAttributes.altitude] The height in meters above or below the WGS
      *    84 reference ellipsoid
-     * @param {number?} [additionalAttributes.altitude_feet] The height in feet above or below the WGS
+     * @param {?number} [additionalAttributes.altitude_feet] The height in feet above or below the WGS
      *    84 reference ellipsoid. Will overwrite altitude
      * @param {number} [additionalAttributes.direction] of runway, in degree
-     * @param {number?} [additionalAttributes.slope] of runway
-     * @param {number?} [additionalAttributes.length] of runway, in meters
-     * @param {number?} [additionalAttributes.length_feet] of runway, in feet. Will overwrite length
-     * @param {number?} [additionalAttributes.frequency] of runways or navigational aids, in Hz; multiply by 1000 for kHz, 1_000_000 for MHz
-     * @param {boolean|undefined} [additionalAttributes.flyOver] if waypoint is meant to be flown over
+     * @param {?number} [additionalAttributes.slope] of runway
+     * @param {?number} [additionalAttributes.length] of runway, in meters
+     * @param {?number} [additionalAttributes.length_feet] of runway, in feet. Will overwrite length
+     * @param {?number} [additionalAttributes.frequency] of runways or navigational aids, in Hz; multiply by 1000 for kHz, 1_000_000 for MHz
+     * @param {?boolean} [additionalAttributes.flyOver] if waypoint is meant to be flown over
      */
-    constructor(
-        name: string,
-        type: AeroflyMissionCheckpointType,
-        longitude: number,
-        latitude: number,
-        {
-            altitude,
-            altitude_feet,
-            direction,
-            slope,
-            length,
-            length_feet,
-            frequency,
-            flyOver,
-        }?: {
-            altitude?: number;
-            altitude_feet?: number | null;
-            direction?: number | null;
-            slope?: number | null;
-            length?: number | null;
-            length_feet?: number | null;
-            frequency?: number | null;
-            flyOver?: boolean | undefined;
-        },
-    );
+    constructor(name: string, type: AeroflyMissionCheckpointType, longitude: number, latitude: number, { altitude, altitude_feet, direction, slope, length, length_feet, frequency, flyOver, }?: {
+        altitude?: number;
+        altitude_feet?: number | null;
+        direction?: number | null;
+        slope?: number | null;
+        length?: number | null;
+        length_feet?: number | null;
+        frequency?: number | null;
+        flyOver?: boolean | null;
+    });
     /**
      * @param {number} altitude_feet
      */

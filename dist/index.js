@@ -42,20 +42,20 @@ export class AeroflyMission {
      * @param {string} [additionalAttributes.description] text, mission briefing, etc
      * @param {AeroflyLocalizedText[]} [additionalAttributes.localizedTexts] translations for title and description
      * @param {string[]} [additionalAttributes.tags]
-     * @param {boolean} [additionalAttributes.isFeatured] makes this mission pop up in "Challenges"
-     * @param {number|undefined} [additionalAttributes.difficulty] values between 0.00 and 2.00 have been encountered, but they seem to be without limit
+     * @param {?boolean} [additionalAttributes.isFeatured] makes this mission pop up in "Challenges"
+     * @param {?number} [additionalAttributes.difficulty] values between 0.00 and 2.00 have been encountered, but they seem to be without limit
      * @param {"taxi"|"takeoff"|"cruise"|"approach"|"landing"|"winch_launch"|"aerotow"} [additionalAttributes.flightSetting] of aircraft, like "taxi", "cruise"
      * @param {{name:string,livery:string,icao:string}} [additionalAttributes.aircraft] for this mission
      * @param {string} [additionalAttributes.callsign] of aircraft, uppercased
      * @param {object} [additionalAttributes.origin] position of aircraft, as well as name of starting airport. Position does not have match airport.
      * @param {object} [additionalAttributes.destination] position of aircraft, as well as name of destination airport. Position does not have match airport.
-     * @param {number} [additionalAttributes.distance] in meters
-     * @param {number} [additionalAttributes.duration] in seconds
+     * @param {?number} [additionalAttributes.distance] in meters
+     * @param {?number} [additionalAttributes.duration] in seconds
      * @param {?AeroflyMissionTargetPlane} [additionalAttributes.finish] as finish condition
      * @param {AeroflyMissionConditions} [additionalAttributes.conditions] like time and weather for mission
      * @param {AeroflyMissionCheckpoint[]} [additionalAttributes.checkpoints] form the actual flight plan
      */
-    constructor(title, { description = "", localizedTexts = [], tags = [], isFeatured = false, difficulty = undefined, flightSetting = "taxi", aircraft = {
+    constructor(title, { description = "", localizedTexts = [], tags = [], isFeatured = null, difficulty = null, flightSetting = "taxi", aircraft = {
         name: "c172",
         icao: "",
         livery: "",
@@ -71,7 +71,7 @@ export class AeroflyMission {
         latitude: 0,
         dir: 0,
         alt: 0,
-    }, distance = 0, duration = 0, finish = null, conditions = new AeroflyMissionConditions(), checkpoints = [], } = {}) {
+    }, distance = null, duration = null, finish = null, conditions = new AeroflyMissionConditions(), checkpoints = [], } = {}) {
         this.title = title;
         this.checkpoints = checkpoints;
         this.description = description;
@@ -146,20 +146,20 @@ ${this.getLocalizedTextsString()}
         if (this.tags.length > 0) {
             optionalProperties.push(`                <[string8u][tags][ ${this.tags.join(" ")} ]>`);
         }
-        if (this.difficulty !== undefined) {
+        if (this.difficulty !== null) {
             optionalProperties.push(`                <[float64]   [difficulty]         [${this.difficulty}]>`);
         }
-        if (this.isFeatured) {
+        if (this.isFeatured !== null) {
             optionalProperties.push(`                <[bool]      [is_featured]        [${this.isFeatured ? "true" : "false"}]>`);
         }
         const moreOptionalProperties = [];
-        if (this.distance) {
+        if (this.distance !== null) {
             moreOptionalProperties.push(`                <[float64]   [distance]           [${this.distance}]> // ${Math.ceil(this.distance / 1000)} km`);
         }
-        if (this.duration) {
+        if (this.duration !== null) {
             moreOptionalProperties.push(`                <[float64]   [duration]           [${this.duration}]> // ${Math.ceil(this.duration / 60)} min`);
         }
-        if (this.finish) {
+        if (this.finish !== null) {
             moreOptionalProperties.push(this.finish.toString());
         }
         return `            <[tmmission_definition][mission][]
@@ -202,15 +202,15 @@ export class AeroflyMissionConditions {
      * @param {number} [additionalAttributes.turbulenceStrength] 0..1, percentage
      * @param {number} [additionalAttributes.thermalStrength] 0..1, percentage
      * @param {number} [additionalAttributes.visibility] in meters
-     * @param {number?} [additionalAttributes.visibility_sm] in statute miles, will overwrite visibility
-     * @param {number?} [additionalAttributes.temperature] in °C, will overwrite thermalStrength
+     * @param {?number} [additionalAttributes.visibility_sm] in statute miles, will overwrite visibility
+     * @param {?number} [additionalAttributes.temperature] in °C, will overwrite thermalStrength
      * @param {AeroflyMissionConditionsCloud[]} [additionalAttributes.clouds] for the whole flight
      */
     constructor({ time = new Date(), wind = {
         direction: 0,
         speed: 0,
         gusts: 0,
-    }, turbulenceStrength = 0, thermalStrength = 0, visibility = 25_000, visibility_sm = null, temperature = null, clouds = [], } = {}) {
+    }, turbulenceStrength = 0, thermalStrength = 0, visibility = 25000, visibility_sm = null, temperature = null, clouds = [], } = {}) {
         /**
          * @property {AeroflyMissionConditionsCloud[]} clouds for the whole flight
          */
@@ -399,16 +399,16 @@ export class AeroflyMissionCheckpoint {
      * @param {object} additionalAttributes allows to set additional attributes on creation
      * @param {number} [additionalAttributes.altitude] The height in meters above or below the WGS
      *    84 reference ellipsoid
-     * @param {number?} [additionalAttributes.altitude_feet] The height in feet above or below the WGS
+     * @param {?number} [additionalAttributes.altitude_feet] The height in feet above or below the WGS
      *    84 reference ellipsoid. Will overwrite altitude
      * @param {number} [additionalAttributes.direction] of runway, in degree
-     * @param {number?} [additionalAttributes.slope] of runway
-     * @param {number?} [additionalAttributes.length] of runway, in meters
-     * @param {number?} [additionalAttributes.length_feet] of runway, in feet. Will overwrite length
-     * @param {number?} [additionalAttributes.frequency] of runways or navigational aids, in Hz; multiply by 1000 for kHz, 1_000_000 for MHz
-     * @param {boolean|undefined} [additionalAttributes.flyOver] if waypoint is meant to be flown over
+     * @param {?number} [additionalAttributes.slope] of runway
+     * @param {?number} [additionalAttributes.length] of runway, in meters
+     * @param {?number} [additionalAttributes.length_feet] of runway, in feet. Will overwrite length
+     * @param {?number} [additionalAttributes.frequency] of runways or navigational aids, in Hz; multiply by 1000 for kHz, 1_000_000 for MHz
+     * @param {?boolean} [additionalAttributes.flyOver] if waypoint is meant to be flown over
      */
-    constructor(name, type, longitude, latitude, { altitude = 0, altitude_feet = null, direction = null, slope = null, length = null, length_feet = null, frequency = null, flyOver = undefined, } = {}) {
+    constructor(name, type, longitude, latitude, { altitude = 0, altitude_feet = null, direction = null, slope = null, length = null, length_feet = null, frequency = null, flyOver = null, } = {}) {
         this.type = type;
         this.name = name;
         this.longitude = longitude;
@@ -457,11 +457,11 @@ export class AeroflyMissionCheckpoint {
         if (!this.frequency) {
             return "None";
         }
-        if (this.frequency > 1_000_000) {
-            return String(this.frequency / 1_000_000) + " MHz";
+        if (this.frequency > 1000000) {
+            return String(this.frequency / 1000000) + " MHz";
         }
-        if (this.frequency > 1_000) {
-            return String(this.frequency / 1_000) + " kHz";
+        if (this.frequency > 1000) {
+            return String(this.frequency / 1000) + " kHz";
         }
         return String(this.frequency) + " Hz";
     }
@@ -477,7 +477,7 @@ export class AeroflyMissionCheckpoint {
         if (this.frequency) {
             optionalProperties.push(`                        <[float64][frequency][${this.frequency ?? 0}]> // ${this.frequency_string}`);
         }
-        if (this.flyOver !== undefined) {
+        if (this.flyOver !== null) {
             optionalProperties.push(`                        <[bool][fly_over][${this.flyOver ? "true" : "false"}]>`);
         }
         return `                    <[tmmission_checkpoint][element][${index}]

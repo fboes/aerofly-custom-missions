@@ -1,5 +1,7 @@
 # Changelog
 
+- Improved handling off unset values
+
 ## 1.2.0
 
 - Adding new cloud level `cirrus_cover` / `cirrus_base`
