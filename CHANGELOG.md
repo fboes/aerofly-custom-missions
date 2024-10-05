@@ -1,5 +1,6 @@
 # Changelog
 
+- Improved cloud handling
 - Improved handling off unset values
 
 ## 1.2.0

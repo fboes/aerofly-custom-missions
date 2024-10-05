@@ -644,15 +644,20 @@ export class AeroflyMissionConditionsCloud {
      * @returns {string} to use in Aerofly FS4's `custom_missions_user.tmc`
      */
     toString(index: number = 0): string {
-        let indexString = "cloud";
+        let indexString = "";
 
         switch (index) {
+            case 0:
+                indexString = "cloud";
+                break;
             case 1:
                 indexString = "cirrus";
                 break;
             case 2:
                 indexString = "cumulus_mediocris";
                 break;
+            default:
+                return "";
         }
 
         return `                    <[float64][${indexString}_cover][${this.cover ?? 0}]> // ${this.cover_code}
@@ -867,6 +872,10 @@ export class AeroflyMissionCheckpoint {
     }
 }
 
+/**
+ * @class
+ * A translation for the mission title and description.
+ */
 export class AeroflyLocalizedText {
     /**
      * @property {string} language ISO 639-1 like
@@ -931,6 +940,10 @@ export class AeroflyLocalizedText {
     }
 }
 
+/**
+ * @class
+ * A target plane which the aircraft needs to cross.
+ */
 export class AeroflyMissionTargetPlane {
     /**
      * @property {number} longitude easting, using the World Geodetic
