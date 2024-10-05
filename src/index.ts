@@ -112,7 +112,10 @@ export class AeroflyMissionsList {
  * for this file via the `toString()` method.
  */
 export class AeroflyMission {
-    // tutorial_name
+    /**
+     * @property {?string} tutorialName holds an aircraft string for which this mission is an tutorial. If set will show mission in "Tutorial" flights.
+     */
+    tutorialName: string | null;
 
     /**
      * @property {string} title of this flight plan
@@ -180,6 +183,11 @@ export class AeroflyMission {
     duration: number | null;
 
     /**
+     * @property {?boolean} isScheduled if flight is to show up in "Scheduled flights"
+     */
+    isScheduled: boolean | null;
+
+    /**
      * @property {?AeroflyMissionTargetPlane} finish as finish condition
      */
     finish: AeroflyMissionTargetPlane | null;
@@ -199,6 +207,7 @@ export class AeroflyMission {
      * @param {object} [additionalAttributes] allows to set additional attributes on creation
      * @param {string} [additionalAttributes.description] text, mission briefing, etc
      * @param {AeroflyLocalizedText[]} [additionalAttributes.localizedTexts] translations for title and description
+     * @param {?string} [additionalAttributes.tutorialName] holds an aircraft string for which this mission is an tutorial. If set will show mission in "Tutorial" flights.
      * @param {string[]} [additionalAttributes.tags]
      * @param {?boolean} [additionalAttributes.isFeatured] makes this mission pop up in "Challenges"
      * @param {?number} [additionalAttributes.difficulty] values between 0.00 and 2.00 have been encountered, but they seem to be without limit
@@ -209,6 +218,7 @@ export class AeroflyMission {
      * @param {object} [additionalAttributes.destination] position of aircraft, as well as name of destination airport. Position does not have match airport.
      * @param {?number} [additionalAttributes.distance] in meters
      * @param {?number} [additionalAttributes.duration] in seconds
+     * @param {?boolean} [additionalAttributes.isScheduled] if flight is to show up in "Scheduled flights"
      * @param {?AeroflyMissionTargetPlane} [additionalAttributes.finish] as finish condition
      * @param {AeroflyMissionConditions} [additionalAttributes.conditions] like time and weather for mission
      * @param {AeroflyMissionCheckpoint[]} [additionalAttributes.checkpoints] form the actual flight plan
@@ -216,6 +226,7 @@ export class AeroflyMission {
     constructor(
         title: string,
         {
+            tutorialName = null,
             description = "",
             localizedTexts = [],
             tags = [],
@@ -244,10 +255,12 @@ export class AeroflyMission {
             },
             distance = null,
             duration = null,
+            isScheduled = null,
             finish = null,
             conditions = new AeroflyMissionConditions(),
             checkpoints = [],
         }: {
+            tutorialName?: string | null;
             description?: string;
             localizedTexts?: AeroflyLocalizedText[];
             tags?: string[];
@@ -260,11 +273,13 @@ export class AeroflyMission {
             destination?: AeroflyMissionPosition;
             distance?: number | null;
             duration?: number | null;
+            isScheduled?: boolean | null;
             finish?: AeroflyMissionTargetPlane | null;
             conditions?: AeroflyMissionConditions;
             checkpoints?: AeroflyMissionCheckpoint[];
         } = {},
     ) {
+        this.tutorialName = tutorialName;
         this.title = title;
         this.checkpoints = checkpoints;
         this.description = description;
@@ -279,6 +294,7 @@ export class AeroflyMission {
         this.destination = destination;
         this.distance = distance;
         this.duration = duration;
+        this.isScheduled = isScheduled;
         this.finish = finish;
         this.conditions = conditions;
     }
@@ -337,6 +353,11 @@ export class AeroflyMission {
         }
 
         const optionalProperties = [];
+        if (this.tutorialName !== null) {
+            optionalProperties.push(
+                `                <[string8][tutorial_name][${this.tutorialName}]> // Opens https://www.aerofly.com/aircraft-tutorials/${this.tutorialName}`,
+            );
+        }
         if (this.localizedTexts.length > 0) {
             optionalProperties.push(`                <[list_tmmission_definition_localized][localized_text][]
 ${this.getLocalizedTextsString()}
@@ -363,6 +384,11 @@ ${this.getLocalizedTextsString()}
         if (this.duration !== null) {
             moreOptionalProperties.push(
                 `                <[float64]   [duration]           [${this.duration}]> // ${Math.ceil(this.duration / 60)} min`,
+            );
+        }
+        if (this.isScheduled !== null) {
+            moreOptionalProperties.push(
+                `                <[bool]      [is_scheduled]       [${this.isScheduled ? "true" : "false"}]>`,
             );
         }
         if (this.finish !== null) {

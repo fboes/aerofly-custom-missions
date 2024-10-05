@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.2.1
+
+- Adding `is_scheduled` and `tutorial_name` property
 - Improved cloud handling
 - Improved handling off unset values
 

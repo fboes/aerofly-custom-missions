@@ -41,6 +41,7 @@ export class AeroflyMission {
      * @param {object} [additionalAttributes] allows to set additional attributes on creation
      * @param {string} [additionalAttributes.description] text, mission briefing, etc
      * @param {AeroflyLocalizedText[]} [additionalAttributes.localizedTexts] translations for title and description
+     * @param {?string} [additionalAttributes.tutorialName] holds an aircraft string for which this mission is an tutorial. If set will show mission in "Tutorial" flights.
      * @param {string[]} [additionalAttributes.tags]
      * @param {?boolean} [additionalAttributes.isFeatured] makes this mission pop up in "Challenges"
      * @param {?number} [additionalAttributes.difficulty] values between 0.00 and 2.00 have been encountered, but they seem to be without limit
@@ -51,11 +52,12 @@ export class AeroflyMission {
      * @param {object} [additionalAttributes.destination] position of aircraft, as well as name of destination airport. Position does not have match airport.
      * @param {?number} [additionalAttributes.distance] in meters
      * @param {?number} [additionalAttributes.duration] in seconds
+     * @param {?boolean} [additionalAttributes.isScheduled] if flight is to show up in "Scheduled flights"
      * @param {?AeroflyMissionTargetPlane} [additionalAttributes.finish] as finish condition
      * @param {AeroflyMissionConditions} [additionalAttributes.conditions] like time and weather for mission
      * @param {AeroflyMissionCheckpoint[]} [additionalAttributes.checkpoints] form the actual flight plan
      */
-    constructor(title, { description = "", localizedTexts = [], tags = [], isFeatured = null, difficulty = null, flightSetting = "taxi", aircraft = {
+    constructor(title, { tutorialName = null, description = "", localizedTexts = [], tags = [], isFeatured = null, difficulty = null, flightSetting = "taxi", aircraft = {
         name: "c172",
         icao: "",
         livery: "",
@@ -71,7 +73,8 @@ export class AeroflyMission {
         latitude: 0,
         dir: 0,
         alt: 0,
-    }, distance = null, duration = null, finish = null, conditions = new AeroflyMissionConditions(), checkpoints = [], } = {}) {
+    }, distance = null, duration = null, isScheduled = null, finish = null, conditions = new AeroflyMissionConditions(), checkpoints = [], } = {}) {
+        this.tutorialName = tutorialName;
         this.title = title;
         this.checkpoints = checkpoints;
         this.description = description;
@@ -86,6 +89,7 @@ export class AeroflyMission {
         this.destination = destination;
         this.distance = distance;
         this.duration = duration;
+        this.isScheduled = isScheduled;
         this.finish = finish;
         this.conditions = conditions;
     }
@@ -138,6 +142,9 @@ export class AeroflyMission {
             };
         }
         const optionalProperties = [];
+        if (this.tutorialName !== null) {
+            optionalProperties.push(`                <[string8][tutorial_name][${this.tutorialName}]> // Opens https://www.aerofly.com/aircraft-tutorials/${this.tutorialName}`);
+        }
         if (this.localizedTexts.length > 0) {
             optionalProperties.push(`                <[list_tmmission_definition_localized][localized_text][]
 ${this.getLocalizedTextsString()}
@@ -158,6 +165,9 @@ ${this.getLocalizedTextsString()}
         }
         if (this.duration !== null) {
             moreOptionalProperties.push(`                <[float64]   [duration]           [${this.duration}]> // ${Math.ceil(this.duration / 60)} min`);
+        }
+        if (this.isScheduled !== null) {
+            moreOptionalProperties.push(`                <[bool]      [is_scheduled]       [${this.isScheduled ? "true" : "false"}]>`);
         }
         if (this.finish !== null) {
             moreOptionalProperties.push(this.finish.toString());
@@ -210,7 +220,7 @@ export class AeroflyMissionConditions {
         direction: 0,
         speed: 0,
         gusts: 0,
-    }, turbulenceStrength = 0, thermalStrength = 0, visibility = 25000, visibility_sm = null, temperature = null, clouds = [], } = {}) {
+    }, turbulenceStrength = 0, thermalStrength = 0, visibility = 25_000, visibility_sm = null, temperature = null, clouds = [], } = {}) {
         /**
          * @property {AeroflyMissionConditionsCloud[]} clouds for the whole flight
          */
@@ -462,11 +472,11 @@ export class AeroflyMissionCheckpoint {
         if (!this.frequency) {
             return "None";
         }
-        if (this.frequency > 1000000) {
-            return String(this.frequency / 1000000) + " MHz";
+        if (this.frequency > 1_000_000) {
+            return String(this.frequency / 1_000_000) + " MHz";
         }
-        if (this.frequency > 1000) {
-            return String(this.frequency / 1000) + " kHz";
+        if (this.frequency > 1_000) {
+            return String(this.frequency / 1_000) + " kHz";
         }
         return String(this.frequency) + " Hz";
     }
