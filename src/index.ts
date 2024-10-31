@@ -69,6 +69,46 @@ export type AeroflyMissionConditionsWind = {
  */
 export type AeroflyMissionConditionsCloudCoverCode = "CLR" | "FEW" | "SCT" | "BKN" | "OVC";
 
+export class AeroflyConfigFileSet {
+    #indent: number;
+    elements: string[];
+
+    constructor(indent: number, type: string, name: string, value: string = "") {
+        this.#indent = indent;
+        this.elements = [`${this.indent}<[${type}][${name}][${value}]`];
+    }
+
+    get indent(): string {
+        return "    ".repeat(this.#indent);
+    }
+
+    get innerIndent(): string {
+        return "    ".repeat(this.#indent + 1);
+    }
+
+    push(type: string, name: string, value: string | number | string[] | number[] | boolean, comment: string = "") {
+        if (value instanceof Array) {
+            value = value.join(" ");
+        } else if (typeof value === "boolean") {
+            value = value ? "true" : "false";
+        }
+        let tag = `${this.innerIndent}<[${type}][${name}][${value}]>`;
+        if (comment) {
+            tag += ` // ${comment}`;
+        }
+        return this.pushRaw(tag);
+    }
+
+    pushRaw(s: string) {
+        this.elements.push(s);
+        return this;
+    }
+
+    toString() {
+        return this.elements.join("\n") + "\n" + `${this.indent}>`;
+    }
+}
+
 /**
  * @class
  * A list of flight plans.
@@ -352,70 +392,75 @@ export class AeroflyMission {
             };
         }
 
-        const optionalProperties = [];
+        const fileSet = new AeroflyConfigFileSet(3, "tmmission_definition", "mission");
+        fileSet.push("string8", "title", this.title);
+        fileSet.push("string8", "description", this.description);
+
         if (this.tutorialName !== null) {
-            optionalProperties.push(
-                `                <[string8][tutorial_name][${this.tutorialName}]> // Opens https://www.aerofly.com/aircraft-tutorials/${this.tutorialName}`,
+            fileSet.push(
+                "string8",
+                "tutorial_name",
+                this.tutorialName,
+                `Opens https://www.aerofly.com/aircraft-tutorials/${this.tutorialName}`,
             );
         }
         if (this.localizedTexts.length > 0) {
-            optionalProperties.push(`                <[list_tmmission_definition_localized][localized_text][]
-${this.getLocalizedTextsString()}
-                >`);
+            fileSet.pushRaw(
+                new AeroflyConfigFileSet(4, "list_tmmission_definition_localized", "localized_text")
+                    .pushRaw(this.getLocalizedTextsString())
+                    .toString(),
+            );
         }
         if (this.tags.length > 0) {
-            optionalProperties.push(`                <[string8u][tags][ ${this.tags.join(" ")} ]>`);
+            fileSet.push("string8u", "tags", this.tags.join(" "));
         }
         if (this.difficulty !== null) {
-            optionalProperties.push(`                <[float64]   [difficulty]         [${this.difficulty}]>`);
+            fileSet.push("float64", "difficulty", this.difficulty);
         }
         if (this.isFeatured !== null) {
-            optionalProperties.push(
-                `                <[bool]      [is_featured]        [${this.isFeatured ? "true" : "false"}]>`,
-            );
+            fileSet.push("bool", "is_featured", this.isFeatured);
         }
 
-        const moreOptionalProperties = [];
+        fileSet.push("string8", "flight_setting", this.flightSetting);
+        fileSet.push("string8u", "aircraft_name", this.aircraft.name);
+        //fileSet.push("string8u", "aircraft_livery", this.aircraft.livery);
+        fileSet.push("stringt8c", "aircraft_icao", this.aircraft.icao);
+        fileSet.push("stringt8c", "callsign", this.callsign);
+        fileSet.push("stringt8c", "origin_icao", this.origin.icao);
+        fileSet.push("tmvector2d", "origin_lon_lat", [this.origin.longitude, this.origin.latitude]);
+        fileSet.push("float64", "origin_alt", this.origin.alt, `${Math.ceil(this.origin.alt * feetPerMeter)} ft MSL`);
+        fileSet.push("float64", "origin_dir", this.origin.dir);
+        fileSet.push("stringt8c", "destination_icao", this.destination.icao);
+        fileSet.push("tmvector2d", "destination_lon_lat", [this.destination.longitude, this.destination.latitude]);
+        fileSet.push(
+            "float64",
+            "destination_alt",
+            this.destination.alt,
+            `${Math.ceil(this.destination.alt * feetPerMeter)} ft MSL`,
+        );
+        fileSet.push("float64", "destination_dir", this.destination.dir);
+
         if (this.distance !== null) {
-            moreOptionalProperties.push(
-                `                <[float64]   [distance]           [${this.distance}]> // ${Math.ceil(this.distance / 1000)} km`,
-            );
+            fileSet.push("float64", "distance", this.distance, `${Math.ceil(this.distance / 1000)} km`);
         }
         if (this.duration !== null) {
-            moreOptionalProperties.push(
-                `                <[float64]   [duration]           [${this.duration}]> // ${Math.ceil(this.duration / 60)} min`,
-            );
+            fileSet.push("float64", "duration", this.duration, `${Math.ceil(this.duration / 60)} min`);
         }
         if (this.isScheduled !== null) {
-            moreOptionalProperties.push(
-                `                <[bool]      [is_scheduled]       [${this.isScheduled ? "true" : "false"}]>`,
-            );
+            fileSet.push("bool", "is_scheduled", this.isScheduled ? "true" : "false");
         }
         if (this.finish !== null) {
-            moreOptionalProperties.push(this.finish.toString());
+            fileSet.pushRaw(this.finish.toString());
         }
 
-        return `            <[tmmission_definition][mission][]
-                <[string8][title][${this.title}]>
-                <[string8][description][${this.description}]>${optionalProperties.length > 0 ? "\n" + optionalProperties.join("\n") : ""}
-                <[string8]   [flight_setting]     [${this.flightSetting}]>
-                <[string8u]  [aircraft_name]      [${this.aircraft.name}]>
-                //<[string8u][aircraft_livery]    [${this.aircraft.livery}]>
-                <[stringt8c] [aircraft_icao]      [${this.aircraft.icao}]>
-                <[stringt8c] [callsign]           [${this.callsign}]>
-                <[stringt8c] [origin_icao]        [${this.origin.icao}]>
-                <[tmvector2d][origin_lon_lat]     [${this.origin.longitude} ${this.origin.latitude}]>
-                <[float64]   [origin_alt]         [${this.origin.alt}]> // ${Math.ceil(this.origin.alt * feetPerMeter)} ft MSL
-                <[float64]   [origin_dir]         [${this.origin.dir}]>
-                <[stringt8c] [destination_icao]   [${this.destination.icao}]>
-                <[tmvector2d][destination_lon_lat][${this.destination.longitude} ${this.destination.latitude}]>
-                <[float64]   [destination_alt]    [${this.destination.alt}]> // ${Math.ceil(this.destination.alt * feetPerMeter)} ft MSL
-                <[float64]   [destination_dir]    [${this.destination.dir}]>${moreOptionalProperties.length > 0 ? "\n" + moreOptionalProperties.join("\n") : ""}
-${this.conditions}
-                <[list_tmmission_checkpoint][checkpoints][]
-${this.getCheckpointsString()}
-                >
-            >`;
+        fileSet.pushRaw(this.conditions.toString());
+        fileSet.pushRaw(
+            new AeroflyConfigFileSet(4, "list_tmmission_checkpoint", "checkpoints")
+                .pushRaw(this.getCheckpointsString())
+                .toString(),
+        );
+
+        return fileSet.toString();
     }
 }
 
@@ -580,21 +625,23 @@ export class AeroflyMissionConditions {
             this.clouds = [new AeroflyMissionConditionsCloud(0, 0)];
         }
 
-        return `                <[tmmission_conditions][conditions][]
-                    <[tm_time_utc][time][]
-                        <[int32][time_year][${this.time.getUTCFullYear()}]>
-                        <[int32][time_month][${this.time.getUTCMonth() + 1}]>
-                        <[int32][time_day][${this.time.getUTCDate()}]>
-                        <[float64][time_hours][${this.time_hours}]> // ${this.time_presentational} UTC
-                    >
-                    <[float64][wind_direction][${this.wind.direction}]>
-                    <[float64][wind_speed][${this.wind.speed}]> // kts
-                    <[float64][wind_gusts][${this.wind.gusts}]> // kts
-                    <[float64][turbulence_strength][${this.turbulenceStrength}]>
-                    <[float64][thermal_strength][${this.thermalStrength}]> // ${this.temperature} °C
-                    <[float64][visibility][${this.visibility}]> // ${this.visibility_sm} SM
-${this.getCloudsString()}
-                >`;
+        return new AeroflyConfigFileSet(4, "tmmission_conditions", "conditions")
+            .pushRaw(
+                new AeroflyConfigFileSet(5, "tm_time_utc", "time")
+                    .push("int32", "time_year", this.time.getUTCFullYear())
+                    .push("int32", "time_month", this.time.getUTCMonth() + 1)
+                    .push("int32", "time_day", this.time.getUTCDate())
+                    .push("float64", "time_hours", this.time_hours, `${this.time_presentational} UTC`)
+                    .toString(),
+            )
+            .push("float64", "wind_direction", this.wind.direction)
+            .push("float64", "wind_speed", this.wind.speed, "kts")
+            .push("float64", "wind_gusts", this.wind.gusts, "kts")
+            .push("float64", "turbulence_strength", this.turbulenceStrength)
+            .push("float64", "thermal_strength", this.thermalStrength, `${this.temperature} °C`)
+            .push("float64", "visibility", this.visibility, `${this.visibility_sm} SM`)
+            .pushRaw(this.getCloudsString())
+            .toString();
     }
 }
 
@@ -872,29 +919,25 @@ export class AeroflyMissionCheckpoint {
      * @returns {string} to use in Aerofly FS4's `custom_missions_user.tmc`
      */
     toString(index: number = 0): string {
-        const optionalProperties = [];
+        const fileSet = new AeroflyConfigFileSet(5, "tmmission_checkpoint", "element", String(index))
+            .push("string8u", "type", this.type)
+            .push("string8u", "name", this.name)
+            .push("vector2_float64", "lon_lat", [this.longitude, this.latitude])
+            .push("float64", "altitude", this.altitude, `${Math.ceil(this.altitude_feet)} ft`)
+            .push("float64", "direction", this.direction ?? (index === 0 ? -1 : 0))
+            .push("float64", "slope", this.slope ?? 0);
+
         if (this.length) {
-            optionalProperties.push(
-                `                        <[float64][length][${this.length ?? 0}]> // ${Math.floor(this.length_feet)} ft`,
-            );
+            fileSet.push("float64", "length", this.length ?? 0, `${Math.floor(this.length_feet)} ft`);
         }
         if (this.frequency) {
-            optionalProperties.push(
-                `                        <[float64][frequency][${this.frequency ?? 0}]> // ${this.frequency_string}`,
-            );
+            fileSet.push("float64", "frequency", this.frequency ?? 0, `${this.frequency_string}`);
         }
         if (this.flyOver !== null) {
-            optionalProperties.push(`                        <[bool][fly_over][${this.flyOver ? "true" : "false"}]>`);
+            fileSet.push("bool", "fly_over", this.flyOver);
         }
 
-        return `                    <[tmmission_checkpoint][element][${index}]
-                        <[string8u][type][${this.type}]>
-                        <[string8u][name][${this.name}]>
-                        <[vector2_float64][lon_lat][${this.longitude} ${this.latitude}]>
-                        <[float64][altitude][${this.altitude}]> // ${Math.ceil(this.altitude_feet)} ft
-                        <[float64][direction][${this.direction ?? (index === 0 ? -1 : 0)}]>
-                        <[float64][slope][${this.slope ?? 0}]>${optionalProperties.length > 0 ? "\n" + optionalProperties.join("\n") : ""}
-                    >`;
+        return fileSet.toString();
     }
 }
 
@@ -958,11 +1001,11 @@ export class AeroflyLocalizedText {
      * @returns {string} to use in Aerofly FS4's `custom_missions_user.tmc`
      */
     toString(index: number = 0): string {
-        return `                   <[tmmission_definition_localized][element][${index}]
-                        <[string8u][language][${this.language}]>
-                        <[string8][title][${this.title}]>
-                        <[string8][description][${this.description}]>
-                    >`;
+        return new AeroflyConfigFileSet(4, "tmmission_definition_localized", "element", String(index))
+            .push("string8u", "language", this.language)
+            .push("string8", "title", this.title)
+            .push("string8", "description", this.description)
+            .toString();
     }
 }
 
@@ -1014,10 +1057,10 @@ export class AeroflyMissionTargetPlane {
     }
 
     toString(): string {
-        return `                <[tmmission_target_plane][${this.name}][]
-                    <[vector2_float64][lon_lat][${this.longitude} ${this.latitude}]>
-                    <[float64][direction][${this.dir}]>
-                >`;
+        return new AeroflyConfigFileSet(4, "tmmission_target_plane", this.name)
+            .push("vector2_float64", "lon_lat", [this.longitude, this.latitude])
+            .push("float64", "direction", this.dir)
+            .toString();
     }
 }
 

@@ -1,4 +1,5 @@
 import {
+    AeroflyConfigFileSet,
     AeroflyMissionsList,
     AeroflyMission,
     AeroflyMissionConditions,
@@ -22,6 +23,27 @@ const assertValidAeroflyStructure = (aeroflyString: string): void => {
 const assertIncludes = (string: string, includes: string): void => {
     assert.ok(string.includes(includes), `Includes "${includes}"`);
 };
+
+{
+    const file = new AeroflyConfigFileSet(0, "file", "");
+    file.pushRaw(
+        new AeroflyConfigFileSet(1, "tmmissions_list", "")
+            .pushRaw(
+                new AeroflyConfigFileSet(2, "list_tmmission_definition", "missions")
+                    .pushRaw(
+                        new AeroflyConfigFileSet(3, "tmmission_definition", "mission")
+                            .push("string8", "title", "KCCR #1: Concord / Buchanan Field")
+                            .push("float64", "origin_alt", 1066.799965862401, "3500 ft MSL")
+                            .toString(),
+                    )
+                    .pushRaw(new AeroflyConfigFileSet(3, "tmmission_definition", "mission").toString())
+                    .toString(),
+            )
+            .toString(),
+    );
+    assertValidAeroflyStructure(file.toString());
+    console.log("✅ AeroflyMission test successful");
+}
 
 {
     const mission = new AeroflyMission("Title");

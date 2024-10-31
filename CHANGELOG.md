@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.2
+
+- Changed actual file generation to improve programmatic adding of entries to file
+
 ## 1.2.1
 
 - Adding `is_scheduled` and `tutorial_name` property
