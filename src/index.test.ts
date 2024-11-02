@@ -249,7 +249,7 @@ const assertIncludes = (string: string, includes: string): void => {
     assertValidAeroflyStructure(missionListString);
 
     //console.dir(missionList.missions[0], { depth: null });
-    console.log(missionListString);
+    //console.log(missionListString);
 
     console.log("✅ AeroflyMissionsList test successful");
 }
