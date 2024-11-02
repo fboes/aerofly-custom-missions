@@ -82,17 +82,13 @@ export class AeroflyConfigFileSet {
         return "    ".repeat(this.#indent);
     }
 
-    get innerIndent(): string {
-        return "    ".repeat(this.#indent + 1);
-    }
-
     push(type: string, name: string, value: string | number | string[] | number[] | boolean, comment: string = "") {
         if (value instanceof Array) {
             value = value.join(" ");
         } else if (typeof value === "boolean") {
             value = value ? "true" : "false";
         }
-        let tag = `${this.innerIndent}<[${type}][${name}][${value}]>`;
+        let tag = `${this.indent}    <[${type}][${name}][${value}]>`;
         if (comment) {
             tag += ` // ${comment}`;
         }
@@ -135,7 +131,8 @@ export class AeroflyMissionsList {
      */
     toString(): string {
         const separator = "\n// -----------------------------------------------------------------------------\n";
-        return `<[file][][]
+        return `\
+<[file][][]
     <[tmmissions_list][][]
         <[list_tmmission_definition][missions][]${separator + this.missions.join(separator) + separator}        >
     >
@@ -733,7 +730,9 @@ export class AeroflyMissionConditionsCloud {
                 return "";
         }
 
-        return `                    <[float64][${indexString}_cover][${this.cover ?? 0}]> // ${this.cover_code}
+        // TODO
+        return `\
+                    <[float64][${indexString}_cover][${this.cover ?? 0}]> // ${this.cover_code}
                     <[float64][${indexString}_base][${this.base}]> // ${this.base_feet} ft AGL`;
     }
 }

@@ -21,9 +21,6 @@ export class AeroflyConfigFileSet {
     get indent() {
         return "    ".repeat(__classPrivateFieldGet(this, _AeroflyConfigFileSet_indent, "f"));
     }
-    get innerIndent() {
-        return "    ".repeat(__classPrivateFieldGet(this, _AeroflyConfigFileSet_indent, "f") + 1);
-    }
     push(type, name, value, comment = "") {
         if (value instanceof Array) {
             value = value.join(" ");
@@ -31,7 +28,7 @@ export class AeroflyConfigFileSet {
         else if (typeof value === "boolean") {
             value = value ? "true" : "false";
         }
-        let tag = `${this.innerIndent}<[${type}][${name}][${value}]>`;
+        let tag = `${this.indent}    <[${type}][${name}][${value}]>`;
         if (comment) {
             tag += ` // ${comment}`;
         }
@@ -66,7 +63,8 @@ export class AeroflyMissionsList {
      */
     toString() {
         const separator = "\n// -----------------------------------------------------------------------------\n";
-        return `<[file][][]
+        return `\
+<[file][][]
     <[tmmissions_list][][]
         <[list_tmmission_definition][missions][]${separator + this.missions.join(separator) + separator}        >
     >
@@ -264,7 +262,7 @@ export class AeroflyMissionConditions {
         direction: 0,
         speed: 0,
         gusts: 0,
-    }, turbulenceStrength = 0, thermalStrength = 0, visibility = 25_000, visibility_sm = null, temperature = null, clouds = [], } = {}) {
+    }, turbulenceStrength = 0, thermalStrength = 0, visibility = 25000, visibility_sm = null, temperature = null, clouds = [], } = {}) {
         /**
          * @property {AeroflyMissionConditionsCloud[]} clouds for the whole flight
          */
@@ -432,7 +430,9 @@ export class AeroflyMissionConditionsCloud {
             default:
                 return "";
         }
-        return `                    <[float64][${indexString}_cover][${this.cover ?? 0}]> // ${this.cover_code}
+        // TODO
+        return `\
+                    <[float64][${indexString}_cover][${this.cover ?? 0}]> // ${this.cover_code}
                     <[float64][${indexString}_base][${this.base}]> // ${this.base_feet} ft AGL`;
     }
 }
@@ -516,11 +516,11 @@ export class AeroflyMissionCheckpoint {
         if (!this.frequency) {
             return "None";
         }
-        if (this.frequency > 1_000_000) {
-            return String(this.frequency / 1_000_000) + " MHz";
+        if (this.frequency > 1000000) {
+            return String(this.frequency / 1000000) + " MHz";
         }
-        if (this.frequency > 1_000) {
-            return String(this.frequency / 1_000) + " kHz";
+        if (this.frequency > 1000) {
+            return String(this.frequency / 1000) + " kHz";
         }
         return String(this.frequency) + " Hz";
     }
