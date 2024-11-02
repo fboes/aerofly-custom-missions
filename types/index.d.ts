@@ -25,7 +25,15 @@ export type AeroflyMissionSetting = "taxi" | "takeoff" | "cruise" | "approach" |
 /**
  * Types of checkpoints. Required are usually "origin", "departure_runway" at the start and "destination_runway", "destination" at the end.
  */
-export type AeroflyMissionCheckpointType = "origin" | "departure_runway" | "departure" | "waypoint" | "arrival" | "approach" | "destination_runway" | "destination";
+export type AeroflyMissionCheckpointType =
+    | "origin"
+    | "departure_runway"
+    | "departure"
+    | "waypoint"
+    | "arrival"
+    | "approach"
+    | "destination_runway"
+    | "destination";
 /**
  * Data for the aircraft to use on this mission
  * @property name lowercase Aerofly aircraft ID
@@ -185,25 +193,46 @@ export declare class AeroflyMission {
      * @param {AeroflyMissionConditions} [additionalAttributes.conditions] like time and weather for mission
      * @param {AeroflyMissionCheckpoint[]} [additionalAttributes.checkpoints] form the actual flight plan
      */
-    constructor(title: string, { tutorialName, description, localizedTexts, tags, isFeatured, difficulty, flightSetting, aircraft, callsign, origin, destination, distance, duration, isScheduled, finish, conditions, checkpoints, }?: {
-        tutorialName?: string | null;
-        description?: string;
-        localizedTexts?: AeroflyLocalizedText[];
-        tags?: string[];
-        isFeatured?: boolean | null;
-        difficulty?: number | null;
-        flightSetting?: AeroflyMissionSetting;
-        aircraft?: AeroflyMissionAircraft;
-        callsign?: string;
-        origin?: AeroflyMissionPosition;
-        destination?: AeroflyMissionPosition;
-        distance?: number | null;
-        duration?: number | null;
-        isScheduled?: boolean | null;
-        finish?: AeroflyMissionTargetPlane | null;
-        conditions?: AeroflyMissionConditions;
-        checkpoints?: AeroflyMissionCheckpoint[];
-    });
+    constructor(
+        title: string,
+        {
+            tutorialName,
+            description,
+            localizedTexts,
+            tags,
+            isFeatured,
+            difficulty,
+            flightSetting,
+            aircraft,
+            callsign,
+            origin,
+            destination,
+            distance,
+            duration,
+            isScheduled,
+            finish,
+            conditions,
+            checkpoints,
+        }?: {
+            tutorialName?: string | null;
+            description?: string;
+            localizedTexts?: AeroflyLocalizedText[];
+            tags?: string[];
+            isFeatured?: boolean | null;
+            difficulty?: number | null;
+            flightSetting?: AeroflyMissionSetting;
+            aircraft?: AeroflyMissionAircraft;
+            callsign?: string;
+            origin?: AeroflyMissionPosition;
+            destination?: AeroflyMissionPosition;
+            distance?: number | null;
+            duration?: number | null;
+            isScheduled?: boolean | null;
+            finish?: AeroflyMissionTargetPlane | null;
+            conditions?: AeroflyMissionConditions;
+            checkpoints?: AeroflyMissionCheckpoint[];
+        },
+    );
     /**
      * @returns {string} indexed checkpoints
      */
@@ -264,7 +293,16 @@ export declare class AeroflyMissionConditions {
      * @param {?number} [additionalAttributes.temperature] in °C, will overwrite thermalStrength
      * @param {AeroflyMissionConditionsCloud[]} [additionalAttributes.clouds] for the whole flight
      */
-    constructor({ time, wind, turbulenceStrength, thermalStrength, visibility, visibility_sm, temperature, clouds, }?: {
+    constructor({
+        time,
+        wind,
+        turbulenceStrength,
+        thermalStrength,
+        visibility,
+        visibility_sm,
+        temperature,
+        clouds,
+    }?: {
         time?: Date;
         wind?: {
             direction: number;
@@ -435,16 +473,31 @@ export declare class AeroflyMissionCheckpoint {
      * @param {?number} [additionalAttributes.frequency] of runways or navigational aids, in Hz; multiply by 1000 for kHz, 1_000_000 for MHz
      * @param {?boolean} [additionalAttributes.flyOver] if waypoint is meant to be flown over
      */
-    constructor(name: string, type: AeroflyMissionCheckpointType, longitude: number, latitude: number, { altitude, altitude_feet, direction, slope, length, length_feet, frequency, flyOver, }?: {
-        altitude?: number;
-        altitude_feet?: number | null;
-        direction?: number | null;
-        slope?: number | null;
-        length?: number | null;
-        length_feet?: number | null;
-        frequency?: number | null;
-        flyOver?: boolean | null;
-    });
+    constructor(
+        name: string,
+        type: AeroflyMissionCheckpointType,
+        longitude: number,
+        latitude: number,
+        {
+            altitude,
+            altitude_feet,
+            direction,
+            slope,
+            length,
+            length_feet,
+            frequency,
+            flyOver,
+        }?: {
+            altitude?: number;
+            altitude_feet?: number | null;
+            direction?: number | null;
+            slope?: number | null;
+            length?: number | null;
+            length_feet?: number | null;
+            frequency?: number | null;
+            flyOver?: boolean | null;
+        },
+    );
     /**
      * @param {number} altitude_feet
      */

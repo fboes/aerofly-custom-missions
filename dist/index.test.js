@@ -32,8 +32,8 @@ const assertIncludes = (string, includes) => {
 }
 {
     const conditions = new AeroflyMissionConditions();
-    conditions.visibility = 15000;
-    assert.deepStrictEqual(conditions.visibility, 15000);
+    conditions.visibility = 15_000;
+    assert.deepStrictEqual(conditions.visibility, 15_000);
     conditions.visibility_sm = 10;
     assert.notDeepStrictEqual(conditions.visibility, 10);
     assert.deepStrictEqual(Math.round(conditions.visibility_sm), 10);
@@ -42,9 +42,9 @@ const assertIncludes = (string, includes) => {
 }
 {
     const conditions = new AeroflyMissionConditions({
-        visibility: 15000,
+        visibility: 15_000,
     });
-    assert.deepStrictEqual(conditions.visibility, 15000);
+    assert.deepStrictEqual(conditions.visibility, 15_000);
     assertValidAeroflyStructure(conditions.toString());
     console.log("✅ AeroflyMissionConditions test successful");
 }
@@ -208,6 +208,6 @@ const assertIncludes = (string, includes) => {
     assertIncludes(missionListString, "[is_scheduled]");
     assertValidAeroflyStructure(missionListString);
     //console.dir(missionList.missions[0], { depth: null });
-    console.log(missionListString);
+    //console.log(missionListString);
     console.log("✅ AeroflyMissionsList test successful");
 }
