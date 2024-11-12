@@ -178,7 +178,7 @@ The `tags` property of a single mission can contain multiple values. The followi
 - `AeroflyMissionCheckpoint.type`: Even though internal flight plans of Aerofly FS 4 have types `"departure"|"arrival"|"approach"`, [Aerofly FS 4 dumps SIDs and STARs on loading a custom missions](https://www.aerofly.com/community/forum/index.php?thread/22156-flight-plans/).
 - `AeroflyMission.aircraft.livery`: Even though Aerofly FS 4 knows multiple liveries per plane, [the custom missions file is not able to set liveries to any other but the standard livery](https://www.aerofly.com/community/forum/index.php?thread/19105-user-created-custom-missions/).
 - `AeroflyMission.isScheduled`: Even though for regular missions this will mark these as a "Scheduled flight", [custom missions cannot be created as "Scheduled flights"](https://www.aerofly.com/community/forum/index.php?thread/23101-challenge-guides/&postID=147354#post147432).
-- `AeroflyMission.isFeatured`: Even though for regular missions this will mark these as a featured missions, custom missions cannot be create featured missions.
+- `AeroflyMission.isFeatured`: Even though for regular missions this will mark these as a featured missions, custom missions cannot be created as featured missions.
 
 ## Status
 

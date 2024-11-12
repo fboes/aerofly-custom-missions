@@ -363,10 +363,6 @@ export class AeroflyMission {
      * @returns {string} to use in Aerofly FS4's `custom_missions_user.tmc`
      */
     toString(): string {
-        if (this.checkpoints.length < 2) {
-            throw Error("this.checkpoints.length < 2");
-        }
-
         if (!this.origin.icao) {
             const firstCheckpoint = this.checkpoints[0];
             this.origin = {
@@ -451,11 +447,13 @@ export class AeroflyMission {
         }
 
         fileSet.pushRaw(this.conditions.toString());
-        fileSet.pushRaw(
-            new AeroflyConfigFileSet(4, "list_tmmission_checkpoint", "checkpoints")
-                .pushRaw(this.getCheckpointsString())
-                .toString(),
-        );
+        if (this.checkpoints.length > 0) {
+            fileSet.pushRaw(
+                new AeroflyConfigFileSet(4, "list_tmmission_checkpoint", "checkpoints")
+                    .pushRaw(this.getCheckpointsString())
+                    .toString(),
+            );
+        }
 
         return fileSet.toString();
     }

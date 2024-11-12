@@ -1,11 +1,9 @@
 # Changelog
 
-## 1.2.2
-
-- Changed actual file generation to improve programmatic adding of entries to file
-
 ## 1.2.1
 
+- Changed handling of checkpoints, as it is obviously possible to have missions without checkpoints
+- Changed actual file generation to improve programmatic adding of entries to file
 - Adding `is_scheduled` and `tutorial_name` property
 - Improved cloud handling
 - Improved handling off unset values
