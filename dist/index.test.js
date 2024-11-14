@@ -32,15 +32,15 @@ const assertIncludes = (string, includes) => {
             longitude: 0,
             latitude: 0,
             dir: 0,
-            alt: 0
+            alt: 0,
         },
         destination: {
             icao: "XXXX",
             longitude: 0,
             latitude: 0,
             dir: 0,
-            alt: 0
-        }
+            alt: 0,
+        },
     });
     assert.deepStrictEqual(mission.title, "Title");
     assertValidAeroflyStructure(mission.toString());

@@ -25,7 +25,17 @@ export type AeroflyMissionPosition = {
 /**
  * State of aircraft systems. Configures power settings, flap positions etc
  */
-export type AeroflyMissionSetting = "taxi" | "takeoff" | "cruise" | "approach" | "landing" | "winch_launch" | "aerotow";
+export type AeroflyMissionSetting =
+    | "cold_and_dark"
+    | "before_start"
+    | "taxi"
+    | "takeoff"
+    | "cruise"
+    | "approach"
+    | "landing"
+    | "winch_launch"
+    | "aerotow"
+    | "pushback";
 
 /**
  * Types of checkpoints. Required are usually "origin", "departure_runway" at the start and "destination_runway", "destination" at the end.
@@ -185,7 +195,7 @@ export class AeroflyMission {
     difficulty: number | null;
 
     /**
-     * @property {"taxi"|"takeoff"|"cruise"|"approach"|"landing"|"winch_launch"|"aerotow"} flightSetting of aircraft, like "taxi", "cruise"
+     * @property {"cold_and_dark"|"before_start"|"taxi"|"takeoff"|"cruise"|"approach"|"landing"|"winch_launch"|"aerotow"|"pushback"} flightSetting of aircraft, like "taxi", "cruise"
      */
     flightSetting: AeroflyMissionSetting;
 
@@ -248,7 +258,7 @@ export class AeroflyMission {
      * @param {string[]} [additionalAttributes.tags]
      * @param {?boolean} [additionalAttributes.isFeatured] makes this mission pop up in "Challenges"
      * @param {?number} [additionalAttributes.difficulty] values between 0.00 and 2.00 have been encountered, but they seem to be without limit
-     * @param {"taxi"|"takeoff"|"cruise"|"approach"|"landing"|"winch_launch"|"aerotow"} [additionalAttributes.flightSetting] of aircraft, like "taxi", "cruise"
+     * @param {"cold_and_dark"|"before_start"|"taxi"|"takeoff"|"cruise"|"approach"|"landing"|"winch_launch"|"aerotow"|"pushback"} [additionalAttributes.flightSetting] of aircraft, like "taxi", "cruise"
      * @param {{name:string,livery:string,icao:string}} [additionalAttributes.aircraft] for this mission
      * @param {string} [additionalAttributes.callsign] of aircraft, uppercased
      * @param {object} [additionalAttributes.origin] position of aircraft, as well as name of starting airport. Position does not have match airport.
@@ -416,7 +426,9 @@ export class AeroflyMission {
 
         fileSet.push("string8", "flight_setting", this.flightSetting);
         fileSet.push("string8u", "aircraft_name", this.aircraft.name);
-        //fileSet.push("string8u", "aircraft_livery", this.aircraft.livery);
+        /*if (this.aircraft.livery) {
+            fileSet.push("string8", "aircraft_livery", this.aircraft.livery);
+        }*/
         fileSet.push("stringt8c", "aircraft_icao", this.aircraft.icao);
         fileSet.push("stringt8c", "callsign", this.callsign);
         fileSet.push("stringt8c", "origin_icao", this.origin.icao);
@@ -434,10 +446,10 @@ export class AeroflyMission {
         fileSet.push("float64", "destination_dir", this.destination.dir);
 
         if (this.distance !== null) {
-            fileSet.push("float64", "distance", this.distance, `${Math.ceil(this.distance / 1000)} km`);
+            fileSet.push("float64", "distance", this.distance, `${Math.round(this.distance / 1000)} km`);
         }
         if (this.duration !== null) {
-            fileSet.push("float64", "duration", this.duration, `${Math.ceil(this.duration / 60)} min`);
+            fileSet.push("float64", "duration", this.duration, `${Math.round(this.duration / 60)} min`);
         }
         if (this.isScheduled !== null) {
             fileSet.push("bool", "is_scheduled", this.isScheduled ? "true" : "false");

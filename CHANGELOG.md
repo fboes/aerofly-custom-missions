@@ -7,6 +7,7 @@
 - Adding `is_scheduled` and `tutorial_name` property
 - Improved cloud handling
 - Improved handling off unset values
+- Added `cold_and_dark`, `before_start`, `pushback"` as flight setting
 
 ## 1.2.0
 
@@ -21,7 +22,7 @@
 ## 1.1.0
 
 - Added new mission properties `tags`, `isFeatured`, `difficulty`, `distance`, `duration` and translations
-- Added new flight settings `"winch_launch`, `aerotow`
+- Added new flight settings `winch_launch`, `aerotow`
 - Improved temperature property
 
 ## 1.0.4
