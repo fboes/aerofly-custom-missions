@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.2.2
+
+- Added altitude constraint property
+- Improved handling of cloud layers
+
 ## 1.2.1
 
 - Changed handling of checkpoints, as it is obviously possible to have missions without checkpoints

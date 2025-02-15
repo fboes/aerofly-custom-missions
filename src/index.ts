@@ -724,26 +724,25 @@ export class AeroflyMissionConditionsCloud {
      * @returns {string} to use in Aerofly FS4's `custom_missions_user.tmc`
      */
     toString(index: number = 0): string {
-        let indexString = "";
+        const getIndexString = (index: number) => {
+            switch (index) {
+                case 0:
+                    return "cloud";
+                case 1:
+                    return "cirrus";
+                case 2:
+                    return "cumulus_mediocris";
+                default:
+                    return "more_clouds";
+            }
+        };
 
-        switch (index) {
-            case 0:
-                indexString = "cloud";
-                break;
-            case 1:
-                indexString = "cirrus";
-                break;
-            case 2:
-                indexString = "cumulus_mediocris";
-                break;
-            default:
-                return "";
-        }
+        const indexString = getIndexString(index);
+        const comment = index > 1 ? '//' : '';
 
-        // TODO
         return `\
-                    <[float64][${indexString}_cover][${this.cover ?? 0}]> // ${this.cover_code}
-                    <[float64][${indexString}_base][${this.base}]> // ${this.base_feet} ft AGL`;
+                    ${comment}<[float64][${indexString}_cover][${this.cover ?? 0}]> // ${this.cover_code}
+                    ${comment}<[float64][${indexString}_base][${this.base}]> // ${this.base_feet} ft AGL`;
     }
 }
 
@@ -788,6 +787,13 @@ export class AeroflyMissionCheckpoint {
     altitude: number;
 
     /**
+     * @property {?boolean} altitudeConstraint The altitude given in `altitude`
+     *    will be interpreted as mandatory flight plan altitude instead of
+     *    suggestion.
+     */
+    altitudeConstraint: boolean | null;
+
+    /**
      * @property {?number} direction of runway, in degree
      */
     direction: number | null;
@@ -827,7 +833,10 @@ export class AeroflyMissionCheckpoint {
      *    84 reference ellipsoid
      * @param {?number} [additionalAttributes.altitude_feet] The height in feet above or below the WGS
      *    84 reference ellipsoid. Will overwrite altitude
-     * @param {number} [additionalAttributes.direction] of runway, in degree
+     * @param {number} [additionalAttributes.altitudeConstraint] The altitude given in `altitude`
+     *    will be interpreted as mandatory flight plan altitude instead of
+     *    suggestion.
+     * @param {boolean} [additionalAttributes.direction] of runway, in degree
      * @param {?number} [additionalAttributes.slope] of runway
      * @param {?number} [additionalAttributes.length] of runway, in meters
      * @param {?number} [additionalAttributes.length_feet] of runway, in feet. Will overwrite length
@@ -842,6 +851,7 @@ export class AeroflyMissionCheckpoint {
         {
             altitude = 0,
             altitude_feet = null,
+            altitudeConstraint = null,
             direction = null,
             slope = null,
             length = null,
@@ -851,6 +861,7 @@ export class AeroflyMissionCheckpoint {
         }: {
             altitude?: number;
             altitude_feet?: number | null;
+            altitudeConstraint?: boolean | null;
             direction?: number | null;
             slope?: number | null;
             length?: number | null;
@@ -864,6 +875,7 @@ export class AeroflyMissionCheckpoint {
         this.longitude = longitude;
         this.latitude = latitude;
         this.altitude = altitude;
+        this.altitudeConstraint = altitudeConstraint;
         this.direction = direction;
         this.slope = slope;
         this.length = length;
@@ -936,6 +948,9 @@ export class AeroflyMissionCheckpoint {
             .push("float64", "direction", this.direction ?? (index === 0 ? -1 : 0))
             .push("float64", "slope", this.slope ?? 0);
 
+        if (this.altitudeConstraint !== null) {
+            fileSet.push("bool", "alt_cst", this.altitudeConstraint);
+        }
         if (this.length) {
             fileSet.push("float64", "length", this.length ?? 0, `${Math.floor(this.length_feet)} ft`);
         }

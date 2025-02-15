@@ -104,6 +104,11 @@ const assertIncludes = (string: string, includes: string): void => {
     assert.deepStrictEqual(cloud.cover, 0);
     assert.deepStrictEqual(cloud.base, 0);
     assertValidAeroflyStructure(cloud.toString());
+    assertValidAeroflyStructure(cloud.toString(0));
+    assertValidAeroflyStructure(cloud.toString(1));
+    assertValidAeroflyStructure(cloud.toString(2));
+    assertValidAeroflyStructure(cloud.toString(3));
+
     console.log("✅ AeroflyMissionConditionsCloud test successful");
 }
 
@@ -136,6 +141,28 @@ const assertIncludes = (string: string, includes: string): void => {
     assert.deepStrictEqual(targetPlane.name, "Test2");
     assertValidAeroflyStructure(targetPlane.toString());
     console.log("✅ AeroflyMissionTargetPlane test successful");
+}
+
+{
+    const checkpoint = new AeroflyMissionCheckpoint("TEST", "waypoint", 15, 20);
+    let checkpointString = checkpoint.toString();
+
+    assertIncludes(checkpointString, "[type]");
+    assertIncludes(checkpointString, "[name]");
+    assertIncludes(checkpointString, "[lon_lat]");
+    assertIncludes(checkpointString, "15 20");
+    assertIncludes(checkpointString, "[altitude]");
+    assert.ok(!checkpointString.includes("[fly_over]"));
+    assert.ok(!checkpointString.includes("[alt_cst]"));
+
+    checkpoint.altitudeConstraint = false;
+    checkpoint.flyOver = false;
+    checkpointString = checkpoint.toString();
+
+    assertIncludes(checkpointString, "[fly_over]");
+    assertIncludes(checkpointString, "[alt_cst]");
+
+    console.log("✅ AeroflyMissionCheckpoint test successful");
 }
 
 {
@@ -236,6 +263,7 @@ const assertIncludes = (string: string, includes: string): void => {
     assert.ok(!missionListString.includes("[tmmission_definition_localized]"));
     assert.ok(!missionListString.includes("[distance]"));
     assert.ok(!missionListString.includes("[duration]"));
+    assert.ok(!missionListString.includes("[alt_cst]"));
     assertValidAeroflyStructure(missionListString);
 
     //console.log(missionListString);
