@@ -1,5 +1,12 @@
-import { AeroflyConfigFileSet, AeroflyMissionsList, AeroflyMission, AeroflyMissionConditions, AeroflyMissionConditionsCloud, AeroflyMissionCheckpoint, AeroflyLocalizedText, AeroflyMissionTargetPlane, } from "./index.js";
 import { strict as assert } from "node:assert";
+import { AeroflyConfigFileSet } from "./dto/AeroflyConfigFileSet.js";
+import { AeroflyLocalizedText } from "./index.js";
+import { AeroflyMission } from "./index.js";
+import { AeroflyMissionCheckpoint } from "./index.js";
+import { AeroflyMissionConditions } from "./index.js";
+import { AeroflyMissionConditionsCloud } from "./index.js";
+import { AeroflyMissionsList } from "./index.js";
+import { AeroflyMissionTargetPlane } from "./index.js";
 const assertValidAeroflyStructure = (aeroflyString) => {
     const openingBrackets = aeroflyString.match(/</g);
     const closingBrackets = aeroflyString.match(/>/g);
@@ -49,8 +56,8 @@ const assertIncludes = (string, includes) => {
 }
 {
     const conditions = new AeroflyMissionConditions();
-    conditions.visibility = 15000;
-    assert.deepStrictEqual(conditions.visibility, 15000);
+    conditions.visibility = 15_000;
+    assert.deepStrictEqual(conditions.visibility, 15_000);
     conditions.visibility_sm = 10;
     assert.notDeepStrictEqual(conditions.visibility, 10);
     assert.deepStrictEqual(Math.round(conditions.visibility_sm), 10);
@@ -59,9 +66,9 @@ const assertIncludes = (string, includes) => {
 }
 {
     const conditions = new AeroflyMissionConditions({
-        visibility: 15000,
+        visibility: 15_000,
     });
-    assert.deepStrictEqual(conditions.visibility, 15000);
+    assert.deepStrictEqual(conditions.visibility, 15_000);
     assertValidAeroflyStructure(conditions.toString());
     console.log("✅ AeroflyMissionConditions test successful");
 }

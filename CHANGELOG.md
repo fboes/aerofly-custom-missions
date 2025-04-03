@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.3
+
+- Internal restructuring
+
 ## 1.2.2
 
 - Added altitude constraint property

@@ -1,14 +1,12 @@
-import {
-    AeroflyConfigFileSet,
-    AeroflyMissionsList,
-    AeroflyMission,
-    AeroflyMissionConditions,
-    AeroflyMissionConditionsCloud,
-    AeroflyMissionCheckpoint,
-    AeroflyLocalizedText,
-    AeroflyMissionTargetPlane,
-} from "./index.js";
 import { strict as assert } from "node:assert";
+import { AeroflyConfigFileSet } from "./dto/AeroflyConfigFileSet.js";
+import { AeroflyLocalizedText } from "./index.js";
+import { AeroflyMission } from "./index.js";
+import { AeroflyMissionCheckpoint } from "./index.js";
+import { AeroflyMissionConditions } from "./index.js";
+import { AeroflyMissionConditionsCloud } from "./index.js";
+import { AeroflyMissionsList } from "./index.js";
+import { AeroflyMissionTargetPlane } from "./index.js";
 
 const assertValidAeroflyStructure = (aeroflyString: string): void => {
     const openingBrackets = aeroflyString.match(/</g);
