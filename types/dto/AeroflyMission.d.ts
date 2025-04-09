@@ -171,25 +171,7 @@ export declare class AeroflyMission {
             finish,
             conditions,
             checkpoints,
-        }?: {
-            tutorialName?: string | null;
-            description?: string;
-            localizedTexts?: AeroflyLocalizedText[];
-            tags?: string[];
-            isFeatured?: boolean | null;
-            difficulty?: number | null;
-            flightSetting?: AeroflyMissionSetting;
-            aircraft?: AeroflyMissionAircraft;
-            callsign?: string;
-            origin?: AeroflyMissionPosition;
-            destination?: AeroflyMissionPosition;
-            distance?: number | null;
-            duration?: number | null;
-            isScheduled?: boolean | null;
-            finish?: AeroflyMissionTargetPlane | null;
-            conditions?: AeroflyMissionConditions;
-            checkpoints?: AeroflyMissionCheckpoint[];
-        },
+        }?: Partial<AeroflyMission>,
     );
     /**
      * @returns {string} indexed checkpoints

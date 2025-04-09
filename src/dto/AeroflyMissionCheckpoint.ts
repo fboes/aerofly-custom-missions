@@ -22,7 +22,6 @@ export type AeroflyMissionCheckpointType =
  * `custom_missions_user.tmc` flight plan file format, and export the structure
  * for this file via the `toString()` method.
  */
-
 export class AeroflyMissionCheckpoint {
     /**
      * @property {"origin"|"departure_runway"|"departure"|"waypoint"|"arrival"|"approach"|"destination_runway"|"destination"} type of checkpoint, like "departure_runway"
@@ -119,24 +118,17 @@ export class AeroflyMissionCheckpoint {
         latitude: number,
         {
             altitude = 0,
-            altitude_feet = null,
+            altitude_feet = 0,
             altitudeConstraint = null,
             direction = null,
             slope = null,
             length = null,
-            length_feet = null,
+            length_feet = 0,
             frequency = null,
             flyOver = null,
-        }: {
-            altitude?: number;
-            altitude_feet?: number | null;
-            altitudeConstraint?: boolean | null;
-            direction?: number | null;
-            slope?: number | null;
-            length?: number | null;
-            length_feet?: number | null;
-            frequency?: number | null;
-            flyOver?: boolean | null;
+        }: Partial<AeroflyMissionCheckpoint> & {
+            altitude_feet?: number;
+            length_feet?: number;
         } = {},
     ) {
         this.type = type;

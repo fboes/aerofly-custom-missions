@@ -65,19 +65,9 @@ export declare class AeroflyMissionConditions {
         visibility_sm,
         temperature,
         clouds,
-    }?: {
-        time?: Date;
-        wind?: {
-            direction: number;
-            speed: number;
-            gusts: number;
-        };
-        turbulenceStrength?: number;
-        thermalStrength?: number;
-        visibility?: number;
-        visibility_sm?: number | null;
-        temperature?: number | null;
-        clouds?: AeroflyMissionConditionsCloud[];
+    }?: Partial<AeroflyMissionConditions> & {
+        visibility_sm?: number;
+        temperature?: number;
     });
     /**
      * @returns {number} the Aerofly value for UTC hours + minutes/60 + seconds/3600. Ignores milliseconds ;)

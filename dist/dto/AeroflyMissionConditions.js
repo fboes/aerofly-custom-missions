@@ -26,7 +26,7 @@ export class AeroflyMissionConditions {
         direction: 0,
         speed: 0,
         gusts: 0,
-    }, turbulenceStrength = 0, thermalStrength = 0, visibility = 25_000, visibility_sm = null, temperature = null, clouds = [], } = {}) {
+    }, turbulenceStrength = 0, thermalStrength = 0, visibility = 25000, visibility_sm = 0, temperature = 0, clouds = [], } = {}) {
         /**
          * @property {AeroflyMissionConditionsCloud[]} clouds for the whole flight
          */

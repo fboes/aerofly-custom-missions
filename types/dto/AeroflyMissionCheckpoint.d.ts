@@ -111,16 +111,9 @@ export declare class AeroflyMissionCheckpoint {
             length_feet,
             frequency,
             flyOver,
-        }?: {
-            altitude?: number;
-            altitude_feet?: number | null;
-            altitudeConstraint?: boolean | null;
-            direction?: number | null;
-            slope?: number | null;
-            length?: number | null;
-            length_feet?: number | null;
-            frequency?: number | null;
-            flyOver?: boolean | null;
+        }?: Partial<AeroflyMissionCheckpoint> & {
+            altitude_feet?: number;
+            length_feet?: number;
         },
     );
     /**

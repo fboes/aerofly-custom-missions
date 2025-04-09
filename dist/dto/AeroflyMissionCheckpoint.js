@@ -34,7 +34,7 @@ export class AeroflyMissionCheckpoint {
      * @param {?number} [additionalAttributes.frequency] of runways or navigational aids, in Hz; multiply by 1000 for kHz, 1_000_000 for MHz
      * @param {?boolean} [additionalAttributes.flyOver] if waypoint is meant to be flown over
      */
-    constructor(name, type, longitude, latitude, { altitude = 0, altitude_feet = null, altitudeConstraint = null, direction = null, slope = null, length = null, length_feet = null, frequency = null, flyOver = null, } = {}) {
+    constructor(name, type, longitude, latitude, { altitude = 0, altitude_feet = 0, altitudeConstraint = null, direction = null, slope = null, length = null, length_feet = 0, frequency = null, flyOver = null, } = {}) {
         this.type = type;
         this.name = name;
         this.longitude = longitude;

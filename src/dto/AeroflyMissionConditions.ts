@@ -76,22 +76,12 @@ export class AeroflyMissionConditions {
         turbulenceStrength = 0,
         thermalStrength = 0,
         visibility = 25_000,
-        visibility_sm = null,
-        temperature = null,
+        visibility_sm = 0,
+        temperature = 0,
         clouds = [],
-    }: {
-        time?: Date;
-        wind?: {
-            direction: number;
-            speed: number;
-            gusts: number;
-        };
-        turbulenceStrength?: number;
-        thermalStrength?: number;
-        visibility?: number;
-        visibility_sm?: number | null;
-        temperature?: number | null;
-        clouds?: AeroflyMissionConditionsCloud[];
+    }: Partial<AeroflyMissionConditions> & {
+        visibility_sm?: number;
+        temperature?: number;
     } = {}) {
         this.time = time;
         this.wind = wind;
