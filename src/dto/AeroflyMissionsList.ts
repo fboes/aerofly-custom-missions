@@ -26,7 +26,11 @@ export class AeroflyMissionsList {
         return new AeroflyConfigurationNode("file", "").append(
             new AeroflyConfigurationNode("tmmissions_list", "").append(
                 new AeroflyConfigurationNode("list_tmmission_definition", "missions").append(
-                    ...this.missions.map((m): AeroflyConfigurationNode => m.getElement()),
+                    ...this.missions.map((m): AeroflyConfigurationNode =>{
+                        const mission = m.getElement();
+                        mission._comment = `End of ${mission.name}`;
+                        return mission;
+                    }),
                 ),
             ),
         );

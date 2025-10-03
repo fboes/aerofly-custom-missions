@@ -46,7 +46,7 @@ export class AeroflyConfigurationNode {
             tag += ">";
         }
         if (this._comment) {
-            tag += ` // ${this._comment}`;
+            tag += ` // ${this._comment.replace(/[\n\r]/g, " ")}`;
         }
         return tag;
     }

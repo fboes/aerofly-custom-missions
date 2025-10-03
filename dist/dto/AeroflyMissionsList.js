@@ -15,7 +15,11 @@ export class AeroflyMissionsList {
         this.missions = missions;
     }
     getElement() {
-        return new AeroflyConfigurationNode("file", "").append(new AeroflyConfigurationNode("tmmissions_list", "").append(new AeroflyConfigurationNode("list_tmmission_definition", "missions").append(...this.missions.map((m) => m.getElement()))));
+        return new AeroflyConfigurationNode("file", "").append(new AeroflyConfigurationNode("tmmissions_list", "").append(new AeroflyConfigurationNode("list_tmmission_definition", "missions").append(...this.missions.map((m) => {
+            const mission = m.getElement();
+            mission._comment = `End of ${mission.name}`;
+            return mission;
+        }))));
     }
     /**
      * @returns {string} to use in Aerofly FS4's `custom_missions_user.tmc`
