@@ -1,3 +1,4 @@
+import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
 import { AeroflyMission } from "./AeroflyMission.js";
 
 /**
@@ -21,16 +22,27 @@ export class AeroflyMissionsList {
         this.missions = missions;
     }
 
+    getElement(): AeroflyConfigurationNode {
+        return new AeroflyConfigurationNode("file", "").append(
+            new AeroflyConfigurationNode("tmmissions_list", "").append(
+                new AeroflyConfigurationNode("list_tmmission_definition", "missions").append(
+                    ...this.missions.map((m): AeroflyConfigurationNode => m.getElement()),
+                ),
+            ),
+        );
+    }
+
     /**
      * @returns {string} to use in Aerofly FS4's `custom_missions_user.tmc`
      */
     toString(): string {
-        const separator = "\n// -----------------------------------------------------------------------------\n";
-        return `\
-<[file][][]
-    <[tmmissions_list][][]
-        <[list_tmmission_definition][missions][]${separator + this.missions.join(separator) + separator}        >
-    >
->`;
+        return this.getElement().toString();
+    }
+
+    /**
+     * @returns {string} XML represenation of this mission list
+     */
+    toXmlString(): string {
+        return this.getElement().toXmlString();
     }
 }

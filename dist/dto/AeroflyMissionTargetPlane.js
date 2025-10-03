@@ -1,4 +1,4 @@
-import { AeroflyConfigFileSet } from "./AeroflyConfigFileSet.js";
+import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
 /**
  * @class
  * A target plane which the aircraft needs to cross.
@@ -21,10 +21,15 @@ export class AeroflyMissionTargetPlane {
         this.dir = dir;
         this.name = name;
     }
+    getElement() {
+        return new AeroflyConfigurationNode("tmmission_target_plane", this.name)
+            .appendChild("vector2_float64", "lon_lat", [this.longitude, this.latitude])
+            .appendChild("float64", "direction", this.dir);
+    }
+    /**
+     * @returns {string} to use in Aerofly FS4's `custom_missions_user.tmc`
+     */
     toString() {
-        return new AeroflyConfigFileSet(4, "tmmission_target_plane", this.name)
-            .push("vector2_float64", "lon_lat", [this.longitude, this.latitude])
-            .push("float64", "direction", this.dir)
-            .toString();
+        return this.getElement().toString();
     }
 }

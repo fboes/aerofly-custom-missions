@@ -1,15 +1,8 @@
+import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
 /**
  * Types of checkpoints. Required are usually "origin", "departure_runway" at the start and "destination_runway", "destination" at the end.
  */
-export type AeroflyMissionCheckpointType =
-    | "origin"
-    | "departure_runway"
-    | "departure"
-    | "waypoint"
-    | "arrival"
-    | "approach"
-    | "destination_runway"
-    | "destination";
+export type AeroflyMissionCheckpointType = "origin" | "departure_runway" | "departure" | "waypoint" | "arrival" | "approach" | "destination_runway" | "destination";
 /**
  * @class
  * A single way point for the given flight plan
@@ -96,28 +89,12 @@ export declare class AeroflyMissionCheckpoint {
      * @param {?number} [additionalAttributes.frequency] of runways or navigational aids, in Hz; multiply by 1000 for kHz, 1_000_000 for MHz
      * @param {?boolean} [additionalAttributes.flyOver] if waypoint is meant to be flown over
      */
-    constructor(
-        name: string,
-        type: AeroflyMissionCheckpointType,
-        longitude: number,
-        latitude: number,
-        {
-            altitude,
-            altitude_feet,
-            altitudeConstraint,
-            direction,
-            slope,
-            length,
-            length_feet,
-            frequency,
-            flyOver,
-        }?: Partial<AeroflyMissionCheckpoint> & {
-            altitude_feet?: number;
-            length_feet?: number;
-        },
-    );
+    constructor(name: string, type: AeroflyMissionCheckpointType, longitude: number, latitude: number, { altitude, altitude_feet, altitudeConstraint, direction, slope, length, length_feet, frequency, flyOver, }?: Partial<AeroflyMissionCheckpoint> & {
+        altitude_feet?: number;
+        length_feet?: number;
+    });
     /**
-     * @param {number} altitude_feet
+     * @param {number} altitude_feet in feet
      */
     set altitude_feet(altitude_feet: number);
     /**
@@ -125,7 +102,7 @@ export declare class AeroflyMissionCheckpoint {
      */
     get altitude_feet(): number;
     /**
-     * @param {number} length_feet
+     * @param {number} length_feet in feet
      */
     set length_feet(length_feet: number);
     /**
@@ -133,13 +110,17 @@ export declare class AeroflyMissionCheckpoint {
      */
     get length_feet(): number;
     /**
-     * @returns {string}
+     * @returns {string} with MHz / kHz attached
      */
     get frequency_string(): string;
     /**
-     * @param {number} index if used in an array will se the array index
+     * @param {number} index default: 0
+     * @returns {AeroflyConfigurationNode} to use in Aerofly FS4's `custom_missions_user.tmc`
+     */
+    getElement(index?: number): AeroflyConfigurationNode;
+    /**
      * @returns {string} to use in Aerofly FS4's `custom_missions_user.tmc`
      */
-    toString(index?: number): string;
+    toString(): string;
 }
 //# sourceMappingURL=AeroflyMissionCheckpoint.d.ts.map

@@ -1,4 +1,4 @@
-import { AeroflyConfigFileSet } from "./AeroflyConfigFileSet.js";
+import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
 import { meterPerStatuteMile } from "./AeroflyMission.js";
 import { AeroflyMissionConditionsCloud } from "./AeroflyMissionConditionsCloud.js";
 /**
@@ -87,36 +87,38 @@ export class AeroflyMissionConditions {
         return Math.sqrt(this.thermalStrength) * 50 - 15;
     }
     /**
-     * @returns {string}
+     * @returns {AeroflyConfigurationNode[]} cloud elements
      */
-    getCloudsString() {
+    getCloudElements() {
         return this.clouds
-            .map((c, index) => {
-            return c.toString(index);
-        })
-            .join("\n");
+            .slice(0, 2) // Aerofly FS4 supports max 2 cloud layers
+            .flatMap((c, index) => c.getElements(index));
+    }
+    /**
+     * @returns {string} to use in Aerofly FS4's `custom_missions_user.tmc`
+     */
+    getElement() {
+        if (this.clouds.length < 1) {
+            this.clouds = [new AeroflyMissionConditionsCloud(0, 0)];
+        }
+        return new AeroflyConfigurationNode("tmmission_conditions", "conditions")
+            .append(new AeroflyConfigurationNode("tm_time_utc", "time")
+            .appendChild("int32", "time_year", this.time.getUTCFullYear())
+            .appendChild("int32", "time_month", this.time.getUTCMonth() + 1)
+            .appendChild("int32", "time_day", this.time.getUTCDate())
+            .appendChild("float64", "time_hours", this.time_hours, `${this.time_presentational} UTC`))
+            .appendChild("float64", "wind_direction", this.wind.direction)
+            .appendChild("float64", "wind_speed", this.wind.speed, "kts")
+            .appendChild("float64", "wind_gusts", this.wind.gusts, "kts")
+            .appendChild("float64", "turbulence_strength", this.turbulenceStrength)
+            .appendChild("float64", "thermal_strength", this.thermalStrength, `${this.temperature} °C`)
+            .appendChild("float64", "visibility", this.visibility, `${this.visibility_sm} SM`)
+            .append(...this.getCloudElements());
     }
     /**
      * @returns {string} to use in Aerofly FS4's `custom_missions_user.tmc`
      */
     toString() {
-        if (this.clouds.length < 1) {
-            this.clouds = [new AeroflyMissionConditionsCloud(0, 0)];
-        }
-        return new AeroflyConfigFileSet(4, "tmmission_conditions", "conditions")
-            .pushRaw(new AeroflyConfigFileSet(5, "tm_time_utc", "time")
-            .push("int32", "time_year", this.time.getUTCFullYear())
-            .push("int32", "time_month", this.time.getUTCMonth() + 1)
-            .push("int32", "time_day", this.time.getUTCDate())
-            .push("float64", "time_hours", this.time_hours, `${this.time_presentational} UTC`)
-            .toString())
-            .push("float64", "wind_direction", this.wind.direction)
-            .push("float64", "wind_speed", this.wind.speed, "kts")
-            .push("float64", "wind_gusts", this.wind.gusts, "kts")
-            .push("float64", "turbulence_strength", this.turbulenceStrength)
-            .push("float64", "thermal_strength", this.thermalStrength, `${this.temperature} °C`)
-            .push("float64", "visibility", this.visibility, `${this.visibility_sm} SM`)
-            .pushRaw(this.getCloudsString())
-            .toString();
+        return this.getElement().toString();
     }
 }

@@ -1,5 +1,4 @@
 import { strict as assert } from "node:assert";
-import { AeroflyConfigFileSet } from "./dto/AeroflyConfigFileSet.js";
 import { AeroflyLocalizedText } from "./index.js";
 import { AeroflyMission } from "./index.js";
 import { AeroflyMissionCheckpoint } from "./index.js";
@@ -7,11 +6,13 @@ import { AeroflyMissionConditions } from "./index.js";
 import { AeroflyMissionConditionsCloud } from "./index.js";
 import { AeroflyMissionsList } from "./index.js";
 import { AeroflyMissionTargetPlane } from "./index.js";
+import { AeroflyConfigurationNode } from "./node/AeroflyConfigurationNode.js";
 const assertValidAeroflyStructure = (aeroflyString) => {
     const openingBrackets = aeroflyString.match(/</g);
     const closingBrackets = aeroflyString.match(/>/g);
     const openingBrackets2 = aeroflyString.match(/\[/g);
     const closingBrackets2 = aeroflyString.match(/\]/g);
+    assert.ok(openingBrackets?.length ?? 0 > 0, "Has opening <");
     assert.strictEqual(openingBrackets?.length, closingBrackets?.length, "Number of <> matches");
     assert.strictEqual(openingBrackets2?.length, closingBrackets2?.length, "Number of [] matches");
 };
@@ -19,16 +20,12 @@ const assertIncludes = (string, includes) => {
     assert.ok(string.includes(includes), `Includes "${includes}"`);
 };
 {
-    const file = new AeroflyConfigFileSet(0, "file", "");
-    file.pushRaw(new AeroflyConfigFileSet(1, "tmmissions_list", "")
-        .pushRaw(new AeroflyConfigFileSet(2, "list_tmmission_definition", "missions")
-        .pushRaw(new AeroflyConfigFileSet(3, "tmmission_definition", "mission")
-        .push("string8", "title", "KCCR #1: Concord / Buchanan Field")
-        .push("float64", "origin_alt", 1066.799965862401, "3500 ft MSL")
-        .toString())
-        .pushRaw(new AeroflyConfigFileSet(3, "tmmission_definition", "mission").toString())
-        .toString())
-        .toString());
+    const file = new AeroflyConfigurationNode("file", "");
+    file.append(new AeroflyConfigurationNode("tmmissions_list", "").append(new AeroflyConfigurationNode("list_tmmission_definition", "missions")
+        .append(new AeroflyConfigurationNode("tmmission_definition", "mission")
+        .appendChild("string8", "title", "KCCR #1: Concord / Buchanan Field")
+        .appendChild("float64", "origin_alt", 1066.799965862401, "3500 ft MSL"))
+        .append(new AeroflyConfigurationNode("tmmission_definition", "mission"))));
     assertValidAeroflyStructure(file.toString());
     console.log("✅ AeroflyMission test successful");
 }
@@ -209,6 +206,7 @@ const assertIncludes = (string, includes) => {
     assert.strictEqual(missionList.missions[0].aircraft.name, "c172");
     assert.strictEqual(missionList.missions[0].aircraft.icao, "C172");
     let missionListString = missionList.toString();
+    assert.strictEqual(missionListString, missionList.toString());
     assertIncludes(missionListString, "[origin]");
     assertIncludes(missionListString, "[tmmission_definition]");
     assertIncludes(missionListString, "[list_tmmission_checkpoint]");
@@ -255,5 +253,6 @@ const assertIncludes = (string, includes) => {
     assertValidAeroflyStructure(missionListString);
     //console.dir(missionList.missions[0], { depth: null });
     //console.log(missionListString);
+    //console.log(missionList.getElement().toXmlString());
     console.log("✅ AeroflyMissionsList test successful");
 }

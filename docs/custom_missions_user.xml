@@ -1,0 +1,99 @@
+<file type="file">
+    <tmmissions_list type="tmmissions_list">
+        <missions type="list_tmmission_definition">
+            <mission type="tmmission_definition">
+                <title type="string8">KCCR #1: Concord / Buchanan Field</title>
+                <description type="string8">It is a gusty, clear early morning, and you are 8 NM to the north of the towered airport Concord / Buchanan Field (27ft). As the wind is 11 kts from 190°, the main landing runway is 19L (191° / 844m). Fly the pattern and land safely.
+
+- Local tower / CTAF frequency: 123.90
+- Local navigational aids: VOR/DME CCR (117.00) 3.4 NM to the north</description>
+                <tutorial_name type="string8">c172</tutorial_name> <!-- Opens https://www.aerofly.com/aircraft-tutorials/c172 -->
+                <localized_text type="list_tmmission_definition_localized">
+                    <element type="tmmission_definition_localized" index="0">
+                        <language type="string8u">de</language>
+                        <title type="string8">Landeübung #1</title>
+                        <description type="string8">Probier die Landung</description>
+                    </element>
+                </localized_text>
+                <tags type="string8u">approach pattern</tags>
+                <difficulty type="float64">1</difficulty>
+                <is_featured type="bool">true</is_featured>
+                <flight_setting type="string8">cruise</flight_setting>
+                <aircraft_name type="string8u">c172</aircraft_name>
+                <aircraft_icao type="stringt8c">C172</aircraft_icao>
+                <callsign type="stringt8c">N51911</callsign>
+                <origin_icao type="stringt8c">KCCR</origin_icao>
+                <origin_lon_lat type="tmvector2d">-122.0736009331662 38.122300745843944</origin_lon_lat>
+                <origin_alt type="float64">1066.799965862401</origin_alt> <!-- 3500 ft MSL -->
+                <origin_dir type="float64">174.37511511143452</origin_dir>
+                <destination_icao type="stringt8c">KMVY</destination_icao>
+                <destination_lon_lat type="tmvector2d">-70.6139 41.3934</destination_lon_lat>
+                <destination_alt type="float64">20</destination_alt> <!-- 66 ft MSL -->
+                <destination_dir type="float64">221</destination_dir>
+                <distance type="float64">1400</distance> <!-- 1 km -->
+                <duration type="float64">7200</duration> <!-- 120 min -->
+                <is_scheduled type="bool">true</is_scheduled>
+                <finish type="tmmission_target_plane">
+                    <lon_lat type="vector2_float64">0 1</lon_lat>
+                    <direction type="float64">2</direction>
+                </finish>
+                <conditions type="tmmission_conditions">
+                    <time type="tm_time_utc">
+                        <time_year type="int32">2024</time_year>
+                        <time_month type="int32">6</time_month>
+                        <time_day type="int32">14</time_day>
+                        <time_hours type="float64">13.260555555555555</time_hours> <!-- 13:15:38 UTC -->
+                    </time>
+                    <wind_direction type="float64">190</wind_direction>
+                    <wind_speed type="float64">11</wind_speed> <!-- kts -->
+                    <wind_gusts type="float64">22</wind_gusts> <!-- kts -->
+                    <turbulence_strength type="float64">1</turbulence_strength>
+                    <thermal_strength type="float64">0.5184</thermal_strength> <!-- 21 °C -->
+                    <visibility type="float64">14484.096000000001</visibility> <!-- 9 SM -->
+                    <cloud_cover type="float64">0.1</cloud_cover> <!-- CLR -->
+                    <cloud_base type="float64">1523.9999512320016</cloud_base> <!-- 5000 ft AGL -->
+                    <cirrus_cover type="float64">0.2</cirrus_cover> <!-- FEW -->
+                    <cirrus_base type="float64">2285.9999268480024</cirrus_base> <!-- 7500 ft AGL -->
+                </conditions>
+                <checkpoints type="list_tmmission_checkpoint">
+                    <element type="tmmission_checkpoint" index="0">
+                        <type type="string8u">origin</type>
+                        <name type="string8u">KCCR</name>
+                        <lon_lat type="vector2_float64">-122.057 37.9897</lon_lat>
+                        <altitude type="float64">8</altitude> <!-- 27 ft -->
+                        <direction type="float64">-1</direction>
+                        <slope type="float64">0</slope>
+                    </element>
+                    <element type="tmmission_checkpoint" index="1">
+                        <type type="string8u">departure_runway</type>
+                        <name type="string8u">19L</name>
+                        <lon_lat type="vector2_float64">-122.05504061196366 37.993168229891225</lon_lat>
+                        <altitude type="float64">0</altitude> <!-- 0 ft -->
+                        <direction type="float64">0</direction>
+                        <slope type="float64">0</slope>
+                        <length type="float64">844.2959729825288</length> <!-- 2770 ft -->
+                    </element>
+                    <element type="tmmission_checkpoint" index="2">
+                        <type type="string8u">destination_runway</type>
+                        <name type="string8u">24</name>
+                        <lon_lat type="vector2_float64">-70.60730234370952 41.399093035543366</lon_lat>
+                        <altitude type="float64">20</altitude> <!-- 66 ft -->
+                        <direction type="float64">0</direction>
+                        <slope type="float64">0</slope>
+                        <length type="float64">1677.6191463161874</length> <!-- 5504 ft -->
+                        <frequency type="float64">108700000</frequency> <!-- 108.7 MHz -->
+                    </element>
+                    <element type="tmmission_checkpoint" index="3">
+                        <type type="string8u">destination</type>
+                        <name type="string8u">KMVY</name>
+                        <lon_lat type="vector2_float64">-70.6139 41.3934</lon_lat>
+                        <altitude type="float64">20</altitude> <!-- 66 ft -->
+                        <direction type="float64">0</direction>
+                        <slope type="float64">0</slope>
+                        <fly_over type="bool">false</fly_over>
+                    </element>
+                </checkpoints>
+            </mission>
+        </missions>
+    </tmmissions_list>
+</file>

@@ -1,3 +1,4 @@
+import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
 import { AeroflyMission } from "./AeroflyMission.js";
 /**
  * @class
@@ -16,9 +17,14 @@ export declare class AeroflyMissionsList {
      * @param {AeroflyMission[]} missions in this mission list
      */
     constructor(missions?: AeroflyMission[]);
+    getElement(): AeroflyConfigurationNode;
     /**
      * @returns {string} to use in Aerofly FS4's `custom_missions_user.tmc`
      */
     toString(): string;
+    /**
+     * @returns {string} XML represenation of this mission list
+     */
+    toXmlString(): string;
 }
 //# sourceMappingURL=AeroflyMissionsList.d.ts.map

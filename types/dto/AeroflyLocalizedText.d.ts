@@ -1,3 +1,4 @@
+import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
 /**
  * @class
  * A translation for the mission title and description.
@@ -46,9 +47,12 @@ export declare class AeroflyLocalizedText {
      */
     constructor(language: string, title: string, description: string);
     /**
-     * @param {number} index if used in an array will se the array index
+     * @returns {AeroflyConfigurationNode} to use in Aerofly FS4's `custom_missions_user.tmc`
+     */
+    getElement(): AeroflyConfigurationNode;
+    /**
      * @returns {string} to use in Aerofly FS4's `custom_missions_user.tmc`
      */
-    toString(index?: number): string;
+    toString(): string;
 }
 //# sourceMappingURL=AeroflyLocalizedText.d.ts.map

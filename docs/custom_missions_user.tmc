@@ -1,7 +1,6 @@
 <[file][][]
     <[tmmissions_list][][]
         <[list_tmmission_definition][missions][]
-// -----------------------------------------------------------------------------
             <[tmmission_definition][mission][]
                 <[string8][title][KCCR #1: Concord / Buchanan Field]>
                 <[string8][description][It is a gusty, clear early morning, and you are 8 NM to the north of the towered airport Concord / Buchanan Field (27ft). As the wind is 11 kts from 190°, the main landing runway is 19L (191° / 844m). Fly the pattern and land safely.
@@ -10,7 +9,7 @@
 - Local navigational aids: VOR/DME CCR (117.00) 3.4 NM to the north]>
                 <[string8][tutorial_name][c172]> // Opens https://www.aerofly.com/aircraft-tutorials/c172
                 <[list_tmmission_definition_localized][localized_text][]
-                   <[tmmission_definition_localized][element][0]
+                    <[tmmission_definition_localized][element][0]
                         <[string8u][language][de]>
                         <[string8][title][Landeübung #1]>
                         <[string8][description][Probier die Landung]>
@@ -21,7 +20,6 @@
                 <[bool][is_featured][true]>
                 <[string8][flight_setting][cruise]>
                 <[string8u][aircraft_name][c172]>
-                //<[string8u][aircraft_livery][]>
                 <[stringt8c][aircraft_icao][C172]>
                 <[stringt8c][callsign][N51911]>
                 <[stringt8c][origin_icao][KCCR]>
@@ -32,7 +30,7 @@
                 <[tmvector2d][destination_lon_lat][-70.6139 41.3934]>
                 <[float64][destination_alt][20]> // 66 ft MSL
                 <[float64][destination_dir][221]>
-                <[float64][distance][1400]> // 2 km
+                <[float64][distance][1400]> // 1 km
                 <[float64][duration][7200]> // 120 min
                 <[bool][is_scheduled][true]>
                 <[tmmission_target_plane][finish][]
@@ -96,7 +94,6 @@
                     >
                 >
             >
-// -----------------------------------------------------------------------------
         >
     >
 >

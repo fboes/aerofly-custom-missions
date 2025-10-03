@@ -1,4 +1,4 @@
-import { AeroflyConfigFileSet } from "./AeroflyConfigFileSet.js";
+import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
 import { feetPerMeter } from "./AeroflyMission.js";
 
 /**
@@ -152,7 +152,7 @@ export class AeroflyMissionCheckpoint {
     }
 
     /**
-     * @param {number} altitude_feet
+     * @param {number} altitude_feet in feet
      */
     set altitude_feet(altitude_feet: number) {
         this.altitude = altitude_feet / feetPerMeter;
@@ -166,7 +166,7 @@ export class AeroflyMissionCheckpoint {
     }
 
     /**
-     * @param {number} length_feet
+     * @param {number} length_feet in feet
      */
     set length_feet(length_feet: number) {
         this.length = length_feet / feetPerMeter;
@@ -180,7 +180,7 @@ export class AeroflyMissionCheckpoint {
     }
 
     /**
-     * @returns {string}
+     * @returns {string} with MHz / kHz attached
      */
     get frequency_string(): string {
         if (!this.frequency) {
@@ -197,31 +197,38 @@ export class AeroflyMissionCheckpoint {
     }
 
     /**
-     * @param {number} index if used in an array will se the array index
-     * @returns {string} to use in Aerofly FS4's `custom_missions_user.tmc`
+     * @param {number} index default: 0
+     * @returns {AeroflyConfigurationNode} to use in Aerofly FS4's `custom_missions_user.tmc`
      */
-    toString(index: number = 0): string {
-        const fileSet = new AeroflyConfigFileSet(5, "tmmission_checkpoint", "element", String(index))
-            .push("string8u", "type", this.type)
-            .push("string8u", "name", this.name)
-            .push("vector2_float64", "lon_lat", [this.longitude, this.latitude])
-            .push("float64", "altitude", this.altitude, `${Math.ceil(this.altitude_feet)} ft`)
-            .push("float64", "direction", this.direction ?? (index === 0 ? -1 : 0))
-            .push("float64", "slope", this.slope ?? 0);
+    getElement(index: number = 0): AeroflyConfigurationNode {
+        const element = new AeroflyConfigurationNode("tmmission_checkpoint", "element", String(index))
+            .appendChild("string8u", "type", this.type)
+            .appendChild("string8u", "name", this.name)
+            .appendChild("vector2_float64", "lon_lat", [this.longitude, this.latitude])
+            .appendChild("float64", "altitude", this.altitude, `${Math.ceil(this.altitude_feet)} ft`)
+            .appendChild("float64", "direction", this.direction ?? (index === 0 ? -1 : 0))
+            .appendChild("float64", "slope", this.slope ?? 0);
 
         if (this.altitudeConstraint !== null) {
-            fileSet.push("bool", "alt_cst", this.altitudeConstraint);
+            element.appendChild("bool", "alt_cst", this.altitudeConstraint);
         }
         if (this.length) {
-            fileSet.push("float64", "length", this.length ?? 0, `${Math.floor(this.length_feet)} ft`);
+            element.appendChild("float64", "length", this.length ?? 0, `${Math.floor(this.length_feet)} ft`);
         }
         if (this.frequency) {
-            fileSet.push("float64", "frequency", this.frequency ?? 0, `${this.frequency_string}`);
+            element.appendChild("float64", "frequency", this.frequency ?? 0, `${this.frequency_string}`);
         }
         if (this.flyOver !== null) {
-            fileSet.push("bool", "fly_over", this.flyOver);
+            element.appendChild("bool", "fly_over", this.flyOver);
         }
 
-        return fileSet.toString();
+        return element;
+    }
+
+    /**
+     * @returns {string} to use in Aerofly FS4's `custom_missions_user.tmc`
+     */
+    toString(): string {
+        return this.getElement().toString();
     }
 }

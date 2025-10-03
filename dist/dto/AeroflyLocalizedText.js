@@ -1,4 +1,4 @@
-import { AeroflyConfigFileSet } from "./AeroflyConfigFileSet.js";
+import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
 /**
  * @class
  * A translation for the mission title and description.
@@ -27,14 +27,18 @@ export class AeroflyLocalizedText {
         this.description = description;
     }
     /**
-     * @param {number} index if used in an array will se the array index
+     * @returns {AeroflyConfigurationNode} to use in Aerofly FS4's `custom_missions_user.tmc`
+     */
+    getElement() {
+        return new AeroflyConfigurationNode("tmmission_definition_localized", "element")
+            .appendChild("string8u", "language", this.language)
+            .appendChild("string8", "title", this.title)
+            .appendChild("string8", "description", this.description);
+    }
+    /**
      * @returns {string} to use in Aerofly FS4's `custom_missions_user.tmc`
      */
-    toString(index = 0) {
-        return new AeroflyConfigFileSet(4, "tmmission_definition_localized", "element", String(index))
-            .push("string8u", "language", this.language)
-            .push("string8", "title", this.title)
-            .push("string8", "description", this.description)
-            .toString();
+    toString() {
+        return this.getElement().toString();
     }
 }

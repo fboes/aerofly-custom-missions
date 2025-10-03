@@ -1,3 +1,4 @@
+import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
 /**
  * @class
  * A target plane which the aircraft needs to cross.
@@ -35,6 +36,10 @@ export declare class AeroflyMissionTargetPlane {
      * @param {string} name of property
      */
     constructor(longitude: number, latitude: number, dir: number, name?: string);
+    getElement(): AeroflyConfigurationNode;
+    /**
+     * @returns {string} to use in Aerofly FS4's `custom_missions_user.tmc`
+     */
     toString(): string;
 }
 //# sourceMappingURL=AeroflyMissionTargetPlane.d.ts.map

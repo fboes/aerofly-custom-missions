@@ -1,9 +1,10 @@
+import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
 import { AeroflyMissionConditionsCloud } from "./AeroflyMissionConditionsCloud.js";
 /**
  * Weather data for wind
- * @property direction in degree
- * @property speed in kts
- * @property gusts in kts
+ * @property {number} direction in degree
+ * @property {number} speed in kts
+ * @property {number} gusts in kts
  */
 export type AeroflyMissionConditionsWind = {
     direction: number;
@@ -29,11 +30,11 @@ export declare class AeroflyMissionConditions {
      */
     wind: AeroflyMissionConditionsWind;
     /**
-     * @property {number} 0..1, percentage
+     * @property {number} turbulenceStrength 0..1, percentage
      */
     turbulenceStrength: number;
     /**
-     * @property {number} 0..1, percentage
+     * @property {number} thermalStrength 0..1, percentage
      */
     thermalStrength: number;
     /**
@@ -56,16 +57,7 @@ export declare class AeroflyMissionConditions {
      * @param {?number} [additionalAttributes.temperature] in °C, will overwrite thermalStrength
      * @param {AeroflyMissionConditionsCloud[]} [additionalAttributes.clouds] for the whole flight
      */
-    constructor({
-        time,
-        wind,
-        turbulenceStrength,
-        thermalStrength,
-        visibility,
-        visibility_sm,
-        temperature,
-        clouds,
-    }?: Partial<AeroflyMissionConditions> & {
+    constructor({ time, wind, turbulenceStrength, thermalStrength, visibility, visibility_sm, temperature, clouds, }?: Partial<AeroflyMissionConditions> & {
         visibility_sm?: number;
         temperature?: number;
     });
@@ -95,9 +87,13 @@ export declare class AeroflyMissionConditions {
      */
     get temperature(): number;
     /**
-     * @returns {string}
+     * @returns {AeroflyConfigurationNode[]} cloud elements
      */
-    getCloudsString(): string;
+    getCloudElements(): AeroflyConfigurationNode[];
+    /**
+     * @returns {string} to use in Aerofly FS4's `custom_missions_user.tmc`
+     */
+    getElement(): AeroflyConfigurationNode;
     /**
      * @returns {string} to use in Aerofly FS4's `custom_missions_user.tmc`
      */

@@ -1,3 +1,4 @@
+import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
 import { feetPerMeter } from "./AeroflyMission.js";
 
 /**
@@ -36,7 +37,7 @@ export class AeroflyMissionConditionsCloud {
     /**
      * @param {number} cover 0..1, percentage
      * @param {number} base_feet altitude, but in feet AGL instead of meters AGL
-     * @returns {AeroflyMissionConditionsCloud}
+     * @returns {AeroflyMissionConditionsCloud} self
      */
     static createInFeet(cover: number, base_feet: number): AeroflyMissionConditionsCloud {
         return new AeroflyMissionConditionsCloud(cover, base_feet / feetPerMeter);
@@ -73,10 +74,10 @@ export class AeroflyMissionConditionsCloud {
     }
 
     /**
-     * @param {number} index if used in an array will se the array index
-     * @returns {string} to use in Aerofly FS4's `custom_missions_user.tmc`
+     * @param {number} index if used in an array will set the array index
+     * @returns {AeroflyConfigurationNode[]} to use in Aerofly FS4's `custom_missions_user.tmc`
      */
-    toString(index: number = 0): string {
+    getElements(index: number = 0): AeroflyConfigurationNode[] {
         const getIndexString = (index: number) => {
             switch (index) {
                 case 0:
@@ -91,10 +92,20 @@ export class AeroflyMissionConditionsCloud {
         };
 
         const indexString = getIndexString(index);
-        const comment = index > 1 ? "//" : "";
 
-        return `\
-                    ${comment}<[float64][${indexString}_cover][${this.cover ?? 0}]> // ${this.cover_code}
-                    ${comment}<[float64][${indexString}_base][${this.base}]> // ${this.base_feet} ft AGL`;
+        return [
+            new AeroflyConfigurationNode("float64", `${indexString}_cover`, this.cover ?? 0, this.cover_code),
+            new AeroflyConfigurationNode("float64", `${indexString}_base`, this.base, `${this.base_feet} ft AGL`),
+        ];
+    }
+
+    /**
+     * @param {number} index if used in an array will set the array index
+     * @returns {string} to use in Aerofly FS4's `custom_missions_user.tmc`
+     */
+    toString(index: number = 0): string {
+        return this.getElements()
+            .map((element) => element.toString(index))
+            .join("\n");
     }
 }

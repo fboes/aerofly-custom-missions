@@ -1,3 +1,4 @@
+import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
 /**
  * @class
  * A list of flight plans.
@@ -13,16 +14,19 @@ export class AeroflyMissionsList {
     constructor(missions = []) {
         this.missions = missions;
     }
+    getElement() {
+        return new AeroflyConfigurationNode("file", "").append(new AeroflyConfigurationNode("tmmissions_list", "").append(new AeroflyConfigurationNode("list_tmmission_definition", "missions").append(...this.missions.map((m) => m.getElement()))));
+    }
     /**
      * @returns {string} to use in Aerofly FS4's `custom_missions_user.tmc`
      */
     toString() {
-        const separator = "\n// -----------------------------------------------------------------------------\n";
-        return `\
-<[file][][]
-    <[tmmissions_list][][]
-        <[list_tmmission_definition][missions][]${separator + this.missions.join(separator) + separator}        >
-    >
->`;
+        return this.getElement().toString();
+    }
+    /**
+     * @returns {string} XML represenation of this mission list
+     */
+    toXmlString() {
+        return this.getElement().toXmlString();
     }
 }

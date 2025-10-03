@@ -1,3 +1,4 @@
+import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
 import { AeroflyLocalizedText } from "./AeroflyLocalizedText.js";
 import { AeroflyMissionCheckpoint } from "./AeroflyMissionCheckpoint.js";
 import { AeroflyMissionConditions } from "./AeroflyMissionConditions.js";
@@ -6,9 +7,9 @@ export declare const feetPerMeter = 3.28084;
 export declare const meterPerStatuteMile = 1609.344;
 /**
  * Data for the aircraft to use on this mission
- * @property name lowercase Aerofly aircraft ID
- * @property icao ICAO aircraft code
- * @property livery (not used yet)
+ * @property {string} name lowercase Aerofly aircraft ID
+ * @property {string} icao ICAO aircraft code
+ * @property {string} livery (not used yet)
  */
 export type AeroflyMissionAircraft = {
     name: string;
@@ -18,28 +19,18 @@ export type AeroflyMissionAircraft = {
 /**
  * State of aircraft systems. Configures power settings, flap positions etc
  */
-export type AeroflyMissionSetting =
-    | "cold_and_dark"
-    | "before_start"
-    | "taxi"
-    | "takeoff"
-    | "cruise"
-    | "approach"
-    | "landing"
-    | "winch_launch"
-    | "aerotow"
-    | "pushback";
+export type AeroflyMissionSetting = "cold_and_dark" | "before_start" | "taxi" | "takeoff" | "cruise" | "approach" | "landing" | "winch_launch" | "aerotow" | "pushback";
 /**
  * Represents origin or destination conditions for flight
- * @property icao uppercase ICAO airport ID
- * @property longitude easting, using the World Geodetic
+ * @property {string} icao uppercase ICAO airport ID
+ * @property {number} longitude easting, using the World Geodetic
  *    System 1984 (WGS 84) [WGS84] datum, with longitude and latitude units
  *    of decimal degrees; -180..180
- * @property latitude northing, using the World Geodetic
+ * @property {number} latitude northing, using the World Geodetic
  *    System 1984 (WGS 84) [WGS84] datum, with longitude and latitude units
  *    of decimal degrees; -90..90
- * @property dir in degree
- * @property alt the height in meters above or below the WGS
+ * @property {number} dir in degree
+ * @property {number} alt the height in meters above or below the WGS
  *    84 reference ellipsoid
  */
 export type AeroflyMissionPosition = {
@@ -75,7 +66,7 @@ export declare class AeroflyMission {
      */
     localizedTexts: AeroflyLocalizedText[];
     /**
-     * @property {string[]} tags
+     * @property {string[]} tags free-text tags
      */
     tags: string[];
     /**
@@ -136,7 +127,7 @@ export declare class AeroflyMission {
      * @param {string} [additionalAttributes.description] text, mission briefing, etc
      * @param {AeroflyLocalizedText[]} [additionalAttributes.localizedTexts] translations for title and description
      * @param {?string} [additionalAttributes.tutorialName] will create a link to a tutorial page at https://www.aerofly.com/aircraft-tutorials/
-     * @param {string[]} [additionalAttributes.tags]
+     * @param {string[]} [additionalAttributes.tags] free-text tags
      * @param {?boolean} [additionalAttributes.isFeatured] makes this mission pop up in "Challenges"
      * @param {?number} [additionalAttributes.difficulty] values between 0.00 and 2.00 have been encountered, but they seem to be without limit
      * @param {"cold_and_dark"|"before_start"|"taxi"|"takeoff"|"cruise"|"approach"|"landing"|"winch_launch"|"aerotow"|"pushback"} [additionalAttributes.flightSetting] of aircraft, like "taxi", "cruise"
@@ -151,38 +142,20 @@ export declare class AeroflyMission {
      * @param {AeroflyMissionConditions} [additionalAttributes.conditions] like time and weather for mission
      * @param {AeroflyMissionCheckpoint[]} [additionalAttributes.checkpoints] form the actual flight plan
      */
-    constructor(
-        title: string,
-        {
-            tutorialName,
-            description,
-            localizedTexts,
-            tags,
-            isFeatured,
-            difficulty,
-            flightSetting,
-            aircraft,
-            callsign,
-            origin,
-            destination,
-            distance,
-            duration,
-            isScheduled,
-            finish,
-            conditions,
-            checkpoints,
-        }?: Partial<AeroflyMission>,
-    );
+    constructor(title: string, { tutorialName, description, localizedTexts, tags, isFeatured, difficulty, flightSetting, aircraft, callsign, origin, destination, distance, duration, isScheduled, finish, conditions, checkpoints, }?: Partial<AeroflyMission>);
     /**
-     * @returns {string} indexed checkpoints
+     * @returns {AeroflyConfigurationNode[]} indexed checkpoints
      */
-    getCheckpointsString(): string;
+    getCheckpointElements(): AeroflyConfigurationNode[];
     /**
-     * @returns {string} indexed checkpoints
+     * @returns {AeroflyConfigurationNode[]} indexed checkpoints
      */
-    getLocalizedTextsString(): string;
+    getLocalizedTextElements(): AeroflyConfigurationNode[];
     /**
-     * @throws {Error} on missing waypoints
+     * @returns {AeroflyConfigurationNode} for this mission
+     */
+    getElement(): AeroflyConfigurationNode;
+    /**
      * @returns {string} to use in Aerofly FS4's `custom_missions_user.tmc`
      */
     toString(): string;

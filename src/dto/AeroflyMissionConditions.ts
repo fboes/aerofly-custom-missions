@@ -1,12 +1,12 @@
-import { AeroflyConfigFileSet } from "./AeroflyConfigFileSet.js";
+import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
 import { meterPerStatuteMile } from "./AeroflyMission.js";
 import { AeroflyMissionConditionsCloud } from "./AeroflyMissionConditionsCloud.js";
 
 /**
  * Weather data for wind
- * @property direction in degree
- * @property speed in kts
- * @property gusts in kts
+ * @property {number} direction in degree
+ * @property {number} speed in kts
+ * @property {number} gusts in kts
  */
 export type AeroflyMissionConditionsWind = {
     direction: number;
@@ -35,12 +35,12 @@ export class AeroflyMissionConditions {
     wind: AeroflyMissionConditionsWind;
 
     /**
-     * @property {number} 0..1, percentage
+     * @property {number} turbulenceStrength 0..1, percentage
      */
     turbulenceStrength: number;
 
     /**
-     * @property {number} 0..1, percentage
+     * @property {number} thermalStrength 0..1, percentage
      */
     thermalStrength: number;
 
@@ -147,40 +147,43 @@ export class AeroflyMissionConditions {
     }
 
     /**
-     * @returns {string}
+     * @returns {AeroflyConfigurationNode[]} cloud elements
      */
-    getCloudsString(): string {
+    getCloudElements(): AeroflyConfigurationNode[] {
         return this.clouds
-            .map((c: AeroflyMissionConditionsCloud, index: number): string => {
-                return c.toString(index);
-            })
-            .join("\n");
+            .slice(0, 2) // Aerofly FS4 supports max 2 cloud layers
+            .flatMap((c: AeroflyMissionConditionsCloud, index: number) => c.getElements(index));
+    }
+
+    /**
+     * @returns {string} to use in Aerofly FS4's `custom_missions_user.tmc`
+     */
+    getElement(): AeroflyConfigurationNode {
+        if (this.clouds.length < 1) {
+            this.clouds = [new AeroflyMissionConditionsCloud(0, 0)];
+        }
+
+        return new AeroflyConfigurationNode("tmmission_conditions", "conditions")
+            .append(
+                new AeroflyConfigurationNode("tm_time_utc", "time")
+                    .appendChild("int32", "time_year", this.time.getUTCFullYear())
+                    .appendChild("int32", "time_month", this.time.getUTCMonth() + 1)
+                    .appendChild("int32", "time_day", this.time.getUTCDate())
+                    .appendChild("float64", "time_hours", this.time_hours, `${this.time_presentational} UTC`),
+            )
+            .appendChild("float64", "wind_direction", this.wind.direction)
+            .appendChild("float64", "wind_speed", this.wind.speed, "kts")
+            .appendChild("float64", "wind_gusts", this.wind.gusts, "kts")
+            .appendChild("float64", "turbulence_strength", this.turbulenceStrength)
+            .appendChild("float64", "thermal_strength", this.thermalStrength, `${this.temperature} °C`)
+            .appendChild("float64", "visibility", this.visibility, `${this.visibility_sm} SM`)
+            .append(...this.getCloudElements());
     }
 
     /**
      * @returns {string} to use in Aerofly FS4's `custom_missions_user.tmc`
      */
     toString(): string {
-        if (this.clouds.length < 1) {
-            this.clouds = [new AeroflyMissionConditionsCloud(0, 0)];
-        }
-
-        return new AeroflyConfigFileSet(4, "tmmission_conditions", "conditions")
-            .pushRaw(
-                new AeroflyConfigFileSet(5, "tm_time_utc", "time")
-                    .push("int32", "time_year", this.time.getUTCFullYear())
-                    .push("int32", "time_month", this.time.getUTCMonth() + 1)
-                    .push("int32", "time_day", this.time.getUTCDate())
-                    .push("float64", "time_hours", this.time_hours, `${this.time_presentational} UTC`)
-                    .toString(),
-            )
-            .push("float64", "wind_direction", this.wind.direction)
-            .push("float64", "wind_speed", this.wind.speed, "kts")
-            .push("float64", "wind_gusts", this.wind.gusts, "kts")
-            .push("float64", "turbulence_strength", this.turbulenceStrength)
-            .push("float64", "thermal_strength", this.thermalStrength, `${this.temperature} °C`)
-            .push("float64", "visibility", this.visibility, `${this.visibility_sm} SM`)
-            .pushRaw(this.getCloudsString())
-            .toString();
+        return this.getElement().toString();
     }
 }

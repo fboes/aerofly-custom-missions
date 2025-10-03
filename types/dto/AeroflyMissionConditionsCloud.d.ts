@@ -1,3 +1,4 @@
+import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
 /**
  * Cloud coverage codes
  */
@@ -27,7 +28,7 @@ export declare class AeroflyMissionConditionsCloud {
     /**
      * @param {number} cover 0..1, percentage
      * @param {number} base_feet altitude, but in feet AGL instead of meters AGL
-     * @returns {AeroflyMissionConditionsCloud}
+     * @returns {AeroflyMissionConditionsCloud} self
      */
     static createInFeet(cover: number, base_feet: number): AeroflyMissionConditionsCloud;
     /**
@@ -43,7 +44,12 @@ export declare class AeroflyMissionConditionsCloud {
      */
     get cover_code(): AeroflyMissionConditionsCloudCoverCode;
     /**
-     * @param {number} index if used in an array will se the array index
+     * @param {number} index if used in an array will set the array index
+     * @returns {AeroflyConfigurationNode[]} to use in Aerofly FS4's `custom_missions_user.tmc`
+     */
+    getElements(index?: number): AeroflyConfigurationNode[];
+    /**
+     * @param {number} index if used in an array will set the array index
      * @returns {string} to use in Aerofly FS4's `custom_missions_user.tmc`
      */
     toString(index?: number): string;
