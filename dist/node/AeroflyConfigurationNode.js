@@ -1,3 +1,7 @@
+/**
+ * A regular data node for Aerofly configuration files.
+ * As Aerofly uses a proprietary Markup language, this class is meant to create the required string representation.
+ */
 export class AeroflyConfigurationNode {
     constructor(type, name, value = "", _comment = "") {
         this.type = type;
@@ -5,7 +9,7 @@ export class AeroflyConfigurationNode {
         this.value = value;
         this._comment = _comment;
         this.children = [];
-        this.space = "\n";
+        this.childSeparatorString = "\n";
     }
     append(...nodes) {
         this.children.push(...nodes);
@@ -32,9 +36,9 @@ export class AeroflyConfigurationNode {
         const indentation = " ".repeat(4 * indent);
         let tag = `${indentation}<[${this.type}][${this.name}][${this.aeroflyEscape(this.valueAsString)}]`;
         if (this.children.length > 0) {
-            tag += this.space;
-            tag += this.children.map((child) => child.toString(indent + 1)).join(this.space);
-            tag += `${this.space}${indentation}>`;
+            tag += this.childSeparatorString;
+            tag += this.children.map((child) => child.toString(indent + 1)).join(this.childSeparatorString);
+            tag += `${this.childSeparatorString}${indentation}>`;
         }
         else {
             tag += ">";
@@ -75,20 +79,27 @@ export class AeroflyConfigurationNode {
             .replace(/'/g, "&#039;");
     }
 }
+/**
+ * This behaves like a regular AeroflyConfigurationNode, but child nodes will be separated by an extra spacer comment. This increases optical separation for string export.
+ */
 export class AeroflyConfigurationNodeSpacer extends AeroflyConfigurationNode {
     constructor() {
         super(...arguments);
-        this.space = `\n// ${"-".repeat(77)}\n`;
+        this.childSeparatorString = `\n// ${"-".repeat(77)}\n`;
     }
 }
+/**
+ * Represents a disabled AeroflyConfigurationNode, this node will be commented out and will not be read by Aerofly.
+ * This is meant for placeholder values not officially implemented yet. They can be quickly converted to regular nodes once implemented in Aerofly.
+ */
 export class AeroflyConfigurationNodeComment extends AeroflyConfigurationNode {
     toString(indent = 0) {
         const indentation = " ".repeat(4 * indent);
         let tag = `${indentation}// <[${this.type}][${this.name}][${this.aeroflyEscape(this.valueAsString)}]`;
         if (this.children.length > 0) {
-            tag += this.space;
-            tag += this.children.map((child) => child.toString(indent + 1)).join(this.space);
-            tag += `${this.space}${indentation}>`;
+            tag += this.childSeparatorString;
+            tag += this.children.map((child) => child.toString(indent + 1)).join(this.childSeparatorString);
+            tag += `${this.childSeparatorString}${indentation}>`;
         }
         else {
             tag += ">";
