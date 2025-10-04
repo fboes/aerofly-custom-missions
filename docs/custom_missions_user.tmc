@@ -1,6 +1,7 @@
 <[file][][]
     <[tmmissions_list][][]
         <[list_tmmission_definition][missions][]
+// -----------------------------------------------------------------------------
             <[tmmission_definition][mission][]
                 <[string8][title][KCCR #1: Concord / Buchanan Field]>
                 <[string8][description][It is a gusty, clear early morning, and you are 8 NM to the north of the towered airport Concord / Buchanan Field (27ft). As the wind is 11 kts from 190°, the main landing runway is 19L (191° / 844m). Fly the pattern and land safely.
@@ -93,7 +94,8 @@
                         <[bool][fly_over][false]>
                     >
                 >
-            > // End of mission
+            >
+// -----------------------------------------------------------------------------
         >
     >
 >

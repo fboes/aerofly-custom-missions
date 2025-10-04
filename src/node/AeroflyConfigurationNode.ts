@@ -1,5 +1,6 @@
 export class AeroflyConfigurationNode {
     #children: AeroflyConfigurationNode[] = [];
+    space = "\n";
 
     constructor(
         public type: string,
@@ -40,9 +41,9 @@ export class AeroflyConfigurationNode {
 
         let tag = `${indentation}<[${this.type}][${this.name}][${this.#aeroflyEscape(this.valueAsString)}]`;
         if (this.#children.length > 0) {
-            tag += "\n";
-            tag += this.#children.map((child) => child.toString(indent + 1)).join("\n");
-            tag += `\n${indentation}>`;
+            tag += this.space;
+            tag += this.#children.map((child) => child.toString(indent + 1)).join(this.space);
+            tag += `${this.space}${indentation}>`;
         } else {
             tag += ">";
         }
@@ -86,4 +87,8 @@ export class AeroflyConfigurationNode {
             .replace(/"/g, "&quot;")
             .replace(/'/g, "&#039;");
     }
+}
+
+export class AeroflyConfigurationNodeSpacer extends AeroflyConfigurationNode {
+    space = `\n// ${"-".repeat(77)}\n`;
 }

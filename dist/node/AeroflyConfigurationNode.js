@@ -12,6 +12,7 @@ export class AeroflyConfigurationNode {
         this._comment = _comment;
         _AeroflyConfigurationNode_instances.add(this);
         _AeroflyConfigurationNode_children.set(this, []);
+        this.space = "\n";
     }
     append(...nodes) {
         __classPrivateFieldGet(this, _AeroflyConfigurationNode_children, "f").push(...nodes);
@@ -38,9 +39,9 @@ export class AeroflyConfigurationNode {
         const indentation = " ".repeat(4 * indent);
         let tag = `${indentation}<[${this.type}][${this.name}][${__classPrivateFieldGet(this, _AeroflyConfigurationNode_instances, "m", _AeroflyConfigurationNode_aeroflyEscape).call(this, this.valueAsString)}]`;
         if (__classPrivateFieldGet(this, _AeroflyConfigurationNode_children, "f").length > 0) {
-            tag += "\n";
-            tag += __classPrivateFieldGet(this, _AeroflyConfigurationNode_children, "f").map((child) => child.toString(indent + 1)).join("\n");
-            tag += `\n${indentation}>`;
+            tag += this.space;
+            tag += __classPrivateFieldGet(this, _AeroflyConfigurationNode_children, "f").map((child) => child.toString(indent + 1)).join(this.space);
+            tag += `${this.space}${indentation}>`;
         }
         else {
             tag += ">";
@@ -80,3 +81,9 @@ _AeroflyConfigurationNode_children = new WeakMap(), _AeroflyConfigurationNode_in
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
 };
+export class AeroflyConfigurationNodeSpacer extends AeroflyConfigurationNode {
+    constructor() {
+        super(...arguments);
+        this.space = `\n// ${"-".repeat(77)}\n`;
+    }
+}

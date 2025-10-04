@@ -1,4 +1,4 @@
-import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
+import { AeroflyConfigurationNode, AeroflyConfigurationNodeSpacer } from "../node/AeroflyConfigurationNode.js";
 import { AeroflyMission } from "./AeroflyMission.js";
 
 /**
@@ -25,12 +25,8 @@ export class AeroflyMissionsList {
     getElement(): AeroflyConfigurationNode {
         return new AeroflyConfigurationNode("file", "").append(
             new AeroflyConfigurationNode("tmmissions_list", "").append(
-                new AeroflyConfigurationNode("list_tmmission_definition", "missions").append(
-                    ...this.missions.map((m): AeroflyConfigurationNode =>{
-                        const mission = m.getElement();
-                        mission._comment = `End of ${mission.name}`;
-                        return mission;
-                    }),
+                new AeroflyConfigurationNodeSpacer("list_tmmission_definition", "missions").append(
+                    ...this.missions.map((m): AeroflyConfigurationNode => m.getElement()),
                 ),
             ),
         );
