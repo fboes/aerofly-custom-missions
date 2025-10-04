@@ -21,6 +21,7 @@
                 <[bool][is_featured][true]>
                 <[string8][flight_setting][cruise]>
                 <[string8u][aircraft_name][c172]>
+                // <[string8][aircraft_livery][default]>
                 <[stringt8c][aircraft_icao][C172]>
                 <[stringt8c][callsign][N51911]>
                 <[stringt8c][origin_icao][KCCR]>
@@ -55,6 +56,8 @@
                     <[float64][cloud_base][1523.9999512320016]> // 5000 ft AGL
                     <[float64][cirrus_cover][0.2]> // FEW
                     <[float64][cirrus_base][2285.9999268480024]> // 7500 ft AGL
+                    // <[float64][cumulus_mediocris_cover][0.1]>
+                    // <[float64][cumulus_mediocris_base][2895.599907340803]>
                 >
                 <[list_tmmission_checkpoint][checkpoints][]
                     <[tmmission_checkpoint][element][0]

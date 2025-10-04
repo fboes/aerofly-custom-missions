@@ -21,6 +21,7 @@
                 <is_featured type="bool">true</is_featured>
                 <flight_setting type="string8">cruise</flight_setting>
                 <aircraft_name type="string8u">c172</aircraft_name>
+                <!-- aircraft_livery type="string8">default</aircraft_livery -->
                 <aircraft_icao type="stringt8c">C172</aircraft_icao>
                 <callsign type="stringt8c">N51911</callsign>
                 <origin_icao type="stringt8c">KCCR</origin_icao>
@@ -55,6 +56,8 @@
                     <cloud_base type="float64">1523.9999512320016</cloud_base> <!-- 5000 ft AGL -->
                     <cirrus_cover type="float64">0.2</cirrus_cover> <!-- FEW -->
                     <cirrus_base type="float64">2285.9999268480024</cirrus_base> <!-- 7500 ft AGL -->
+                    <!-- cumulus_mediocris_cover type="float64">0.1</cumulus_mediocris_cover --> <!-- CLR -->
+                    <!-- cumulus_mediocris_base type="float64">2895.599907340803</cumulus_mediocris_base --> <!-- 9500 ft AGL -->
                 </conditions>
                 <checkpoints type="list_tmmission_checkpoint">
                     <element type="tmmission_checkpoint" index="0">
@@ -94,7 +97,7 @@
                         <fly_over type="bool">false</fly_over>
                     </element>
                 </checkpoints>
-            </mission> <!-- End of mission -->
+            </mission>
         </missions>
     </tmmissions_list>
 </file>

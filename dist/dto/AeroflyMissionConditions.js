@@ -90,9 +90,7 @@ export class AeroflyMissionConditions {
      * @returns {AeroflyConfigurationNode[]} cloud elements
      */
     getCloudElements() {
-        return this.clouds
-            .slice(0, 2) // Aerofly FS4 supports max 2 cloud layers
-            .flatMap((c, index) => c.getElements(index));
+        return this.clouds.flatMap((c, index) => c.getElements(index));
     }
     /**
      * @returns {string} to use in Aerofly FS4's `custom_missions_user.tmc`

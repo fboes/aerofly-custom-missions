@@ -1,4 +1,4 @@
-import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
+import { AeroflyConfigurationNode, AeroflyConfigurationNodeComment } from "../node/AeroflyConfigurationNode.js";
 import { feetPerMeter } from "./AeroflyMission.js";
 
 /**
@@ -93,10 +93,15 @@ export class AeroflyMissionConditionsCloud {
 
         const indexString = getIndexString(index);
 
-        return [
-            new AeroflyConfigurationNode("float64", `${indexString}_cover`, this.cover ?? 0, this.cover_code),
-            new AeroflyConfigurationNode("float64", `${indexString}_base`, this.base, `${this.base_feet} ft AGL`),
-        ];
+        return index <= 1
+            ? [
+                  new AeroflyConfigurationNode("float64", `${indexString}_cover`, this.cover ?? 0, this.cover_code),
+                  new AeroflyConfigurationNode("float64", `${indexString}_base`, this.base, `${this.base_feet} ft AGL`),
+              ]
+            : [
+                  new AeroflyConfigurationNodeComment("float64", `${indexString}_cover`, this.cover ?? 0, this.cover_code),
+                  new AeroflyConfigurationNodeComment("float64", `${indexString}_base`, this.base, `${this.base_feet} ft AGL`),
+              ];
     }
 
     /**

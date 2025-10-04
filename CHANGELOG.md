@@ -5,6 +5,7 @@ This changelog documents all notable changes to the Aerofly Custom Missions proj
 ## 1.3.1
 
 - Re-introduced spacers between exported missions
+- Re-introduced commented out nodes for exported missions
 
 ## 1.3.0
 

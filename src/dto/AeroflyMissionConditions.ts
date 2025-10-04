@@ -150,9 +150,7 @@ export class AeroflyMissionConditions {
      * @returns {AeroflyConfigurationNode[]} cloud elements
      */
     getCloudElements(): AeroflyConfigurationNode[] {
-        return this.clouds
-            .slice(0, 2) // Aerofly FS4 supports max 2 cloud layers
-            .flatMap((c: AeroflyMissionConditionsCloud, index: number) => c.getElements(index));
+        return this.clouds.flatMap((c: AeroflyMissionConditionsCloud, index: number) => c.getElements(index));
     }
 
     /**

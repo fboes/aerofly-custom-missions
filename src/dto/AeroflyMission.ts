@@ -1,4 +1,4 @@
-import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
+import { AeroflyConfigurationNode, AeroflyConfigurationNodeComment } from "../node/AeroflyConfigurationNode.js";
 import { AeroflyLocalizedText } from "./AeroflyLocalizedText.js";
 import { AeroflyMissionCheckpoint } from "./AeroflyMissionCheckpoint.js";
 import { AeroflyMissionConditions } from "./AeroflyMissionConditions.js";
@@ -311,9 +311,10 @@ export class AeroflyMission {
 
         element.appendChild("string8", "flight_setting", this.flightSetting);
         element.appendChild("string8u", "aircraft_name", this.aircraft.name);
-        /*if (this.aircraft.livery) {
-            mission.createChild("string8", "aircraft_livery", this.aircraft.livery);
-        }*/
+
+        if (this.aircraft.livery) {
+            element.append(new AeroflyConfigurationNodeComment("string8", "aircraft_livery", this.aircraft.livery));
+        }
         element.appendChild("stringt8c", "aircraft_icao", this.aircraft.icao);
         element.appendChild("stringt8c", "callsign", this.callsign);
         element.appendChild("stringt8c", "origin_icao", this.origin.icao);

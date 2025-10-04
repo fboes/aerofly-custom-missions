@@ -147,6 +147,7 @@ const assertIncludes = (string, includes) => {
         clouds: [
             AeroflyMissionConditionsCloud.createInFeet(0.1, 5000),
             AeroflyMissionConditionsCloud.createInFeet(0.2, 7500),
+            AeroflyMissionConditionsCloud.createInFeet(0.1, 9500),
         ],
     });
     assert.strictEqual(conditions.wind.direction, 190);
@@ -182,7 +183,7 @@ const assertIncludes = (string, includes) => {
         flightSetting: "cruise",
         aircraft: {
             name: "c172",
-            livery: "",
+            livery: "default",
             icao: "C172",
         },
         callsign: "N51911",
