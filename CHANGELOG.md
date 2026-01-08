@@ -2,6 +2,10 @@
 
 This changelog documents all notable changes to the Aerofly Custom Missions project. Each version entry includes a list of changes, with the most recent version at the top.
 
+## [Unreleased]
+
+- Changed testing to standard Node.js testing suite
+
 ## 1.3.1
 
 - Re-introduced spacers between exported missions

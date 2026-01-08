@@ -4,7 +4,9 @@
   "description": "Builder for Aerofly FS4 Custom Missions Files",
   "main": "dist/index.js",
   "scripts": {
-    "test": "node ./dist/index.test.js",
+    "test": "node --test 'dist/**/*.test.js'",
+    "test:coverage": "node --test --experimental-test-coverage 'dist/**/*.test.js'",
+    "test:watch": "node --test --watch 'dist/**/*.test.js'",
     "start": "node ./dist/index.js",
     "prettier": "npx prettier --cache --write .",
     "eslint": "npx eslint src/*.ts --fix",
