@@ -1,16 +1,21 @@
 export declare class AeroflyConfigurationNode {
     type: string;
     name: string;
-    value: string | number | string[] | number[] | boolean;
+    value: string | number | bigint | string[] | number[] | boolean;
     _comment: string;
     protected children: AeroflyConfigurationNode[];
     protected space: string;
-    constructor(type: string, name: string, value?: string | number | string[] | number[] | boolean, _comment?: string);
+    constructor(
+        type: string,
+        name: string,
+        value?: string | number | bigint | string[] | number[] | boolean,
+        _comment?: string,
+    );
     append(...nodes: AeroflyConfigurationNode[]): AeroflyConfigurationNode;
     appendChild(
         type: string,
         name: string,
-        value?: string | number | string[] | number[] | boolean,
+        value?: string | number | bigint | string[] | number[] | boolean,
         _comment?: string,
     ): this;
     get valueAsString(): string;

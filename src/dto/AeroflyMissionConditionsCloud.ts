@@ -16,7 +16,7 @@ export type AeroflyMissionConditionsCloudCoverCode = "CLR" | "FEW" | "SCT" | "BK
  */
 export class AeroflyMissionConditionsCloud {
     /**
-     * @property {number} cover 0..1, percentage
+     * @property {number} cover normalized value [0,1]
      */
     cover: number;
 
@@ -26,7 +26,7 @@ export class AeroflyMissionConditionsCloud {
     base: number;
 
     /**
-     * @param {number} cover 0..1, percentage
+     * @param {number} cover normalized value [0,1]
      * @param {number} base altitude in meters AGL
      */
     constructor(cover: number, base: number) {
@@ -35,7 +35,7 @@ export class AeroflyMissionConditionsCloud {
     }
 
     /**
-     * @param {number} cover 0..1, percentage
+     * @param {number} cover normalized value [0,1]
      * @param {number} base_feet altitude, but in feet AGL instead of meters AGL
      * @returns {AeroflyMissionConditionsCloud} self
      */

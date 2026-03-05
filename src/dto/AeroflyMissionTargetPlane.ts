@@ -8,7 +8,7 @@ export class AeroflyMissionTargetPlane {
     /**
      * @property {number} longitude easting, using the World Geodetic
      *    System 1984 (WGS 84) [WGS84] datum, with longitude and latitude units
-     *    of decimal degrees; -180..180
+     *    of decimal degrees; [-180,180]
      */
     longitude: number;
 
@@ -33,7 +33,7 @@ export class AeroflyMissionTargetPlane {
      *
      * @param {number} longitude easting, using the World Geodetic
      *    System 1984 (WGS 84) [WGS84] datum, with longitude and latitude units
-     *    of decimal degrees; -180..180
+     *    of decimal degrees; [-180,180]
      * @param {number}latitude northing, using the World Geodetic
      *    System 1984 (WGS 84) [WGS84] datum, with longitude and latitude units
      *    of decimal degrees; -90..90

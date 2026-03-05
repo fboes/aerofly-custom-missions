@@ -39,7 +39,7 @@ export type AeroflyMissionSetting =
  * @property {string} icao uppercase ICAO airport ID
  * @property {number} longitude easting, using the World Geodetic
  *    System 1984 (WGS 84) [WGS84] datum, with longitude and latitude units
- *    of decimal degrees; -180..180
+ *    of decimal degrees; [-180,180]
  * @property {number} latitude northing, using the World Geodetic
  *    System 1984 (WGS 84) [WGS84] datum, with longitude and latitude units
  *    of decimal degrees; -90..90
@@ -110,6 +110,16 @@ export class AeroflyMission {
     aircraft: AeroflyMissionAircraft;
 
     /**
+     * @property {?number} fuelMass in kg
+     */
+    fuelMass: number | null;
+
+    /**
+     * @property {?number} payloadMass in kg
+     */
+    payloadMass: number | null;
+
+    /**
      * @property {string} callsign of aircraft, uppercased
      */
     callsign: string;
@@ -166,6 +176,8 @@ export class AeroflyMission {
      * @param {"cold_and_dark"|"before_start"|"taxi"|"takeoff"|"cruise"|"approach"|"landing"|"winch_launch"|"aerotow"|"pushback"} [additionalAttributes.flightSetting] of aircraft, like "taxi", "cruise"
      * @param {{name:string,livery:string,icao:string}} [additionalAttributes.aircraft] for this mission
      * @param {string} [additionalAttributes.callsign] of aircraft, uppercased
+     * @param {?number} [additionalAttributes.fuelMass] in kg
+     * @param {?number} [additionalAttributes.payloadMass] in kg
      * @param {object} [additionalAttributes.origin] position of aircraft, as well as name of starting airport. Position does not have match airport.
      * @param {object} [additionalAttributes.destination] position of aircraft, as well as name of destination airport. Position does not have match airport.
      * @param {?number} [additionalAttributes.distance] in meters
@@ -191,6 +203,8 @@ export class AeroflyMission {
                 livery: "",
             },
             callsign = "",
+            fuelMass = null,
+            payloadMass = null,
             origin = {
                 icao: "",
                 longitude: 0,
@@ -224,6 +238,8 @@ export class AeroflyMission {
         this.flightSetting = flightSetting;
         this.aircraft = aircraft;
         this.callsign = callsign;
+        this.fuelMass = fuelMass;
+        this.payloadMass = payloadMass;
         this.origin = origin;
         this.destination = destination;
         this.distance = distance;
@@ -311,12 +327,19 @@ export class AeroflyMission {
 
         element.appendChild("string8", "flight_setting", this.flightSetting);
         element.appendChild("string8u", "aircraft_name", this.aircraft.name);
-
+        element.appendChild("stringt8c", "aircraft_icao", this.aircraft.icao);
         if (this.aircraft.livery) {
             element.append(new AeroflyConfigurationNodeComment("string8", "aircraft_livery", this.aircraft.livery));
         }
-        element.appendChild("stringt8c", "aircraft_icao", this.aircraft.icao);
         element.appendChild("stringt8c", "callsign", this.callsign);
+
+        if (this.fuelMass !== null) {
+            element.append(new AeroflyConfigurationNodeComment("float64", "fuel_mass", this.fuelMass, `kg`));
+        }
+        if (this.payloadMass !== null) {
+            element.append(new AeroflyConfigurationNodeComment("float64", "payload_mass", this.payloadMass, `kg`));
+        }
+
         element.appendChild("stringt8c", "origin_icao", this.origin.icao);
         element.appendChild("tmvector2d", "origin_lon_lat", [this.origin.longitude, this.origin.latitude]);
         element.appendChild(

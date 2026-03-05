@@ -3,8 +3,7 @@
         <missions type="list_tmmission_definition">
             <mission type="tmmission_definition">
                 <title type="string8">KCCR #1: Concord / Buchanan Field</title>
-                <description type="string8">It is a gusty, clear early morning, and you are 8 NM to the north of the towered airport Concord / Buchanan Field (27ft). As the wind is 11 kts from 190°, the main landing runway is 19L (191°
-/ 844m). Fly the pattern and land safely.
+                <description type="string8">It is a gusty, clear early morning, and you are 8 NM to the north of the towered airport Concord / Buchanan Field (27ft). As the wind is 11 kts from 190°, the main landing runway is 19L (191° / 844m). Fly the pattern and land safely.
 
 - Local tower / CTAF frequency: 123.90
 - Local navigational aids: VOR/DME CCR (117.00) 3.4 NM to the north</description>
@@ -21,8 +20,8 @@
                 <is_featured type="bool">true</is_featured>
                 <flight_setting type="string8">cruise</flight_setting>
                 <aircraft_name type="string8u">c172</aircraft_name>
-                <!-- aircraft_livery type="string8">default</aircraft_livery -->
                 <aircraft_icao type="stringt8c">C172</aircraft_icao>
+                <!-- aircraft_livery type="string8">default</aircraft_livery -->
                 <callsign type="stringt8c">N51911</callsign>
                 <origin_icao type="stringt8c">KCCR</origin_icao>
                 <origin_lon_lat type="tmvector2d">-122.0736009331662 38.122300745843944</origin_lon_lat>

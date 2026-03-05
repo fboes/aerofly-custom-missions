@@ -21,8 +21,8 @@
                 <[bool][is_featured][true]>
                 <[string8][flight_setting][cruise]>
                 <[string8u][aircraft_name][c172]>
-                // <[string8][aircraft_livery][default]>
                 <[stringt8c][aircraft_icao][C172]>
+                // <[string8][aircraft_livery][default]>
                 <[stringt8c][callsign][N51911]>
                 <[stringt8c][origin_icao][KCCR]>
                 <[tmvector2d][origin_lon_lat][-122.0736009331662 38.122300745843944]>

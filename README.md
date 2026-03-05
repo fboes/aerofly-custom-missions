@@ -4,6 +4,8 @@
 
 [Aerofly Flight Simulator 4](https://www.aerofly.com/) has a custom missions file `custom_missions_user.tmc` with a very unique format. To help you build this custom missions file, this JavaScript / TypeScript library offers Data Objects to create this file programmatically.
 
+This simulator also defines flight plans and settings in the `main.mcf`, which is automatically loaded on simulator startup. This library contains a proposal for a `flight.mcf`, which is a stripped-down version of the `main.mcf` which only contains all information necessary for flight set-up. See [the documentation for `flight.mcf`](./docs/flight-mcf.md).
+
 This library is intended to work in modern browsers as well as [Node.js](https://nodejs.org/en).
 
 ## Installation
@@ -52,6 +54,9 @@ import {
 
 You might want to enable TypeScript type checking by adding `// @ts-check` as your first line in your scripts.
 
+> [!NOTE]
+> This library also contains classes for building the yet unsupported `flight.mcf`. Please refer to the code on how to use this. See [the documentation for `flight.mcf`](./docs/flight-mcf.md).
+
 ### Basic idea
 
 All objects are basic structures needed for the missions list. The constructors tell you which properties are required, and will start with sensible defaults for all other properties.
@@ -60,7 +65,7 @@ All objects can be exported as JSON or as string via the `toString()` methods. E
 
 ### Building a missions file
 
-A mission file contains one or multiple missions. Building this file starts with the outer container, wich contains the missions:
+A `custom_missions_user.tmc` mission file contains one or multiple missions. Building this file starts with the outer container, wich contains the missions:
 
 ```javascript
 // Build a missions list

@@ -35,12 +35,12 @@ export class AeroflyMissionConditions {
     wind: AeroflyMissionConditionsWind;
 
     /**
-     * @property {number} turbulenceStrength 0..1, percentage
+     * @property {number} turbulenceStrength normalized value [0,1]
      */
     turbulenceStrength: number;
 
     /**
-     * @property {number} thermalStrength 0..1, percentage
+     * @property {number} thermalStrength normalized value [0,1]
      */
     thermalStrength: number;
 
@@ -59,8 +59,8 @@ export class AeroflyMissionConditions {
      * @param {Date} [additionalAttributes.time]  of flight plan. Relevant is the UTC part, so
      *    consider setting this date in UTC.
      * @param {{direction: number, speed: number, gusts: number}} [additionalAttributes.wind] state
-     * @param {number} [additionalAttributes.turbulenceStrength] 0..1, percentage
-     * @param {number} [additionalAttributes.thermalStrength] 0..1, percentage
+     * @param {number} [additionalAttributes.turbulenceStrength] normalized value [0,1]
+     * @param {number} [additionalAttributes.thermalStrength] normalized value [0,1]
      * @param {number} [additionalAttributes.visibility] in meters
      * @param {?number} [additionalAttributes.visibility_sm] in statute miles, will overwrite visibility
      * @param {?number} [additionalAttributes.temperature] in °C, will overwrite thermalStrength

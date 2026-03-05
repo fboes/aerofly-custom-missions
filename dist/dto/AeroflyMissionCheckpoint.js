@@ -15,7 +15,7 @@ export class AeroflyMissionCheckpoint {
      * @param {"origin"|"departure_runway"|"departure"|"waypoint"|"arrival"|"approach"|"destination_runway"|"destination"} type Type of checkpoint, like "departure_runway"
      * @param {number} longitude easting, using the World Geodetic
      *    System 1984 (WGS 84) [WGS84] datum, with longitude and latitude units
-     *    of decimal degrees; -180..180
+     *    of decimal degrees; [-180,180]
      * @param {number} latitude northing, using the World Geodetic
      *    System 1984 (WGS 84) [WGS84] datum, with longitude and latitude units
      *    of decimal degrees; -90..90

@@ -5,7 +5,7 @@ export class AeroflyConfigurationNode {
     constructor(
         public type: string,
         public name: string,
-        public value: string | number | string[] | number[] | boolean = "",
+        public value: string | number | bigint | string[] | number[] | boolean = "",
         public _comment: string = "",
     ) {}
 
@@ -17,7 +17,7 @@ export class AeroflyConfigurationNode {
     appendChild(
         type: string,
         name: string,
-        value: string | number | string[] | number[] | boolean = "",
+        value: string | number | bigint | string[] | number[] | boolean = "",
         _comment: string = "",
     ) {
         this.append(new AeroflyConfigurationNode(type, name, value, _comment));

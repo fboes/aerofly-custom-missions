@@ -1,0 +1,116 @@
+<[file][][]
+    <[tmsettings_sim][][]
+        <[tmsettings_aircraft][aircraft][]
+            <[string8u][name][c172]>
+            <[string8u][paintscheme][highway_patrol]>
+            <[list_string8u][options][]>
+            <[bool][profi][false]>
+        >
+        <[tmsettings_flight][flight_setting][]
+            <[vector3_float64][position][-1548480.2914129882 -4793879.340758891 3903103.47375716]> // Lon -107.901076, Lat 37.953812, 9073 ft
+            <[vector3_float64][velocity][0 0 0]> // 0 kts
+            <[matrix3_float64][orientation][-0.4595563612734764 -0.8881486085183504 0 0.8881486085183504 -0.4595563612734764 0 0 0 1]> // 117° heading
+            <[float64][gear][1]>
+            <[float64][throttle][0]>
+            <[float64][flaps][0]>
+            <[flight_configuration][configuration][OnGround]>
+            <[bool][on_ground][true]>
+            <[string8u][airport][KTEX]>
+            <[string8u][runway][]>
+        >
+        <[tmsettings_fuel_load][fuel_load_setting][]
+            <[fuel_load_configuration][configuration][Keep]>
+            <[string8u][aircraft][c172]>
+            <[float64][fuel_mass][80]>
+            <[float64][payload_mass][90]>
+        >
+        <[tm_time_utc][time_utc][]
+            <[int32][time_year][2026]>
+            <[int32][time_month][3]>
+            <[int32][time_day][1]>
+            <[float64][time_hours][21.343333333333334]> // 21:20:36 UTC
+        >
+        <[float64][visibility][0.533333]> // 5.0 SM
+        <[tmsettings_wind][wind][]
+            <[float64][strength][0.672604]> // 10 kts
+            <[float64][direction_in_degree][70]>
+            <[float64][turbulence][0.1125000140816]> // 0 kts gusts
+            <[float64][thermal_activity][0.72]> // 23°C
+        >
+        <[tmsettings_clouds][clouds][]
+            <[float64][cumulus_density][0.02]> // CLR
+            <[float64][cumulus_height][0.25]> // 2500 ft AGL
+            <[float64][cirrus_density][0.53]> // BKN
+            <[float64][cirrus_height][0.43]> // 4300 ft AGL
+            <[float64][cumulus_mediocris_density][0.7]> // BKN
+            <[float64][cumulus_mediocris_height][0.53]> // 5300 ft AGL
+        >
+        <[tmnavigation_config][navigation][]
+            <[tmnav_route][Route][]
+                <[float64][CruiseAltitude][9753.6]> // 32001 ft
+                <[pointer_list_tmnav_route_way][Ways][]
+                    <[tmnav_route_origin][KEYW][0]
+                        <[string8u][Identifier][KEYW]>
+                        <[vector3_float64][Position][831962.2473395835 -5744690.224311131 2634431.8120697998]> // Lon -81.759556, Lat 24.556111
+                        <[uint64][Uid][5033935394767185920]>
+                        <[float64][Elevation][0.9144]> // Elevation 4 ft
+                    >
+                    <[tmnav_route_departure_runway][09][1]
+                        <[string8u][Identifier][09]>
+                        <[vector3_float64][Position][831239.6121807017 -5744797.5451743435 2634425.9351001014]> // Lon -81.766767, Lat 24.556053
+                        <[uint64][Uid][5033564859348430848]>
+                        <[float64][Elevation][0.9144]> // Elevation 4 ft
+                        <[float64][RunwayLength][1463.3448]> // Runway length 4801 ft
+                    >
+                    <[tmnav_route_waypoint][MTH][2]
+                        <[string8u][Identifier][MTH]>
+                        <[vector3_float64][Position][-2309470.142824746 -3651978.5471377173 4675755.385390146]> // Lon -122.308800, Lat 47.450200
+                        // <[uint64][Uid][]>
+                        <[float64][NavaidFrequency][260000]>
+                        <[vector2_float64][Altitude][-1001 100001]> // unrestricted
+                        <[bool][FlyOver][false]>
+                    >
+                    <[tmnav_route_waypoint][MNATE][3]
+                        <[string8u][Identifier][MNATE]>
+                        <[vector3_float64][Position][-2309470.142824746 -3651978.5471377173 4675755.385390146]> // Lon -122.308800, Lat 47.450200
+                        // <[uint64][Uid][]>
+                        <[vector2_float64][Altitude][-1001 100001]> // unrestricted
+                        <[bool][FlyOver][false]>
+                    >
+                    <[tmnav_route_waypoint][HST][4]
+                        <[string8u][Identifier][HST]>
+                        <[vector3_float64][Position][-2309470.142824746 -3651978.5471377173 4675755.385390146]> // Lon -122.308800, Lat 47.450200
+                        // <[uint64][Uid][]>
+                        <[float64][NavaidFrequency][108200000]>
+                        <[vector2_float64][Altitude][-1001 100001]> // unrestricted
+                        <[bool][FlyOver][false]>
+                    >
+                    <[tmnav_route_approach][L08L][5]
+                        <[string8u][Identifier][L08L]>
+                        <[vector3_float64][Position][0 0 0]> // Lon 0.000000, Lat 0.000000
+                        <[uint64][Uid][5109231054766956544]>
+                        <[string8u][Airport][KMIA]>
+                        <[vector3_float64][Direction][0 0 0]>
+                        <[float64][Elevation][2.4384]> // Elevation 9 ft
+                        <[string8u][Transition][]>
+                        <[uint64][TransitionUid][0]>
+                    >
+                    <[tmnav_route_destination_runway][08L][6]
+                        <[string8u][Identifier][08L]>
+                        <[vector3_float64][Position][967964.1844961813 -5663741.310440378 2759419.1621422493]> // Lon -80.301542, Lat 25.802897
+                        <[uint64][Uid][5108645015094833152]>
+                        <[float64][Elevation][2.4384]> // Elevation 9 ft
+                        <[float64][RunwayLength][2621.28]> // Runway length 8600 ft
+                    >
+                    <[tmnav_route_destination][KMIA][7]
+                        <[string8u][Identifier][KMIA]>
+                        <[vector3_float64][Position][969155.3700254696 -5663906.240326158 2758667.49173681]> // Lon -80.290111, Lat 25.795361
+                        <[uint64][Uid][5109231054766614528]>
+                        <[float64][Elevation][2.7432]> // Elevation 10 ft
+                    >
+                >
+            >
+            <[list_fixed_tmnav_fix][Fixes][]>
+        >
+    >
+>

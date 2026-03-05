@@ -5,4 +5,23 @@ export { AeroflyMissionConditions } from "./dto/AeroflyMissionConditions.js";
 export { AeroflyMissionConditionsCloud } from "./dto/AeroflyMissionConditionsCloud.js";
 export { AeroflyMissionsList } from "./dto/AeroflyMissionsList.js";
 export { AeroflyMissionTargetPlane } from "./dto/AeroflyMissionTargetPlane.js";
+export { AeroflyFlight } from "./dto-flight/AeroflyFlight.js";
+export { AeroflySettingsAircraft } from "./dto-flight/AeroflySettingsAircraft.js";
+export { AeroflySettingsFlight } from "./dto-flight/AeroflySettingsFlight.js";
+export { AeroflySettingsFuelLoad } from "./dto-flight/AeroflySettingsFuelLoad.js";
+export { AeroflyTimeUtc } from "./dto-flight/AeroflyTimeUtc.js";
+export { AeroflySettingsWind } from "./dto-flight/AeroflySettingsWind.js";
+export { AeroflySettingsCloud } from "./dto-flight/AeroflySettingsCloud.js";
+export { AeroflyNavigationConfig } from "./dto-flight/AeroflyNavigationConfig.js";
+export { AeroflyNavRouteDestination, AeroflyNavRouteOrigin } from "./dto-flight/AeroflyNavRouteAirports.js";
+export {
+    AeroflyNavRouteDepartureRunway,
+    AeroflyNavRouteDestinationRunway,
+} from "./dto-flight/AeroflyNavRouteRunway.js";
+export {
+    AeroflyNavRouteApproach,
+    AeroflyNavRouteArrival,
+    AeroflyNavRouteDeparture,
+} from "./dto-flight/AeroflyNavRouteTransition.js";
+export { AeroflyNavRouteWaypoint } from "./dto-flight/AeroflyNavRouteWaypoint.js";
 //# sourceMappingURL=index.d.ts.map

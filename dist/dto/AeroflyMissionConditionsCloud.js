@@ -10,7 +10,7 @@ import { feetPerMeter } from "./AeroflyMission.js";
  */
 export class AeroflyMissionConditionsCloud {
     /**
-     * @param {number} cover 0..1, percentage
+     * @param {number} cover normalized value [0,1]
      * @param {number} base altitude in meters AGL
      */
     constructor(cover, base) {
@@ -18,7 +18,7 @@ export class AeroflyMissionConditionsCloud {
         this.base = base;
     }
     /**
-     * @param {number} cover 0..1, percentage
+     * @param {number} cover normalized value [0,1]
      * @param {number} base_feet altitude, but in feet AGL instead of meters AGL
      * @returns {AeroflyMissionConditionsCloud} self
      */

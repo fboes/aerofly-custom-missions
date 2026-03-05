@@ -1,0 +1,116 @@
+<file type="file">
+    <tmsettings_sim type="tmsettings_sim">
+        <aircraft type="tmsettings_aircraft">
+            <name type="string8u">c172</name>
+            <paintscheme type="string8u">highway_patrol</paintscheme>
+            <options type="list_string8u"></options>
+            <profi type="bool">false</profi>
+        </aircraft>
+        <flight_setting type="tmsettings_flight">
+            <position type="vector3_float64">-1548480.2914129882 -4793879.340758891 3903103.47375716</position> <!-- Lon -107.901076, Lat 37.953812, 9073 ft -->
+            <velocity type="vector3_float64">0 0 0</velocity> <!-- 0 kts -->
+            <orientation type="matrix3_float64">-0.4595563612734764 -0.8881486085183504 0 0.8881486085183504 -0.4595563612734764 0 0 0 1</orientation> <!-- 117° heading -->
+            <gear type="float64">1</gear>
+            <throttle type="float64">0</throttle>
+            <flaps type="float64">0</flaps>
+            <configuration type="flight_configuration">OnGround</configuration>
+            <on_ground type="bool">true</on_ground>
+            <airport type="string8u">KTEX</airport>
+            <runway type="string8u"></runway>
+        </flight_setting>
+        <fuel_load_setting type="tmsettings_fuel_load">
+            <configuration type="fuel_load_configuration">Keep</configuration>
+            <aircraft type="string8u">c172</aircraft>
+            <fuel_mass type="float64">80</fuel_mass>
+            <payload_mass type="float64">90</payload_mass>
+        </fuel_load_setting>
+        <time_utc type="tm_time_utc">
+            <time_year type="int32">2026</time_year>
+            <time_month type="int32">3</time_month>
+            <time_day type="int32">1</time_day>
+            <time_hours type="float64">21.343333333333334</time_hours> <!-- 21:20:36 UTC -->
+        </time_utc>
+        <visibility type="float64">0.533333</visibility> <!-- 5.0 SM -->
+        <wind type="tmsettings_wind">
+            <strength type="float64">0.672604</strength> <!-- 10 kts -->
+            <direction_in_degree type="float64">70</direction_in_degree>
+            <turbulence type="float64">0.1125000140816</turbulence> <!-- 0 kts gusts -->
+            <thermal_activity type="float64">0.72</thermal_activity> <!-- 23°C -->
+        </wind>
+        <clouds type="tmsettings_clouds">
+            <cumulus_density type="float64">0.02</cumulus_density> <!-- CLR -->
+            <cumulus_height type="float64">0.25</cumulus_height> <!-- 2500 ft AGL -->
+            <cirrus_density type="float64">0.53</cirrus_density> <!-- BKN -->
+            <cirrus_height type="float64">0.43</cirrus_height> <!-- 4300 ft AGL -->
+            <cumulus_mediocris_density type="float64">0.7</cumulus_mediocris_density> <!-- BKN -->
+            <cumulus_mediocris_height type="float64">0.53</cumulus_mediocris_height> <!-- 5300 ft AGL -->
+        </clouds>
+        <navigation type="tmnavigation_config">
+            <Route type="tmnav_route">
+                <CruiseAltitude type="float64">9753.6</CruiseAltitude> <!-- 32001 ft -->
+                <Ways type="pointer_list_tmnav_route_way">
+                    <KEYW type="tmnav_route_origin" index="0">
+                        <Identifier type="string8u">KEYW</Identifier>
+                        <Position type="vector3_float64">831962.2473395835 -5744690.224311131 2634431.8120697998</Position> <!-- Lon -81.759556, Lat 24.556111 -->
+                        <Uid type="uint64">5033935394767185920</Uid>
+                        <Elevation type="float64">0.9144</Elevation> <!-- Elevation 4 ft -->
+                    </KEYW>
+                    <09 type="tmnav_route_departure_runway" index="1">
+                        <Identifier type="string8u">09</Identifier>
+                        <Position type="vector3_float64">831239.6121807017 -5744797.5451743435 2634425.9351001014</Position> <!-- Lon -81.766767, Lat 24.556053 -->
+                        <Uid type="uint64">5033564859348430848</Uid>
+                        <Elevation type="float64">0.9144</Elevation> <!-- Elevation 4 ft -->
+                        <RunwayLength type="float64">1463.3448</RunwayLength> <!-- Runway length 4801 ft -->
+                    </09>
+                    <MTH type="tmnav_route_waypoint" index="2">
+                        <Identifier type="string8u">MTH</Identifier>
+                        <Position type="vector3_float64">-2309470.142824746 -3651978.5471377173 4675755.385390146</Position> <!-- Lon -122.308800, Lat 47.450200 -->
+                        <!-- Uid type="uint64"></Uid -->
+                        <NavaidFrequency type="float64">260000</NavaidFrequency>
+                        <Altitude type="vector2_float64">-1001 100001</Altitude> <!-- unrestricted -->
+                        <FlyOver type="bool">false</FlyOver>
+                    </MTH>
+                    <MNATE type="tmnav_route_waypoint" index="3">
+                        <Identifier type="string8u">MNATE</Identifier>
+                        <Position type="vector3_float64">-2309470.142824746 -3651978.5471377173 4675755.385390146</Position> <!-- Lon -122.308800, Lat 47.450200 -->
+                        <!-- Uid type="uint64"></Uid -->
+                        <Altitude type="vector2_float64">-1001 100001</Altitude> <!-- unrestricted -->
+                        <FlyOver type="bool">false</FlyOver>
+                    </MNATE>
+                    <HST type="tmnav_route_waypoint" index="4">
+                        <Identifier type="string8u">HST</Identifier>
+                        <Position type="vector3_float64">-2309470.142824746 -3651978.5471377173 4675755.385390146</Position> <!-- Lon -122.308800, Lat 47.450200 -->
+                        <!-- Uid type="uint64"></Uid -->
+                        <NavaidFrequency type="float64">108200000</NavaidFrequency>
+                        <Altitude type="vector2_float64">-1001 100001</Altitude> <!-- unrestricted -->
+                        <FlyOver type="bool">false</FlyOver>
+                    </HST>
+                    <L08L type="tmnav_route_approach" index="5">
+                        <Identifier type="string8u">L08L</Identifier>
+                        <Position type="vector3_float64">0 0 0</Position> <!-- Lon 0.000000, Lat 0.000000 -->
+                        <Uid type="uint64">5109231054766956544</Uid>
+                        <Airport type="string8u">KMIA</Airport>
+                        <Direction type="vector3_float64">0 0 0</Direction>
+                        <Elevation type="float64">2.4384</Elevation> <!-- Elevation 9 ft -->
+                        <Transition type="string8u"></Transition>
+                        <TransitionUid type="uint64">0</TransitionUid>
+                    </L08L>
+                    <08L type="tmnav_route_destination_runway" index="6">
+                        <Identifier type="string8u">08L</Identifier>
+                        <Position type="vector3_float64">967964.1844961813 -5663741.310440378 2759419.1621422493</Position> <!-- Lon -80.301542, Lat 25.802897 -->
+                        <Uid type="uint64">5108645015094833152</Uid>
+                        <Elevation type="float64">2.4384</Elevation> <!-- Elevation 9 ft -->
+                        <RunwayLength type="float64">2621.28</RunwayLength> <!-- Runway length 8600 ft -->
+                    </08L>
+                    <KMIA type="tmnav_route_destination" index="7">
+                        <Identifier type="string8u">KMIA</Identifier>
+                        <Position type="vector3_float64">969155.3700254696 -5663906.240326158 2758667.49173681</Position> <!-- Lon -80.290111, Lat 25.795361 -->
+                        <Uid type="uint64">5109231054766614528</Uid>
+                        <Elevation type="float64">2.7432</Elevation> <!-- Elevation 10 ft -->
+                    </KMIA>
+                </Ways>
+            </Route>
+            <Fixes type="list_fixed_tmnav_fix"></Fixes>
+        </navigation>
+    </tmsettings_sim>
+</file>

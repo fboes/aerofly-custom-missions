@@ -2,31 +2,33 @@
 
 This changelog documents all notable changes to the Aerofly Custom Missions project. Each version entry includes a list of changes, with the most recent version at the top.
 
-## [Unreleased]
+## [1.4.0]
 
 - Changed testing to standard Node.js testing suite
+- Added `fuel_mass` and `payload_mass` properties
+- Added `flight.mcf` / `main.mcf` DTO
 
-## 1.3.1
+## [1.3.1]
 
 - Re-introduced spacers between exported missions
 - Re-introduced commented out nodes for exported missions
 
-## 1.3.0
+## [1.3.0]
 
 - Changed TMC code generation with nodes
 
-## 1.2.3
+## [1.2.3]
 
 - Internal restructuring of mission generation logic
 - Optimized waypoint handling and validation
 - Improved error handling for mission parsing
 
-## 1.2.2
+## [1.2.2]
 
 - Added altitude constraint property for waypoints
 - Improved handling of cloud layers with better validation
 
-## 1.2.1
+## [1.2.1]
 
 - Changed handling of checkpoints to support missions without checkpoints
 - Improved file generation for programmatic mission creation
@@ -40,7 +42,7 @@ This changelog documents all notable changes to the Aerofly Custom Missions proj
   - `before_start`
   - `pushback`
 
-## 1.2.0
+## [1.2.0]
 
 - Added new cloud level properties:
   - `cirrus_cover` for high-altitude cloud coverage
@@ -48,13 +50,13 @@ This changelog documents all notable changes to the Aerofly Custom Missions proj
 - Added new waypoint property `fly_over` for precise waypoint navigation
 - Added `finish` property to mark mission completion points
 
-## 1.1.1
+## [1.1.1]
 
 - Fixed styling issues in mission display
 - Improved UI consistency across different mission types
 - Enhanced error message formatting
 
-## 1.1.0
+## [1.1.0]
 
 - Added new mission metadata properties:
   - `tags` for mission categorization
@@ -68,31 +70,31 @@ This changelog documents all notable changes to the Aerofly Custom Missions proj
   - `aerotow` for towed aircraft operations
 - Improved temperature property with better unit handling
 
-## 1.0.4
+## [1.0.4]
 
 - Added comprehensive documentation for known issues and workarounds
 - Added `AeroflyMissionConditions.temperature` property with Celsius support
 - Improved error handling for weather conditions
 
-## 1.0.3
+## [1.0.3]
 
 - Enhanced API documentation with examples
 - Added detailed parameter descriptions
 - Improved code documentation
 
-## 1.0.2
+## [1.0.2]
 
 - Added shorthand properties for common mission parameters
 - Improved property access methods
 - Enhanced mission validation
 
-## 1.0.1
+## [1.0.1]
 
 - Added initial API documentation
 - Improved code comments
 - Added basic usage examples
 
-## 1.0.0
+## [1.0.0]
 
 - Initial release of Aerofly Custom Missions
 - Basic mission creation and editing functionality

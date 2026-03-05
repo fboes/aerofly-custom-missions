@@ -3,5 +3,4 @@
 @eaDir
 *.code-workspace
 /node_modules
-/tmp/*
-!/tmp/.gitkeep
+/tmp
