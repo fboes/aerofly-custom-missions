@@ -25,17 +25,7 @@ describe("Convert", () => {
         assert.strictEqual(lonLat.latitude.toFixed(4), expectedLatitude.toFixed(4), `Expected latitude to be ${expectedLatitude.toFixed(4)}, got ${lonLat.latitude.toFixed(4)}`);
     });
     it("should convert heading degree to orientation matrix and back correctly", () => {
-        const orientationMatrix = [
-            0,
-            -1,
-            0, // cos(90°) = 0, -sin(90°) = -1
-            1,
-            0,
-            0, // sin(90°) = 1, cos(90°) = 0
-            0,
-            0,
-            1,
-        ];
+        const orientationMatrix = [0, -1, 0, 1, 0, 0, 0, 0, 1];
         const expectedHeadingDegree = 90;
         const actualHeadingDegree = Convert.convertMatrixToDegree(orientationMatrix);
         assert.strictEqual(actualHeadingDegree.toFixed(4), expectedHeadingDegree.toFixed(4), `Expected heading degree to be ${expectedHeadingDegree.toFixed(4)}, got ${actualHeadingDegree.toFixed(4)}`);

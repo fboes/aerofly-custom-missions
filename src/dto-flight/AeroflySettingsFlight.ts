@@ -5,7 +5,7 @@ export class AeroflySettingsFlight {
     gear: number;
     throttle: number;
     flaps: number;
-    flighConfiguration: "Keep" | "OnGround";
+    flighConfiguration: "Keep" | "OnGround" | "Cruise";
     onGround: boolean;
     airport: string;
     runway: string;

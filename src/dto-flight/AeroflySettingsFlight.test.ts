@@ -37,4 +37,34 @@ describe("AeroflySettingsFlight", () => {
         assert.strictEqual(flight.runway, "16L", `Expected runway to be 16L, got ${flight.runway}`);
         assertValidAeroflyStructure(flight.toString());
     });
+
+    it("should use valid orientation from main.mcf", () => {
+        const flight = new AeroflySettingsFlight(-122.3088, 47.4502, 1000, 90, 150);
+
+        // Canada
+        flight.orientation = [
+            -0.763419555334921, 0.645896043270811, 0.00298057365988389, -0.564914354076689, -0.665451427226094,
+            -0.487899754622681, -0.313149094027667, -0.374155982565915, 0.872894578754952,
+        ];
+
+        console.log("Orientation:", flight.heading_degree); // should be 270, is 216
+
+        // South Africa
+        flight.orientation = [
+            0.324874838801671, -0.945743434574979, 0.0050690306677758, -0.526455468124437, -0.185291526716742,
+            -0.829766045466347, 0.785685038164447, 0.266901491350839, -0.5580883574482,
+        ];
+
+        console.log("Orientation:", flight.heading_degree); // should be 270, is 301
+
+        // Japan
+        flight.orientation = [
+            0.717429258146935, 0.696613268777701, 0.00502128644729529, -0.393795668419003, 0.411487688662976,
+            -0.821950639401925, -0.574647919242008, 0.587714076606685, 0.569536595021937,
+        ];
+
+        console.log("Orientation:", flight.heading_degree); // should be 270, is 331
+
+        assertValidAeroflyStructure(flight.toString());
+    });
 });
