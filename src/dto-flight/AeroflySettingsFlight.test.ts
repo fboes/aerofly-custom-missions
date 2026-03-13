@@ -10,7 +10,7 @@ describe("AeroflySettingsFlight", () => {
             gear: 1,
             throttle: 0.5,
             flaps: 0.25,
-            flighConfiguration: "Keep",
+            configuration: "Keep",
             onGround: false,
             airport: "KSEA",
             runway: "16L",
@@ -28,9 +28,9 @@ describe("AeroflySettingsFlight", () => {
         assert.strictEqual(flight.throttle, 0.5, `Expected throttle to be 0.5, got ${flight.throttle}`);
         assert.strictEqual(flight.flaps, 0.25, `Expected flaps to be 0.25, got ${flight.flaps}`);
         assert.strictEqual(
-            flight.flighConfiguration,
+            flight.configuration,
             "Keep",
-            `Expected flighConfiguration to be Keep, got ${flight.flighConfiguration}`,
+            `Expected configuration to be Keep, got ${flight.configuration}`,
         );
         assert.strictEqual(flight.onGround, false, `Expected onGround to be false, got ${flight.onGround}`);
         assert.strictEqual(flight.airport, "KSEA", `Expected airport to be KSEA, got ${flight.airport}`);

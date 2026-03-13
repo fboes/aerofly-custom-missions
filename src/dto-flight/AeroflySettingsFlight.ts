@@ -5,7 +5,7 @@ export class AeroflySettingsFlight {
     gear: number;
     throttle: number;
     flaps: number;
-    flighConfiguration: "Keep" | "OnGround" | "Cruise";
+    configuration: "Keep" | "OnGround" | "Cruise";
     onGround: boolean;
     airport: string;
     runway: string;
@@ -20,7 +20,7 @@ export class AeroflySettingsFlight {
             gear = 1,
             throttle = 0,
             flaps = 0,
-            flighConfiguration = "OnGround",
+            configuration = "OnGround",
             onGround = true,
             airport = "",
             runway = "",
@@ -29,7 +29,7 @@ export class AeroflySettingsFlight {
         this.gear = gear;
         this.throttle = throttle;
         this.flaps = flaps;
-        this.flighConfiguration = flighConfiguration;
+        this.configuration = configuration;
         this.onGround = onGround;
         this.airport = airport;
         this.runway = runway;
@@ -142,7 +142,7 @@ export class AeroflySettingsFlight {
             .appendChild("float64", "gear", this.gear)
             .appendChild("float64", "throttle", this.throttle)
             .appendChild("float64", "flaps", this.flaps)
-            .appendChild("flight_configuration", "configuration", this.flighConfiguration)
+            .appendChild("flight_configuration", "configuration", this.configuration)
             .appendChild("bool", "on_ground", this.onGround)
             .appendChild("string8u", "airport", this.airport)
             .appendChild("string8u", "runway", this.runway);

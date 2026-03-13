@@ -1,7 +1,7 @@
 import { Convert } from "../node/Convert.js";
 import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
 export class AeroflySettingsFlight {
-    constructor(longitude, latitude, altitude_meter, heading_degree, speed_kts = 0, { gear = 1, throttle = 0, flaps = 0, flighConfiguration = "OnGround", onGround = true, airport = "", runway = "", } = {}) {
+    constructor(longitude, latitude, altitude_meter, heading_degree, speed_kts = 0, { gear = 1, throttle = 0, flaps = 0, configuration = "OnGround", onGround = true, airport = "", runway = "", } = {}) {
         this.longitude = longitude;
         this.latitude = latitude;
         this.altitude_meter = altitude_meter;
@@ -10,7 +10,7 @@ export class AeroflySettingsFlight {
         this.gear = gear;
         this.throttle = throttle;
         this.flaps = flaps;
-        this.flighConfiguration = flighConfiguration;
+        this.configuration = configuration;
         this.onGround = onGround;
         this.airport = airport;
         this.runway = runway;
@@ -81,7 +81,7 @@ export class AeroflySettingsFlight {
             .appendChild("float64", "gear", this.gear)
             .appendChild("float64", "throttle", this.throttle)
             .appendChild("float64", "flaps", this.flaps)
-            .appendChild("flight_configuration", "configuration", this.flighConfiguration)
+            .appendChild("flight_configuration", "configuration", this.configuration)
             .appendChild("bool", "on_ground", this.onGround)
             .appendChild("string8u", "airport", this.airport)
             .appendChild("string8u", "runway", this.runway);

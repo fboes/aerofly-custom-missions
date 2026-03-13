@@ -9,7 +9,7 @@ export declare class AeroflySettingsFlight {
     gear: number;
     throttle: number;
     flaps: number;
-    flighConfiguration: "Keep" | "OnGround" | "Cruise";
+    configuration: "Keep" | "OnGround" | "Cruise";
     onGround: boolean;
     airport: string;
     runway: string;
@@ -19,7 +19,7 @@ export declare class AeroflySettingsFlight {
         altitude_meter: number,
         heading_degree: number,
         speed_kts?: number,
-        { gear, throttle, flaps, flighConfiguration, onGround, airport, runway }?: Partial<AeroflySettingsFlight>,
+        { gear, throttle, flaps, configuration, onGround, airport, runway }?: Partial<AeroflySettingsFlight>,
     );
     static createInFeet(
         longitude: number,

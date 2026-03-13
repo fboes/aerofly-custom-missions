@@ -2,6 +2,10 @@
 
 This changelog documents all notable changes to the Aerofly Custom Missions project. Each version entry includes a list of changes, with the most recent version at the top.
 
+## [1.5.0]
+
+- Fixed spelling error for `configuration`, which changes the API
+
 ## [1.4.0]
 
 - Changed testing to standard Node.js testing suite
