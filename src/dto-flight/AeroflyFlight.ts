@@ -144,6 +144,13 @@ export class AeroflyFlight {
         return this.clouds.flatMap((c: AeroflySettingsCloud, index: number) => (index < 3 ? c.getElements(index) : []));
     }
 
+    /**
+     * @returns {AeroflyConfigurationNode} element containing all clouds
+     */
+    getCloudsElement(): AeroflyConfigurationNode {
+        return new AeroflyConfigurationNode("tmsettings_clouds", "clouds").append(...this.getCloudElements());
+    }
+
     getElement(): AeroflyConfigurationNode {
         return new AeroflyConfigurationNode("file", "").append(
             new AeroflyConfigurationNode("tmsettings_sim", "").append(
@@ -158,7 +165,7 @@ export class AeroflyFlight {
                     `${this.visibility_sm.toPrecision(2)} SM`,
                 ),
                 this.wind.getElement(),
-                new AeroflyConfigurationNode("tmsettings_clouds", "clouds").append(...this.getCloudElements()),
+                this.getCloudsElement(),
                 this.navigation.getElement(),
             ),
         );

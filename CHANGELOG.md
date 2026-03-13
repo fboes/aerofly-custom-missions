@@ -4,6 +4,7 @@ This changelog documents all notable changes to the Aerofly Custom Missions proj
 
 ## [1.5.0]
 
+- Added clouds elements getter
 - Fixed spelling error for `configuration`, which changes the API
 
 ## [1.4.0]

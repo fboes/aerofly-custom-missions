@@ -76,8 +76,14 @@ export class AeroflyFlight {
     getCloudElements() {
         return this.clouds.flatMap((c, index) => (index < 3 ? c.getElements(index) : []));
     }
+    /**
+     * @returns {AeroflyConfigurationNode} element containing all clouds
+     */
+    getCloudsElement() {
+        return new AeroflyConfigurationNode("tmsettings_clouds", "clouds").append(...this.getCloudElements());
+    }
     getElement() {
-        return new AeroflyConfigurationNode("file", "").append(new AeroflyConfigurationNode("tmsettings_sim", "").append(this.aircraft.getElement(), this.flightSetting.getElement(), this.fuelLoadSetting.getElement(), this.timeUtc.getElement(), new AeroflyConfigurationNode("float64", "visibility", this.visibility, `${this.visibility_sm.toPrecision(2)} SM`), this.wind.getElement(), new AeroflyConfigurationNode("tmsettings_clouds", "clouds").append(...this.getCloudElements()), this.navigation.getElement()));
+        return new AeroflyConfigurationNode("file", "").append(new AeroflyConfigurationNode("tmsettings_sim", "").append(this.aircraft.getElement(), this.flightSetting.getElement(), this.fuelLoadSetting.getElement(), this.timeUtc.getElement(), new AeroflyConfigurationNode("float64", "visibility", this.visibility, `${this.visibility_sm.toPrecision(2)} SM`), this.wind.getElement(), this.getCloudsElement(), this.navigation.getElement()));
     }
     /**
      * @returns {string} to use in Aerofly FS4's `main.mcf`

@@ -90,6 +90,10 @@ export declare class AeroflyFlight {
      * @returns {AeroflyConfigurationNode[]} cloud elements
      */
     getCloudElements(): AeroflyConfigurationNode[];
+    /**
+     * @returns {AeroflyConfigurationNode} element containing all clouds
+     */
+    getCloudsElement(): AeroflyConfigurationNode;
     getElement(): AeroflyConfigurationNode;
     /**
      * @returns {string} to use in Aerofly FS4's `main.mcf`
