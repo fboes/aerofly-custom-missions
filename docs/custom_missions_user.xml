@@ -26,6 +26,8 @@
                 <aircraft_icao type="stringt8c">C172</aircraft_icao>
                 <!-- aircraft_livery type="string8">default</aircraft_livery -->
                 <callsign type="stringt8c">N51911</callsign>
+                <!-- fuel_mass type="float64">80</fuel_mass --> <!-- kg -->
+                <!-- payload_mass type="float64">90</payload_mass --> <!-- kg -->
                 <origin_icao type="stringt8c">KCCR</origin_icao>
                 <origin_lon_lat type="tmvector2d">-122.0736009331662 38.122300745843944</origin_lon_lat>
                 <origin_alt type="float64">1066.799965862401</origin_alt> <!-- 3500 ft MSL -->

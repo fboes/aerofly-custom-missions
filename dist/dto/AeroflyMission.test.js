@@ -90,6 +90,8 @@ It is a gusty, clear early morning, and you are 8 NM to the north of the towered
                 icao: "C172",
             },
             callsign: "N51911",
+            fuelMass: 80,
+            payloadMass: 90,
             origin: {
                 icao: "KCCR",
                 longitude: -122.0736009331662,

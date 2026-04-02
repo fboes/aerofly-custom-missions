@@ -78,8 +78,8 @@
         "icao": "C172"
       },
       "callsign": "N51911",
-      "fuelMass": null,
-      "payloadMass": null,
+      "fuelMass": 80,
+      "payloadMass": 90,
       "origin": {
         "icao": "KCCR",
         "longitude": -122.0736009331662,

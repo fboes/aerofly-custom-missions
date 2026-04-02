@@ -27,6 +27,8 @@
                 <[stringt8c][aircraft_icao][C172]>
                 // <[string8][aircraft_livery][default]>
                 <[stringt8c][callsign][N51911]>
+                // <[float64][fuel_mass][80]>
+                // <[float64][payload_mass][90]>
                 <[stringt8c][origin_icao][KCCR]>
                 <[tmvector2d][origin_lon_lat][-122.0736009331662 38.122300745843944]>
                 <[float64][origin_alt][1066.799965862401]> // 3500 ft MSL
