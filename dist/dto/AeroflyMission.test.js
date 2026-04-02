@@ -75,10 +75,11 @@ describe("AeroflyMission", () => {
                 flyOver: false,
             }),
         ];
-        const mission = new AeroflyMission("KCCR #1: Concord / Buchanan Field", {
+        const mission = new AeroflyMission("Landing practice #1: Concord / Buchanan Field", {
             checkpoints,
             conditions,
-            description: `It is a gusty, clear early morning, and you are 8 NM to the north of the towered airport Concord / Buchanan Field (27ft). As the wind is 11 kts from 190°, the main landing runway is 19L (191° / 844m). Fly the pattern and land safely.
+            description: `\
+It is a gusty, clear early morning, and you are 8 NM to the north of the towered airport Concord / Buchanan Field (27ft). As the wind is 11 kts from 190°, the main landing runway is 19L (191° / 844m). Fly the pattern and land safely.
 
 - Local tower / CTAF frequency: 123.90
 - Local navigational aids: VOR/DME CCR (117.00) 3.4 NM to the north`,
@@ -133,7 +134,11 @@ describe("AeroflyMission", () => {
         //console.log(missionListString);
         mission.difficulty = 1.0;
         mission.isFeatured = true;
-        mission.localizedTexts.push(new AeroflyLocalizedText("de", "Landeübung #1", "Probier die Landung"));
+        mission.localizedTexts.push(new AeroflyLocalizedText("de", `\
+Landeübung #1: Concord / Buchanan Field`, `Es ist ein böiger, klarer früher Morgen, und du bist 8 Seemeilen nördlich des turmhohen Flughafens Concord / Buchanan Field (27 Fuß). Da der Wind 11 Knoten aus 190° erreicht, beträgt die Hauptlandebahn 19L (191° / 844m). Fliege das Muster und lande sicher.
+
+- Lokaler Tower / CTAF-Frequenz: 123,90
+- Lokale Navigationshilfen: VOR/DME CCR (117,00) 3,4 Seemeilen nördlich`));
         mission.distance = 1400;
         mission.duration = 2 * 60 * 60;
         mission.tags.push("approach");
@@ -162,5 +167,6 @@ describe("AeroflyMission", () => {
         fs.writeFileSync("docs/custom_missions_user.tmc", fileContent);
         const xmlContent = file.toXmlString();
         fs.writeFileSync("docs/custom_missions_user.xml", xmlContent);
+        fs.writeFileSync("docs/custom_missions_user.json", JSON.stringify(file, null, 2));
     });
 });
