@@ -29,7 +29,7 @@ Rules:
 - `clouds.cover` is a normalized value between 0 (clear) and 1 (overcast).
 - `wind.speed` and `wind.gusts` are in knots. `fuelMass` and `payloadMass` are in kg.
 - `callsign` must be uppercased. `aircraft.name` must be lowercased.
-- If a filename is requested, used `.aerofly.json` as file suffix.
+- If a filename is requested, use `.aerofly.json` as file suffix.
 
 Now generate the following mission:
 [YOUR MISSION DESCRIPTION HERE]
@@ -60,7 +60,7 @@ The more detail you provide — aircraft type, departure airport, weather mood, 
 3. Replace `[YOUR MISSION DESCRIPTION HERE]` with your mission idea.
 4. Send the message.
 5. Claude will reply with a JSON array. Copy the entire JSON response.
-6. Save it as a `.json` file, e.g. `my_mission.json`.
+6. Save it as a `.aerofly.json` file, e.g. `my_mission.aerofly.json`.
 7. Import the file into the app.
 
 > **Tip:** If Claude wraps the JSON in a code block (` ```json ... ``` `), copy only the content between the backticks.
