@@ -2,6 +2,10 @@
 
 This changelog documents all notable changes to the Aerofly Custom Missions project. Each version entry includes a list of changes, with the most recent version at the top.
 
+## [1.6.0]
+
+- Added JSON schema for custom missions as JSON
+
 ## [1.5.0]
 
 - Added clouds elements getter

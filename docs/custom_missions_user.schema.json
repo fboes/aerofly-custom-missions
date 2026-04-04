@@ -1,0 +1,269 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/fboes/aerofly-custom-missions/refs/heads/main/docs/custom_missions_user.schema.json",
+  "title": "Aerofly Custom User Missions JSON",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "title": {
+        "type": "string",
+        "description": "Title of this flight plan"
+      },
+      "checkpoints": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "origin",
+                "departure_runway",
+                "departure",
+                "waypoint",
+                "arrival",
+                "approach",
+                "destination_runway",
+                "destination"
+              ],
+              "description": "Type of waypoint. Flight plans usually start with 'origin', followed by 'departure_runway'. Flight plans usually end with 'destination_runway', followed by 'destination'"
+            },
+            "name": {
+              "type": "string",
+              "description": "ICAO identifier for airports, name of navaids, free text for any other type of waypoint. Uppercased"
+            },
+            "longitude": {
+              "type": "number",
+              "description": "Easting, using the World Geodetic System 1984 (WGS 84) [WGS84] datum, with longitude and latitude units of decimal degrees; [-180,180]",
+              "minimum": -180,
+              "maximum": 180
+            },
+            "latitude": {
+              "type": "number",
+              "description": "Northing, using the World Geodetic System 1984 (WGS 84) [WGS84] datum, with longitude and latitude units of decimal degrees; [-90,90]",
+              "minimum": -90,
+              "maximum": 90
+            },
+            "altitude": {
+              "type": "number",
+              "description": "The height in meters above or below the WGS 84 reference ellipsoid"
+            },
+            "frequency": {
+              "type": ["number", "null"],
+              "description": "Navaid frequency given in Hertz"
+            },
+            "flyOver": {
+              "type": ["boolean", "null"],
+              "description": "Whether to fly over the waypoint"
+            }
+          },
+          "required": ["type", "name", "longitude", "latitude"]
+        }
+      },
+      "description": {
+        "type": "string",
+        "description": "Description text, mission briefing, etc"
+      },
+      "flightSetting": {
+        "type": "string",
+        "enum": [
+          "cold_and_dark",
+          "before_start",
+          "taxi",
+          "takeoff",
+          "cruise",
+          "approach",
+          "landing",
+          "winch_launch",
+          "aerotow",
+          "pushback"
+        ],
+        "description": "Flight setting of aircraft, , like \"taxi\", \"cruise\""
+      },
+      "aircraft": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Lowercased identifier for Aerofly FS4 aircraft, e.g. \"c172\""
+          },
+          "livery": {
+            "type": "string",
+            "description": "Lowercased identifier for Aerofly FS4 paint scheme for given aircraft"
+          },
+          "icao": {
+            "type": "string",
+            "description": "Upperacsed ICAO identifier for aircraft"
+          }
+        },
+        "required": ["name"]
+      },
+      "callsign": {
+        "type": "string",
+        "description": "Callsign of aircraft. This string is supposed to be uppercased. Default to an empty string."
+      },
+      "fuelMass": {
+        "type": ["number", "null"],
+        "description": "Fuel mass in kg",
+        "minimum": 0
+      },
+      "payloadMass": {
+        "type": ["number", "null"],
+        "description": "Payload mass in kg",
+        "minimum": 0
+      },
+      "origin": {
+        "type": "object",
+        "properties": {
+          "icao": {
+            "type": "string"
+          },
+          "longitude": {
+            "type": "number",
+            "description": "Easting, using the World Geodetic System 1984 (WGS 84) [WGS84] datum, with longitude and latitude units of decimal degrees; [-180,180]",
+            "minimum": -180,
+            "maximum": 180
+          },
+          "latitude": {
+            "type": "number",
+            "description": "Northing, using the World Geodetic System 1984 (WGS 84) [WGS84] datum, with longitude and latitude units of decimal degrees; [-90,90]",
+            "minimum": -90,
+            "maximum": 90
+          },
+          "dir": {
+            "type": "number",
+            "description": "Heading, given in degree"
+          },
+          "alt": {
+            "type": "number",
+            "description": "The height in meters above or below the WGS 84 reference ellipsoid"
+          }
+        },
+        "required": ["icao", "longitude", "latitude", "dir", "alt"]
+      },
+      "destination": {
+        "type": "object",
+        "description": "Destination airport information",
+        "properties": {
+          "icao": {
+            "type": "string",
+            "description": "ICAO identifier of airport"
+          },
+          "longitude": {
+            "type": "number",
+            "description": "Easting, using the World Geodetic System 1984 (WGS 84) [WGS84] datum, with longitude and latitude units of decimal degrees; [-180,180]",
+            "minimum": -180,
+            "maximum": 180
+          },
+          "latitude": {
+            "type": "number",
+            "description": "Northing, using the World Geodetic System 1984 (WGS 84) [WGS84] datum, with longitude and latitude units of decimal degrees; [-90,90]",
+            "minimum": -90,
+            "maximum": 90
+          },
+          "dir": {
+            "type": "number",
+            "description": "Heading, given in degree",
+            "minimum": 0,
+            "maximum": 360
+          },
+          "alt": {
+            "type": "number",
+            "description": "The height in meters above or below the WGS 84 reference ellipsoid"
+          }
+        },
+        "required": ["icao", "longitude", "latitude", "dir", "alt"]
+      },
+      "conditions": {
+        "type": "object",
+        "properties": {
+          "clouds": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "cover": {
+                  "type": "number",
+  "description": "Cloud cover as normalized value [0,1], where 0 = clear, 1 = overcast",
+                    "minimum": 0,
+                  "maximum": 1
+                },
+                "base": {
+                  "type": "number",
+  "description": "Cloud base height in meters above WGS 84 reference ellipsoid",
+                  "minimum": 0
+                }
+              },
+              "required": ["cover", "base"]
+            }
+          },
+          "time": {
+            "type": "string",
+              "format": "date-time",
+              "description": "UTC time and day, given as ISO 8601 string, e.g. \"2024-05-28T11:00:00Z\""
+        },
+          "wind": {
+            "type": "object",
+            "properties": {
+              "direction": {
+                "type": "number",
+                "description": "Wind direction where the wind is coming from, in degrees",
+                  "minimum": 0,
+                  "maximum": 360
+              },
+              "speed": {
+                "type": "number",
+                "description": "Wind speed in kts",
+                "minimum": 0
+              },
+              "gusts": {
+                "type": "number",
+                "description": "Gust speed in kts",
+                "minimum": 0
+              }
+            },
+            "required": ["direction", "speed"]
+          },
+          "turbulenceStrength": {
+            "type": "number",
+            "description": "normalized value [0,1]",
+                  "minimum": 0,
+                  "maximum": 1
+          },
+          "thermalStrength": {
+            "type": "number",
+            "description": "normalized value [0,1]",
+                  "minimum": 0,
+                  "maximum": 1
+          },
+          "visibility": {
+            "type": "number",
+            "description": "Given in meters",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "clouds",
+          "time",
+          "wind",
+          "turbulenceStrength",
+          "thermalStrength",
+          "visibility"
+        ]
+      }
+    },
+    "required": [
+      "title",
+      "checkpoints",
+      "description",
+      "flightSetting",
+      "aircraft",
+      "fuelMass",
+      "payloadMass",
+      "origin",
+      "destination",
+      "conditions"
+    ]
+  }
+}

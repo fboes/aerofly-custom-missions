@@ -180,4 +180,47 @@ export class AeroflyMission {
     toString() {
         return this.getElement().toString();
     }
+    static fromJSON(json) {
+        if (typeof json !== "object" || json === null) {
+            throw new Error("Invalid mission data");
+        }
+        const data = json;
+        return new AeroflyMission(String(data.title ?? ""), {
+            tutorialName: String(data.tutorialName ?? ""),
+            description: String(data.description ?? ""),
+            localizedTexts: [], // TODO
+            tags: [], // TODO
+            isFeatured: data.isFeatured !== undefined ? Boolean(data.isFeatured) : null,
+            difficulty: data.difficulty !== undefined ? Number(data.difficulty) : null,
+            flightSetting: String(data.flightSetting ?? "taxi"),
+            aircraft: {
+                name: "c172",
+                icao: "",
+                livery: "",
+            },
+            callsign: String(data.callsign ?? ""),
+            fuelMass: data.fuelMass !== undefined ? Number(data.fuelMass) : null,
+            payloadMass: data.payloadMass !== undefined ? Number(data.payloadMass) : null,
+            origin: {
+                icao: "",
+                longitude: 0,
+                latitude: 0,
+                dir: 0,
+                alt: 0,
+            },
+            destination: {
+                icao: "",
+                longitude: 0,
+                latitude: 0,
+                dir: 0,
+                alt: 0,
+            },
+            distance: data.distance !== undefined ? Number(data.distance) : null,
+            duration: data.duration !== undefined ? Number(data.duration) : null,
+            isScheduled: data.isScheduled !== undefined ? Boolean(data.isScheduled) : null,
+            finish: null, // TODO
+            conditions: AeroflyMissionConditions.fromJSON(data.conditions),
+            checkpoints: [], // TODO
+        });
+    }
 }

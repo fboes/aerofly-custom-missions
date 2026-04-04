@@ -45,4 +45,16 @@ export class AeroflyMissionsList {
     toXmlString(): string {
         return this.getElement().toXmlString();
     }
+
+    toJSON(): AeroflyMission[] {
+        return this.missions;
+    }
+
+    static fromJSON(json: unknown): AeroflyMissionsList {
+        if (!Array.isArray(json)) {
+            throw new Error("Mission list base node must be of array type");
+        }
+        const data = json as unknown[];
+        return new AeroflyMissionsList(data.map((d) => AeroflyMission.fromJSON(d)));
+    }
 }

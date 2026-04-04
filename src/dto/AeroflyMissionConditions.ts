@@ -184,4 +184,31 @@ export class AeroflyMissionConditions {
     toString(): string {
         return this.getElement().toString();
     }
+
+    static fromJSON(json: unknown): AeroflyMissionConditions {
+        if (typeof json !== "object" || json === null) {
+            throw new Error("Invalid mission condition data");
+        }
+        const data = json as Record<string, unknown>;
+
+        if (typeof data.wind !== "object" || data.wind === null) {
+            throw new Error("Invalid wind data");
+        }
+        const wind = data.wind as Record<string, unknown>;
+
+        return new AeroflyMissionConditions({
+            time: data.time ? new Date(String(data.time)) : new Date(),
+            wind: {
+                direction: Number(wind.direction ?? 0),
+                speed: Number(wind.speed ?? 0),
+                gusts: Number(wind.gusts ?? 0),
+            },
+            turbulenceStrength: Number(data.turbulenceStrength ?? 0),
+            thermalStrength: Number(data.thermalStrength ?? 0),
+            visibility: Number(data.visibility ?? 25_000),
+            visibility_sm: Number(data.visibility_sm ?? 0),
+            temperature: Number(data.temperature ?? 0),
+            clouds: [], // TODO
+        });
+    }
 }
