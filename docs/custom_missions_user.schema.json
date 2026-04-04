@@ -86,11 +86,11 @@
         "properties": {
           "name": {
             "type": "string",
-            "description": "Lowercased identifier for Aerofly FS4 aircraft, e.g. \"c172\""
+            "description": "Lowercased identifier for Aerofly FS4 aircraft, e.g. \"c172\". The current list of Aerofly FS4 aircraft codes can be obtained from https://fboes.github.io/aerofly-data/data/aircraft.html or https://fboes.github.io/aerofly-data/data/aircraft-liveries.json"
           },
           "livery": {
             "type": "string",
-            "description": "Lowercased identifier for Aerofly FS4 paint scheme for given aircraft"
+            "description": "Lowercased identifier for Aerofly FS4 paint scheme for given aircraft. The current list of Aerofly FS4 paint schemes can be obtained from https://fboes.github.io/aerofly-data/data/aircraft-liveries.json"
           },
           "icao": {
             "type": "string",
@@ -105,12 +105,12 @@
       },
       "fuelMass": {
         "type": ["number", "null"],
-        "description": "Fuel mass in kg",
+        "description": "Fuel mass in kg. The potential maximum fuel mass can be obtained from https://fboes.github.io/aerofly-data/data/aircraft-liveries.json.",
         "minimum": 0
       },
       "payloadMass": {
         "type": ["number", "null"],
-        "description": "Payload mass in kg",
+        "description": "Payload mass in kg. The potential maximum payload mass can be obtained from https://fboes.github.io/aerofly-data/data/aircraft-liveries.json.",
         "minimum": 0
       },
       "origin": {
