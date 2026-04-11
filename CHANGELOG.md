@@ -4,7 +4,7 @@ This changelog documents all notable changes to the Aerofly Custom Missions proj
 
 ## [1.6.0]
 
-- Addes `toJSON` improvements to most DTOs
+- Added `toJSON` improvements to most DTOs
 - Added JSON schema for custom missions as JSON
 
 ## [1.5.0]
