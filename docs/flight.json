@@ -1,0 +1,134 @@
+{
+  "aircraft": {
+    "name": "c172",
+    "paintscheme": "highway_patrol",
+    "options": [],
+    "profi": false
+  },
+  "flightSetting": {
+    "longitude": -107.90107635928504,
+    "latitude": 37.95381167941058,
+    "heading_degree": 117.3584840119476,
+    "speed_kts": 0,
+    "gear": 1,
+    "throttle": 0,
+    "flaps": 0,
+    "configuration": "OnGround",
+    "onGround": true,
+    "airport": "KTEX",
+    "runway": "",
+    "altitude_ft": 9072.275604893097
+  },
+  "timeUtc": {
+    "time": "2026-03-01T21:20:36.000Z"
+  },
+  "wind": {
+    "speed_kts": 9.000001126528,
+    "directionInDegree": 70,
+    "gust_kts": 0,
+    "temperature_celsius": 23
+  },
+  "clouds": [
+    {
+      "density": 0.02,
+      "height_ft": 2500
+    },
+    {
+      "density": 0.53,
+      "height_ft": 4300
+    },
+    {
+      "density": 0.7,
+      "height_ft": 5300
+    }
+  ],
+  "navigation": {
+    "waypoints": [
+      {
+        "type": "origin",
+        "identifier": "KEYW",
+        "longitude": -81.75955555555561,
+        "latitude": 24.55611111111108,
+        "uid": "5033935394767185920",
+        "elevation_ft": 3.000000096
+      },
+      {
+        "type": "departure_runway",
+        "identifier": "09",
+        "longitude": -81.76676666666668,
+        "latitude": 24.556052777777765,
+        "uid": "5033564859348430848",
+        "direction_degree": null,
+        "elevation_ft": 3.000000096,
+        "runwayLength_ft": 4801.000153632001
+      },
+      {
+        "type": "waypoint",
+        "identifier": "MTH",
+        "longitude": -122.3088,
+        "latitude": 47.4502,
+        "uid": null,
+        "flyOver": false,
+        "altitude_ft": null,
+        "navaidFrequency_khz": 260
+      },
+      {
+        "type": "waypoint",
+        "identifier": "MNATE",
+        "longitude": -122.3088,
+        "latitude": 47.4502,
+        "uid": null,
+        "flyOver": false,
+        "altitude_ft": null,
+        "navaidFrequency_khz": null
+      },
+      {
+        "type": "waypoint",
+        "identifier": "HST",
+        "longitude": -122.3088,
+        "latitude": 47.4502,
+        "uid": null,
+        "flyOver": false,
+        "altitude_ft": null,
+        "navaidFrequency_khz": 108200
+      },
+      {
+        "type": "approach",
+        "identifier": "L08L",
+        "longitude": 0,
+        "latitude": 0,
+        "uid": "5109231054766956544",
+        "airport": "KMIA",
+        "transition": "",
+        "transitionUid": null,
+        "elevation_ft": 8.000000256
+      },
+      {
+        "type": "destination_runway",
+        "identifier": "08L",
+        "longitude": -80.30154166666665,
+        "latitude": 25.80289722222224,
+        "uid": "5108645015094833152",
+        "direction_degree": null,
+        "elevation_ft": 8.000000256,
+        "runwayLength_ft": 8600.0002752
+      },
+      {
+        "type": "destination",
+        "identifier": "KMIA",
+        "longitude": -80.29011111111112,
+        "latitude": 25.79536111111115,
+        "uid": "5109231054766614528",
+        "elevation_ft": 9.000000287999999
+      }
+    ],
+    "cruiseAltitude_ft": 32000.001024
+  },
+  "fuelLoadSetting": {
+    "aircraft": "c172",
+    "fuelMass": 80,
+    "payloadMass": 90,
+    "configuration": "Keep"
+  },
+  "visibility_meter": 7999.994999999999
+}

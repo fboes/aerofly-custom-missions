@@ -12,7 +12,7 @@ export class AeroflyNavRouteWaypoint extends AeroflyNavRouteBase {
      * @param {boolean} [options.flyOver] if true, the waypoint is meant to be flown over, otherwise it can be used as a fly-by waypoint
      * @param {?bigint} [options.uid] unique identifier for the waypoint, will be generated automatically if not provided
      */
-    constructor(identifier, longitude, latitude, { navaidFrequency = null, altitude = null, altitude_ft = null, flyOver = false, uid = null, } = {}) {
+    constructor(identifier, longitude, latitude, { navaidFrequency = null, navaidFrequency_khz = null, navaidFrequency_mhz = null, altitude = null, altitude_ft = null, flyOver = false, uid = null, } = {}) {
         super("waypoint", identifier, longitude, latitude, { uid });
         this.identifier = identifier;
         this.longitude = longitude;
@@ -21,6 +21,12 @@ export class AeroflyNavRouteWaypoint extends AeroflyNavRouteBase {
         this.altitude = altitude;
         if (altitude_ft !== null) {
             this.altitude_ft = altitude_ft;
+        }
+        if (navaidFrequency_khz !== null) {
+            this.navaidFrequency_khz = navaidFrequency_khz;
+        }
+        if (navaidFrequency_mhz !== null) {
+            this.navaidFrequency_mhz = navaidFrequency_mhz;
         }
         this.flyOver = flyOver;
     }
@@ -32,6 +38,18 @@ export class AeroflyNavRouteWaypoint extends AeroflyNavRouteBase {
     }
     set altitude_ft(altitude_ft) {
         this.altitude = altitude_ft !== null ? Convert.convertFeetToMeter(altitude_ft) : null;
+    }
+    get navaidFrequency_khz() {
+        return this.navaidFrequency ? this.navaidFrequency / 1000 : null;
+    }
+    set navaidFrequency_khz(navaidFrequency_khz) {
+        this.navaidFrequency = navaidFrequency_khz !== null ? navaidFrequency_khz * 1000 : null;
+    }
+    get navaidFrequency_mhz() {
+        return this.navaidFrequency ? this.navaidFrequency / 1000_000 : null;
+    }
+    set navaidFrequency_mhz(navaidFrequency_mhz) {
+        this.navaidFrequency = navaidFrequency_mhz !== null ? navaidFrequency_mhz * 1000_000 : null;
     }
     /**
      * @returns {AeroflyVector3Float} to use in Aerofly FS4's `main.mcf`
@@ -54,5 +72,15 @@ export class AeroflyNavRouteWaypoint extends AeroflyNavRouteBase {
             .appendChild("vector2_float64", "Altitude", this.altitude !== null && this.altitude > 0 ? [this.altitude, this.altitude] : [-1001, 100001], `${this.altitude_ft !== null && this.altitude_ft > 0 ? Math.ceil(this.altitude_ft) + " ft" : "unrestricted"}`)
             .appendChild("bool", "FlyOver", this.flyOver);
         return element;
+    }
+    toJSON() {
+        return {
+            ...this,
+            uid: this.uid !== null ? this.uid.toString() : null,
+            altitude: undefined,
+            altitude_ft: this.altitude_ft,
+            navaidFrequency: undefined,
+            navaidFrequency_khz: this.navaidFrequency_khz,
+        };
     }
 }

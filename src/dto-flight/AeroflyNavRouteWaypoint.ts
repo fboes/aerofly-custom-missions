@@ -35,6 +35,8 @@ export class AeroflyNavRouteWaypoint extends AeroflyNavRouteBase {
         public latitude: number,
         {
             navaidFrequency = null,
+            navaidFrequency_khz = null,
+            navaidFrequency_mhz = null,
             altitude = null,
             altitude_ft = null,
             flyOver = false,
@@ -47,6 +49,12 @@ export class AeroflyNavRouteWaypoint extends AeroflyNavRouteBase {
 
         if (altitude_ft !== null) {
             this.altitude_ft = altitude_ft;
+        }
+        if (navaidFrequency_khz !== null) {
+            this.navaidFrequency_khz = navaidFrequency_khz;
+        }
+        if (navaidFrequency_mhz !== null) {
+            this.navaidFrequency_mhz = navaidFrequency_mhz;
         }
 
         this.flyOver = flyOver;
@@ -61,6 +69,22 @@ export class AeroflyNavRouteWaypoint extends AeroflyNavRouteBase {
 
     set altitude_ft(altitude_ft: number | null) {
         this.altitude = altitude_ft !== null ? Convert.convertFeetToMeter(altitude_ft) : null;
+    }
+
+    get navaidFrequency_khz(): number | null {
+        return this.navaidFrequency ? this.navaidFrequency / 1000 : null;
+    }
+
+    set navaidFrequency_khz(navaidFrequency_khz: number | null) {
+        this.navaidFrequency = navaidFrequency_khz !== null ? navaidFrequency_khz * 1000 : null;
+    }
+
+    get navaidFrequency_mhz(): number | null {
+        return this.navaidFrequency ? this.navaidFrequency / 1000_000 : null;
+    }
+
+    set navaidFrequency_mhz(navaidFrequency_mhz: number | null) {
+        this.navaidFrequency = navaidFrequency_mhz !== null ? navaidFrequency_mhz * 1000_000 : null;
     }
 
     /**
@@ -94,5 +118,16 @@ export class AeroflyNavRouteWaypoint extends AeroflyNavRouteBase {
             .appendChild("bool", "FlyOver", this.flyOver);
 
         return element;
+    }
+
+    toJSON() {
+        return {
+            ...this,
+            uid: this.uid !== null ? this.uid.toString() : null,
+            altitude: undefined,
+            altitude_ft: this.altitude_ft,
+            navaidFrequency: undefined,
+            navaidFrequency_khz: this.navaidFrequency_khz,
+        };
     }
 }

@@ -57,6 +57,9 @@ export declare class AeroflyNavRouteBase {
      */
     setPosition(position: AeroflyVector3Float): this;
     getElement(index?: number): AeroflyConfigurationNode;
+    toJSON(): this & {
+        uid: string | null;
+    };
     /**
      * @returns {string} to use in Aerofly FS4's `main.mcf`
      */

@@ -26,5 +26,7 @@ export declare class AeroflyMissionsList {
      * @returns {string} XML represenation of this mission list
      */
     toXmlString(): string;
+    toJSON(): AeroflyMission[];
+    static fromJSON(json: unknown): AeroflyMissionsList;
 }
 //# sourceMappingURL=AeroflyMissionsList.d.ts.map

@@ -87,4 +87,12 @@ export class Convert {
     static convertFeetToMeter(feet: number): number {
         return feet / 3.28084;
     }
+
+    static convertKgToLb(kg: number) {
+        return kg;
+    }
+
+    static convertLbToKg(lb: number) {
+        return lb;
+    }
 }

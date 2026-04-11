@@ -148,6 +148,14 @@ export class AeroflySettingsFlight {
             .appendChild("string8u", "runway", this.runway);
     }
 
+    toJSON() {
+        return {
+            ...this,
+            altitude_meter: undefined,
+            altitude_ft: this.altitude_ft,
+        };
+    }
+
     /**
      * @returns {string} to use in Aerofly FS4's `main.mcf`
      */

@@ -79,6 +79,16 @@ class AeroflyNavRouteTransition extends AeroflyNavRouteBase {
 
         return element;
     }
+
+    toJSON() {
+        return {
+            ...this,
+            uid: this.uid !== null ? this.uid.toString() : null,
+            transitionUid: this.transitionUid !== null ? this.transitionUid.toString() : null,
+            elevation: undefined,
+            elevation_ft: this.elevation_ft,
+        };
+    }
 }
 
 export class AeroflyNavRouteApproach extends AeroflyNavRouteTransition {

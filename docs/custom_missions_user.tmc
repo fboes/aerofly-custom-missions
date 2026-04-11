@@ -3,7 +3,7 @@
         <[list_tmmission_definition][missions][]
 // -----------------------------------------------------------------------------
             <[tmmission_definition][mission][]
-                <[string8][title][KCCR #1: Concord / Buchanan Field]>
+                <[string8][title][Landing practice #1: Concord / Buchanan Field]>
                 <[string8][description][It is a gusty, clear early morning, and you are 8 NM to the north of the towered airport Concord / Buchanan Field (27ft). As the wind is 11 kts from 190°, the main landing runway is 19L (191° / 844m). Fly the pattern and land safely.
 
 - Local tower / CTAF frequency: 123.90
@@ -12,8 +12,11 @@
                 <[list_tmmission_definition_localized][localized_text][]
                     <[tmmission_definition_localized][element][0]
                         <[string8u][language][de]>
-                        <[string8][title][Landeübung #1]>
-                        <[string8][description][Probier die Landung]>
+                        <[string8][title][Landeübung #1: Concord / Buchanan Field]>
+                        <[string8][description][Es ist ein böiger, klarer früher Morgen, und du bist 8 Seemeilen nördlich des turmhohen Flughafens Concord / Buchanan Field (27 Fuß). Da der Wind 11 Knoten aus 190° erreicht, beträgt die Hauptlandebahn 19L (191° / 844m). Fliege das Muster und lande sicher.
+
+- Lokaler Tower / CTAF-Frequenz: 123,90
+- Lokale Navigationshilfen: VOR/DME CCR (117,00) 3,4 Seemeilen nördlich]>
                     >
                 >
                 <[string8u][tags][approach pattern]>
@@ -24,6 +27,8 @@
                 <[stringt8c][aircraft_icao][C172]>
                 // <[string8][aircraft_livery][default]>
                 <[stringt8c][callsign][N51911]>
+                // <[float64][fuel_mass][80]>
+                // <[float64][payload_mass][90]>
                 <[stringt8c][origin_icao][KCCR]>
                 <[tmvector2d][origin_lon_lat][-122.0736009331662 38.122300745843944]>
                 <[float64][origin_alt][1066.799965862401]> // 3500 ft MSL

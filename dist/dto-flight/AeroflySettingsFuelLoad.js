@@ -1,4 +1,5 @@
 import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
+import { Convert } from "../node/Convert.js";
 export class AeroflySettingsFuelLoad {
     /**
      * @param {string} aircraft  aerofly aircraft name (e.g. "c172")
@@ -13,6 +14,18 @@ export class AeroflySettingsFuelLoad {
         this.fuelMass = fuelMass;
         this.payloadMass = payloadMass;
         this.configuration = configuration;
+    }
+    get fuelMass_lb() {
+        return Convert.convertKgToLb(this.fuelMass);
+    }
+    set fuelMass_lb(fuelMass_lb) {
+        this.fuelMass = Convert.convertLbToKg(fuelMass_lb);
+    }
+    get payloadMass_lb() {
+        return Convert.convertKgToLb(this.payloadMass);
+    }
+    set payloadMass_lb(payloadMass_lb) {
+        this.payloadMass = Convert.convertLbToKg(payloadMass_lb);
     }
     getElement() {
         return new AeroflyConfigurationNode("tmsettings_fuel_load", "fuel_load_setting")

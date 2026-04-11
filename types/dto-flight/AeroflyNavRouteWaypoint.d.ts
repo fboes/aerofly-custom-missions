@@ -32,18 +32,31 @@ export declare class AeroflyNavRouteWaypoint extends AeroflyNavRouteBase {
         identifier: string,
         longitude: number,
         latitude: number,
-        { navaidFrequency, altitude, altitude_ft, flyOver, uid }?: Partial<AeroflyNavRouteWaypoint>,
+        {
+            navaidFrequency,
+            navaidFrequency_khz,
+            navaidFrequency_mhz,
+            altitude,
+            altitude_ft,
+            flyOver,
+            uid,
+        }?: Partial<AeroflyNavRouteWaypoint>,
     );
     /**
      * @returns {number | null} altitude in feet, null if not set
      */
     get altitude_ft(): number | null;
     set altitude_ft(altitude_ft: number | null);
+    get navaidFrequency_khz(): number | null;
+    set navaidFrequency_khz(navaidFrequency_khz: number | null);
+    get navaidFrequency_mhz(): number | null;
+    set navaidFrequency_mhz(navaidFrequency_mhz: number | null);
     /**
      * @returns {AeroflyVector3Float} to use in Aerofly FS4's `main.mcf`
      */
     get position(): AeroflyVector3Float;
     set position(position: AeroflyVector3Float);
     getElement(index?: number): AeroflyConfigurationNode;
+    toJSON(): never;
 }
 //# sourceMappingURL=AeroflyNavRouteWaypoint.d.ts.map

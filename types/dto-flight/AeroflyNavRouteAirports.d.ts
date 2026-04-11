@@ -28,6 +28,7 @@ declare class AeroflyNavRouteAirport extends AeroflyNavRouteBase {
     get elevation_ft(): number | null;
     set elevation_ft(elevation_ft: number | null);
     getElement(index?: number): AeroflyConfigurationNode;
+    toJSON(): never;
 }
 export declare class AeroflyNavRouteOrigin extends AeroflyNavRouteAirport {
     /**

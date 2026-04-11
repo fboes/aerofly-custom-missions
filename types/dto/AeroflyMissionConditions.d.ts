@@ -107,5 +107,6 @@ export declare class AeroflyMissionConditions {
      * @returns {string} to use in Aerofly FS4's `custom_missions_user.tmc`
      */
     toString(): string;
+    static fromJSON(json: unknown): AeroflyMissionConditions;
 }
 //# sourceMappingURL=AeroflyMissionConditions.d.ts.map

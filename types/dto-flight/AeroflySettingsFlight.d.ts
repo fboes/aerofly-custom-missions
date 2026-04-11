@@ -58,6 +58,7 @@ export declare class AeroflySettingsFlight {
     get speed_ms(): number;
     set speed_ms(speed_ms: number);
     getElement(): AeroflyConfigurationNode;
+    toJSON(): never;
     /**
      * @returns {string} to use in Aerofly FS4's `main.mcf`
      */

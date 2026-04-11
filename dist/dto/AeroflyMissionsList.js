@@ -1,4 +1,5 @@
 import { AeroflyConfigurationNode, AeroflyConfigurationNodeSpacer } from "../node/AeroflyConfigurationNode.js";
+import { AeroflyMission } from "./AeroflyMission.js";
 /**
  * @class
  * A list of flight plans.
@@ -28,5 +29,15 @@ export class AeroflyMissionsList {
      */
     toXmlString() {
         return this.getElement().toXmlString();
+    }
+    toJSON() {
+        return this.missions;
+    }
+    static fromJSON(json) {
+        if (!Array.isArray(json)) {
+            throw new Error("Mission list base node must be of array type");
+        }
+        const data = json;
+        return new AeroflyMissionsList(data.map((d) => AeroflyMission.fromJSON(d)));
     }
 }

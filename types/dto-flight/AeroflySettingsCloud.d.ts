@@ -36,6 +36,7 @@ export declare class AeroflySettingsCloud {
      * @returns {AeroflyConfigurationNode[]} to use in Aerofly FS4's `main.mcf`
      */
     getElements(index?: number): AeroflyConfigurationNode[];
+    toJSON(): never;
     /**
      * @param {number} index if used in an array will set the array index
      * @returns {string} to use in Aerofly FS4's `main.mcf`

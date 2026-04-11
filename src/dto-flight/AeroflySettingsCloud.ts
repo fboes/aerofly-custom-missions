@@ -125,6 +125,14 @@ export class AeroflySettingsCloud {
               ];
     }
 
+    toJSON() {
+        return {
+            ...this,
+            height: undefined,
+            height_ft: this.height_ft,
+        };
+    }
+
     /**
      * @param {number} index if used in an array will set the array index
      * @returns {string} to use in Aerofly FS4's `main.mcf`

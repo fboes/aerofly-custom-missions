@@ -41,6 +41,13 @@ export class AeroflyNavigationConfig {
             .append(new AeroflyConfigurationNode("pointer_list_tmnav_route_way", "Ways").append(...this.getCheckpointElements())))
             .append(new AeroflyConfigurationNode("list_fixed_tmnav_fix", "Fixes", []));
     }
+    toJSON() {
+        return {
+            ...this,
+            cruiseAltitude: undefined,
+            cruiseAltitude_ft: this.cruiseAltitude_ft,
+        };
+    }
     /**
      * @returns {string} to use in Aerofly FS4's `main.mcf`
      */
