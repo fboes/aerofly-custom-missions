@@ -37,6 +37,7 @@ declare class AeroflyNavRouteRunway extends AeroflyNavRouteBase {
     get direction(): AeroflyVector3Float | null;
     set direction(direction: AeroflyVector3Float);
     getElement(index?: number): AeroflyConfigurationNode;
+    toJSON(): never;
 }
 export declare class AeroflyNavRouteDepartureRunway extends AeroflyNavRouteRunway {
     /**

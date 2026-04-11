@@ -45,6 +45,12 @@ export class AeroflyNavRouteBase {
             : new AeroflyConfigurationNodeComment("uint64", "Uid", ""));
         return element;
     }
+    toJSON() {
+        return {
+            ...this,
+            uid: this.uid !== null ? this.uid.toString() : null,
+        };
+    }
     /**
      * @returns {string} to use in Aerofly FS4's `main.mcf`
      */

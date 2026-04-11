@@ -11,5 +11,7 @@ export declare class Convert {
     static convertMatrixToDegree(orientation: AeroflyMatrix3Float): number;
     static convertMeterToFeet(meter: number): number;
     static convertFeetToMeter(feet: number): number;
+    static convertKgToLb(kg: number): number;
+    static convertLbToKg(lb: number): number;
 }
 //# sourceMappingURL=Convert.d.ts.map

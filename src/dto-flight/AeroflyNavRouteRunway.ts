@@ -102,6 +102,17 @@ class AeroflyNavRouteRunway extends AeroflyNavRouteBase {
         }
         return element;
     }
+
+    toJSON() {
+        return {
+            ...this,
+            uid: this.uid !== null ? this.uid.toString() : null,
+            elevation: undefined,
+            elevation_ft: this.elevation_ft,
+            runwayLength: undefined,
+            runwayLength_ft: this.runwayLength_ft,
+        };
+    }
 }
 
 export class AeroflyNavRouteDepartureRunway extends AeroflyNavRouteRunway {

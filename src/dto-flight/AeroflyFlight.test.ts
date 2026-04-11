@@ -81,6 +81,8 @@ describe("AeroflyFlight", () => {
         const xmlContent = flight.toXmlString();
         fs.writeFileSync("docs/flight.xml", xmlContent);
 
+        fs.writeFileSync("docs/flight.json", JSON.stringify(flight, null, 2));
+
         assertValidAeroflyStructure(fileContent);
         assert.ok(fileContent.includes("c172"));
     });

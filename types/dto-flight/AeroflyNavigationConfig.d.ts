@@ -30,6 +30,7 @@ export declare class AeroflyNavigationConfig {
      */
     getCheckpointElements(): AeroflyConfigurationNode[];
     getElement(): AeroflyConfigurationNode;
+    toJSON(): never;
     /**
      * @returns {string} to use in Aerofly FS4's `main.mcf`
      */

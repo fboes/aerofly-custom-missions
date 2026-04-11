@@ -33,6 +33,10 @@ export declare class AeroflySettingsFuelLoad {
         payloadMass?: number,
         configuration?: AeroflySettingsFuelLoadConfiguration,
     );
+    get fuelMass_lb(): number;
+    set fuelMass_lb(fuelMass_lb: number);
+    get payloadMass_lb(): number;
+    set payloadMass_lb(payloadMass_lb: number);
     getElement(): AeroflyConfigurationNode;
     /**
      * @returns {string} to use in Aerofly FS4's `main.mcf`

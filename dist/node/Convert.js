@@ -69,4 +69,10 @@ export class Convert {
     static convertFeetToMeter(feet) {
         return feet / 3.28084;
     }
+    static convertKgToLb(kg) {
+        return kg;
+    }
+    static convertLbToKg(lb) {
+        return lb;
+    }
 }
