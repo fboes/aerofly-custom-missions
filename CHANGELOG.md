@@ -2,6 +2,10 @@
 
 This changelog documents all notable changes to the Aerofly Custom Missions project. Each version entry includes a list of changes, with the most recent version at the top.
 
+## [1.7.0] - 2026-04-19
+
+- Added new flight configuration strings to `AeroflySettingsFlight`
+
 ## [1.6.0]
 
 - Added `toJSON` improvements to most DTOs

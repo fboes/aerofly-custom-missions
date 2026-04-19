@@ -7,11 +7,26 @@ export declare class AeroflySettingsFlight {
     heading_degree: number;
     speed_kts: number;
     gear: number;
+    /**
+     * Throttle is supposed to be set to
+     * - 0 on "ColdAndDark", "OnGround" and "Takeoff" configuration
+     * - 0.4 on "ShortFinal" and "Final" configuration
+     * - 0.6 on "Cruise" configuration
+     */
     throttle: number;
+    /**
+     * Flaps is supposed to be set to 1 on "ShortFinal" and "Final" configurations
+     */
     flaps: number;
-    configuration: "Keep" | "OnGround" | "Cruise";
+    configuration: "Keep" | "ColdAndDark" | "ColdAndDark" | "OnGround" | "Takeoff" | "Cruise" | "ShortFinal" | "Final";
     onGround: boolean;
+    /**
+     * Airport is supposed to be set on any configurations but "Cruise" and "Keep"
+     */
     airport: string;
+    /**
+     * Runway is supposed to be set on "Takeoff", "ShortFinal" and "Final" configurations
+     */
     runway: string;
     constructor(
         longitude: number,
