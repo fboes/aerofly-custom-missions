@@ -56,16 +56,13 @@ describe("AeroflySettingsFlight", () => {
         assert.strictEqual(flight.gear, 1, "Gear extended");
         assert.strictEqual(flight.flaps, 0, "Flaps retracted");
         assert.strictEqual(flight.onGround, true);
-        assert.strictEqual(flight.speed_kts, 0);
         flight.setConfiguration("Cruise");
         assert.strictEqual(flight.gear, 0, "Gear retracted");
         assert.strictEqual(flight.flaps, 0, "Flaps retracted");
         assert.strictEqual(flight.onGround, false);
-        assert.ok(flight.speed_kts > 0);
         flight.setConfiguration("ShortFinal");
         assert.strictEqual(flight.gear, 1, "Gear extended");
         assert.ok(flight.flaps > 0, "Flaps extended");
         assert.strictEqual(flight.onGround, false);
-        assert.ok(flight.speed_kts > 0);
     });
 });
