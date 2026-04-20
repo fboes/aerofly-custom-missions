@@ -2,7 +2,11 @@
 
 This changelog documents all notable changes to the Aerofly Custom Missions project. Each version entry includes a list of changes, with the most recent version at the top.
 
-## [1.7.0] - 2026-04-19
+## [1.9.0]
+
+- Added new convenience method to set aircraft systems from general aircraft configuration state. Please note that this will also be used as fallback on flight setting creation.
+
+## [1.8.0] - 2026-04-19
 
 - Added new flight configuration strings to `AeroflySettingsFlight`
 

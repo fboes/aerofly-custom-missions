@@ -402,8 +402,8 @@ export class AeroflyMission {
         return new AeroflyMission(String(data.title ?? ""), {
             tutorialName: String(data.tutorialName ?? ""),
             description: String(data.description ?? ""),
-            localizedTexts: [], // TODO
-            tags: [], // TODO
+            localizedTexts: [], // TODO: (Array.isArray(data.localizedTexts) ? data.localizedTexts : []).map((l) => AeroflyMissionCheckpoint.fromJSON(l))
+            tags: (Array.isArray(data.tags) ? data.tags : []).map((t) => String(t)),
             isFeatured: data.isFeatured !== undefined ? Boolean(data.isFeatured) : null,
             difficulty: data.difficulty !== undefined ? Number(data.difficulty) : null,
             flightSetting: String(data.flightSetting ?? "taxi") as AeroflyMissionSetting,
@@ -434,7 +434,7 @@ export class AeroflyMission {
             isScheduled: data.isScheduled !== undefined ? Boolean(data.isScheduled) : null,
             finish: null, // TODO
             conditions: AeroflyMissionConditions.fromJSON(data.conditions),
-            checkpoints: [], // TODO
+            checkpoints: [], // TODO: (Array.isArray(data.checkpoints) ? data.checkpoints : []).map((c) => AeroflyMissionCheckpoint.fromJSON(c))
         });
     }
 }

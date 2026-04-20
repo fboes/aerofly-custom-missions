@@ -1,5 +1,14 @@
 import { AeroflyVector3Float, AeroflyMatrix3Float } from "../node/Convert.js";
 import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
+export type AeroflySettingsFlightConfiguration =
+    | "Keep"
+    | "ColdAndDark"
+    | "BeforeStart"
+    | "OnGround"
+    | "Takeoff"
+    | "Cruise"
+    | "ShortFinal"
+    | "Final";
 export declare class AeroflySettingsFlight {
     longitude: number;
     latitude: number;
@@ -9,7 +18,7 @@ export declare class AeroflySettingsFlight {
     gear: number;
     /**
      * Throttle is supposed to be set to
-     * - 0 on "ColdAndDark", "OnGround" and "Takeoff" configuration
+     * - 0 on "ColdAndDark", "BeforeStart", "OnGround" and "Takeoff" configuration
      * - 0.4 on "ShortFinal" and "Final" configuration
      * - 0.6 on "Cruise" configuration
      */
@@ -18,7 +27,7 @@ export declare class AeroflySettingsFlight {
      * Flaps is supposed to be set to 1 on "ShortFinal" and "Final" configurations
      */
     flaps: number;
-    configuration: "Keep" | "ColdAndDark" | "ColdAndDark" | "OnGround" | "Takeoff" | "Cruise" | "ShortFinal" | "Final";
+    configuration: AeroflySettingsFlightConfiguration;
     onGround: boolean;
     /**
      * Airport is supposed to be set on any configurations but "Cruise" and "Keep"
@@ -50,6 +59,10 @@ export declare class AeroflySettingsFlight {
         orientation: AeroflyMatrix3Float,
         additionalAttributes?: Partial<AeroflySettingsFlight>,
     ): AeroflySettingsFlight;
+    /**
+     * @param {AeroflySettingsFlightConfiguration} configuration which will set other parameters like `gear`, `flaps` and `throttle` consistently
+     */
+    setConfiguration(configuration: AeroflySettingsFlightConfiguration): void;
     /**
      * @returns {AeroflyVector3Float} position vector to use in Aerofly FS4's `main.mcf`
      */

@@ -17,6 +17,7 @@ export class Convert {
         return [x, y, z];
     }
     static convertVectorToLonLat(coordinates) {
+        // TODO: This implementation is not correct
         const f = 1.0 / 298.257223563; // WGS84
         const e2 = 2 * f - f * f;
         //const lambda = VectorToAngle( coordinates[0], coordinates[1] );
@@ -50,6 +51,7 @@ export class Convert {
         };
     }
     static convertDegreeToMatrix(heading_degree) {
+        // TODO: This implementation is not correct
         const theta = heading_degree * (Math.PI / 180); // heading in radians
         const cosTheta = Math.cos(theta);
         const sinTheta = Math.sin(theta);

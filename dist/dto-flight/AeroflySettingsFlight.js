@@ -7,11 +7,34 @@ export class AeroflySettingsFlight {
         this.altitude_meter = altitude_meter;
         this.heading_degree = heading_degree;
         this.speed_kts = speed_kts;
-        this.gear = gear;
-        this.throttle = throttle;
-        this.flaps = flaps;
+        this.gear = 1;
+        /**
+         * Throttle is supposed to be set to
+         * - 0 on "ColdAndDark", "BeforeStart", "OnGround" and "Takeoff" configuration
+         * - 0.4 on "ShortFinal" and "Final" configuration
+         * - 0.6 on "Cruise" configuration
+         */
+        this.throttle = 0;
+        /**
+         * Flaps is supposed to be set to 1 on "ShortFinal" and "Final" configurations
+         */
+        this.flaps = 0;
+        this.configuration = "OnGround";
+        this.onGround = true;
         this.configuration = configuration;
-        this.onGround = onGround;
+        this.setConfiguration(configuration);
+        if (gear !== undefined) {
+            this.gear = gear;
+        }
+        if (throttle !== undefined) {
+            this.throttle = throttle;
+        }
+        if (flaps !== undefined) {
+            this.flaps = flaps;
+        }
+        if (onGround !== undefined) {
+            this.onGround = onGround;
+        }
         this.airport = airport;
         this.runway = runway;
     }
@@ -24,6 +47,35 @@ export class AeroflySettingsFlight {
         flight.velocity = velocity;
         flight.orientation = orientation;
         return flight;
+    }
+    /**
+     * @param {AeroflySettingsFlightConfiguration} configuration which will set other parameters like `gear`, `flaps` and `throttle` consistently
+     */
+    setConfiguration(configuration) {
+        this.configuration = configuration;
+        if (configuration === "Keep") {
+            return;
+        }
+        this.onGround =
+            configuration === "ColdAndDark" ||
+                configuration === "BeforeStart" ||
+                configuration === "OnGround" ||
+                configuration === "Takeoff";
+        this.gear = configuration === "Cruise" ? 0 : 1;
+        this.flaps = configuration === "Final" || configuration === "ShortFinal" ? 1 : 0;
+        switch (configuration) {
+            case "ShortFinal":
+            case "Final":
+                this.throttle = 0.4;
+                break;
+            case "Cruise":
+                this.throttle = 0.6;
+                break;
+            default:
+                this.throttle = 0;
+                this.speed_kts = 0;
+                break;
+        }
     }
     /**
      * @returns {AeroflyVector3Float} position vector to use in Aerofly FS4's `main.mcf`

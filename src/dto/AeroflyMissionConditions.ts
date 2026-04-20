@@ -208,7 +208,9 @@ export class AeroflyMissionConditions {
             visibility: Number(data.visibility ?? 25_000),
             visibility_sm: Number(data.visibility_sm ?? 0),
             temperature: Number(data.temperature ?? 0),
-            clouds: [], // TODO
+            clouds: (Array.isArray(data.checkpoints) ? data.checkpoints : []).map((c) =>
+                AeroflyMissionConditionsCloud.fromJSON(c),
+            ),
         });
     }
 }

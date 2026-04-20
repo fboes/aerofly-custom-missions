@@ -123,4 +123,13 @@ export class AeroflyMissionConditionsCloud {
             .map((element) => element.toString(index))
             .join("\n");
     }
+
+    static fromJSON(json: unknown): AeroflyMissionConditionsCloud {
+        if (typeof json !== "object" || json === null) {
+            throw new Error("Invalid mission condition cloud data");
+        }
+        const data = json as Record<string, unknown>;
+
+        return new this(Number(data.cover ?? 0), Number(data.base ?? 0));
+    }
 }

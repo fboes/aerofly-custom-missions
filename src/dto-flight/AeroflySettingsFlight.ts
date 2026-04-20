@@ -1,23 +1,33 @@
 import { AeroflyVector3Float, AeroflyMatrix3Float, Convert } from "../node/Convert.js";
 import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
 
+export type AeroflySettingsFlightConfiguration =
+    | "Keep"
+    | "ColdAndDark"
+    | "BeforeStart" // TODO
+    | "OnGround"
+    | "Takeoff"
+    | "Cruise"
+    | "ShortFinal"
+    | "Final";
+
 export class AeroflySettingsFlight {
-    gear: number;
+    gear: number = 1;
 
     /**
      * Throttle is supposed to be set to
-     * - 0 on "ColdAndDark", "OnGround" and "Takeoff" configuration
+     * - 0 on "ColdAndDark", "BeforeStart", "OnGround" and "Takeoff" configuration
      * - 0.4 on "ShortFinal" and "Final" configuration
      * - 0.6 on "Cruise" configuration
      */
-    throttle: number;
+    throttle: number = 0;
 
     /**
      * Flaps is supposed to be set to 1 on "ShortFinal" and "Final" configurations
      */
-    flaps: number;
-    configuration: "Keep" | "ColdAndDark" | "ColdAndDark" | "OnGround" | "Takeoff" | "Cruise" | "ShortFinal" | "Final";
-    onGround: boolean;
+    flaps: number = 0;
+    configuration: AeroflySettingsFlightConfiguration = "OnGround";
+    onGround: boolean = true;
 
     /**
      * Airport is supposed to be set on any configurations but "Cruise" and "Keep"
@@ -45,11 +55,21 @@ export class AeroflySettingsFlight {
             runway = "",
         }: Partial<AeroflySettingsFlight> = {},
     ) {
-        this.gear = gear;
-        this.throttle = throttle;
-        this.flaps = flaps;
         this.configuration = configuration;
-        this.onGround = onGround;
+        this.setConfiguration(configuration);
+
+        if (gear !== undefined) {
+            this.gear = gear;
+        }
+        if (throttle !== undefined) {
+            this.throttle = throttle;
+        }
+        if (flaps !== undefined) {
+            this.flaps = flaps;
+        }
+        if (onGround !== undefined) {
+            this.onGround = onGround;
+        }
         this.airport = airport;
         this.runway = runway;
     }
@@ -83,6 +103,37 @@ export class AeroflySettingsFlight {
         flight.velocity = velocity;
         flight.orientation = orientation;
         return flight;
+    }
+
+    /**
+     * @param {AeroflySettingsFlightConfiguration} configuration which will set other parameters like `gear`, `flaps` and `throttle` consistently
+     */
+    setConfiguration(configuration: AeroflySettingsFlightConfiguration) {
+        this.configuration = configuration;
+        if (configuration === "Keep") {
+            return;
+        }
+
+        this.onGround =
+            configuration === "ColdAndDark" ||
+            configuration === "BeforeStart" ||
+            configuration === "OnGround" ||
+            configuration === "Takeoff";
+        this.gear = configuration === "Cruise" ? 0 : 1;
+        this.flaps = configuration === "Final" || configuration === "ShortFinal" ? 1 : 0;
+        switch (configuration) {
+            case "ShortFinal":
+            case "Final":
+                this.throttle = 0.4;
+                break;
+            case "Cruise":
+                this.throttle = 0.6;
+                break;
+            default:
+                this.throttle = 0;
+                this.speed_kts = 0;
+                break;
+        }
     }
 
     /**

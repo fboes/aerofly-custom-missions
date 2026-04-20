@@ -30,6 +30,7 @@ export class Convert {
         latitude: number;
         altitude_meter: number;
     } {
+        // TODO: This implementation is not correct
         const f = 1.0 / 298.257223563; // WGS84
         const e2 = 2 * f - f * f;
 
@@ -64,6 +65,7 @@ export class Convert {
     }
 
     static convertDegreeToMatrix(heading_degree: number): AeroflyMatrix3Float {
+        // TODO: This implementation is not correct
         const theta = heading_degree * (Math.PI / 180); // heading in radians
 
         const cosTheta = Math.cos(theta);
