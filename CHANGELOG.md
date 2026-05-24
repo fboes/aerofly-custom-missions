@@ -2,6 +2,10 @@
 
 This changelog documents all notable changes to the Aerofly Custom Missions project. Each version entry includes a list of changes, with the most recent version at the top.
 
+## [1.9.1] - 2026-05-24
+
+- Exporting `AeroflyNavRouteBase`
+
 ## [1.9.0] - 2026-04-20
 
 - Added new convenience method to set aircraft systems from general aircraft configuration state. Please note that this will also be used as fallback on flight setting creation.

@@ -10,7 +10,7 @@ export class AeroflySettingsFlight {
         this.gear = 1;
         /**
          * Throttle is supposed to be set to
-         * - 0 on "ColdAndDark", "BeforeStart", "OnGround" and "Takeoff" configuration
+         * - 0 on "ColdAndDark", "BeforeStart", "Parking", "OnGround" and "Takeoff" configuration
          * - 0.4 on "ShortFinal" and "Final" configuration
          * - 0.6 on "Cruise" configuration
          */
@@ -19,7 +19,7 @@ export class AeroflySettingsFlight {
          * Flaps is supposed to be set to 1 on "ShortFinal" and "Final" configurations
          */
         this.flaps = 0;
-        this.configuration = "OnGround";
+        this.configuration = "Parking";
         this.onGround = true;
         this.configuration = configuration;
         this.setConfiguration(configuration);
@@ -59,6 +59,7 @@ export class AeroflySettingsFlight {
         this.onGround =
             configuration === "ColdAndDark" ||
                 configuration === "BeforeStart" ||
+                configuration === "Parking" ||
                 configuration === "OnGround" ||
                 configuration === "Takeoff";
         this.gear = configuration === "Cruise" ? 0 : 1;

@@ -4,6 +4,7 @@ export type AeroflySettingsFlightConfiguration =
     | "Keep"
     | "ColdAndDark"
     | "BeforeStart"
+    | "Parking"
     | "OnGround"
     | "Takeoff"
     | "Cruise"
@@ -18,7 +19,7 @@ export declare class AeroflySettingsFlight {
     gear: number;
     /**
      * Throttle is supposed to be set to
-     * - 0 on "ColdAndDark", "BeforeStart", "OnGround" and "Takeoff" configuration
+     * - 0 on "ColdAndDark", "BeforeStart", "Parking", "OnGround" and "Takeoff" configuration
      * - 0.4 on "ShortFinal" and "Final" configuration
      * - 0.6 on "Cruise" configuration
      */

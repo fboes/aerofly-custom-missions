@@ -5,6 +5,7 @@ export type AeroflySettingsFlightConfiguration =
     | "Keep"
     | "ColdAndDark"
     | "BeforeStart" // TODO
+    | "Parking"
     | "OnGround"
     | "Takeoff"
     | "Cruise"
@@ -16,7 +17,7 @@ export class AeroflySettingsFlight {
 
     /**
      * Throttle is supposed to be set to
-     * - 0 on "ColdAndDark", "BeforeStart", "OnGround" and "Takeoff" configuration
+     * - 0 on "ColdAndDark", "BeforeStart", "Parking", "OnGround" and "Takeoff" configuration
      * - 0.4 on "ShortFinal" and "Final" configuration
      * - 0.6 on "Cruise" configuration
      */
@@ -26,7 +27,7 @@ export class AeroflySettingsFlight {
      * Flaps is supposed to be set to 1 on "ShortFinal" and "Final" configurations
      */
     flaps: number = 0;
-    configuration: AeroflySettingsFlightConfiguration = "OnGround";
+    configuration: AeroflySettingsFlightConfiguration = "Parking";
     onGround: boolean = true;
 
     /**
@@ -117,6 +118,7 @@ export class AeroflySettingsFlight {
         this.onGround =
             configuration === "ColdAndDark" ||
             configuration === "BeforeStart" ||
+            configuration === "Parking" ||
             configuration === "OnGround" ||
             configuration === "Takeoff";
         this.gear = configuration === "Cruise" ? 0 : 1;

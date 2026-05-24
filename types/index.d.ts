@@ -13,6 +13,7 @@ export { AeroflyTimeUtc } from "./dto-flight/AeroflyTimeUtc.js";
 export { AeroflySettingsWind } from "./dto-flight/AeroflySettingsWind.js";
 export { AeroflySettingsCloud } from "./dto-flight/AeroflySettingsCloud.js";
 export { AeroflyNavigationConfig } from "./dto-flight/AeroflyNavigationConfig.js";
+export { AeroflyNavRouteBase } from "./dto-flight/AeroflyNavRouteBase.js";
 export { AeroflyNavRouteDestination, AeroflyNavRouteOrigin } from "./dto-flight/AeroflyNavRouteAirports.js";
 export {
     AeroflyNavRouteDepartureRunway,
