@@ -69,16 +69,14 @@ export class AeroflySettingsWind {
     }
 
     /**
-     * @returns {number} the normalized turbulence value [0,1] for this wind, where 0 means no turbulence and 1 means very strong turbulence (80 kts wind + 20 kts gusts)
+     * @returns {number} the normalized turbulence value [0,1] for this wind, where 0 means no turbulence and 1 means very strong turbulence. Wind difference is [0,15] kts.
      */
     get turbulence(): number {
-        return Math.min(1, this.speed_kts / 80 + this.gust_kts / 20);
+        return Math.max(0, Math.min(1, (this.gust_kts - this.speed_kts) / 15));
     }
 
     set turbulence(turbulence: number) {
-        const totalWindEffect = turbulence * 80;
-        this.speed_kts = Math.min(this.speed_kts, totalWindEffect);
-        this.gust_kts = Math.min(this.gust_kts, (totalWindEffect - this.speed_kts) * 20);
+        this.gust_kts = turbulence * 15 + this.speed_kts;
     }
 
     /**

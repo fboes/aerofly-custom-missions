@@ -45,7 +45,7 @@ export declare class AeroflySettingsWind {
     get strength(): number;
     set strength(strength: number);
     /**
-     * @returns {number} the normalized turbulence value [0,1] for this wind, where 0 means no turbulence and 1 means very strong turbulence (80 kts wind + 20 kts gusts)
+     * @returns {number} the normalized turbulence value [0,1] for this wind, where 0 means no turbulence and 1 means very strong turbulence. Wind difference is [0,15] kts.
      */
     get turbulence(): number;
     set turbulence(turbulence: number);
