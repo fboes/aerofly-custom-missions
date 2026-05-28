@@ -2,6 +2,10 @@
 
 This changelog documents all notable changes to the Aerofly Custom Missions project. Each version entry includes a list of changes, with the most recent version at the top.
 
+## [1.10.0] - 2026-05-28
+
+- Changed turbulence formula
+
 ## [1.9.1] - 2026-05-24
 
 - Exporting `AeroflyNavRouteBase`
