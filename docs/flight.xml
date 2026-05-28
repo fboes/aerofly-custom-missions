@@ -34,7 +34,7 @@
         <wind type="tmsettings_wind">
             <strength type="float64">0.672604</strength> <!-- 10 kts -->
             <direction_in_degree type="float64">70</direction_in_degree>
-            <turbulence type="float64">0.1125000140816</turbulence> <!-- 0 kts gusts -->
+            <turbulence type="float64">0.15</turbulence> <!-- 12 kts gusts -->
             <thermal_activity type="float64">0.72</thermal_activity> <!-- 23°C -->
         </wind>
         <clouds type="tmsettings_clouds">

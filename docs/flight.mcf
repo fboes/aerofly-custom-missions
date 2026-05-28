@@ -34,7 +34,7 @@
         <[tmsettings_wind][wind][]
             <[float64][strength][0.672604]> // 10 kts
             <[float64][direction_in_degree][70]>
-            <[float64][turbulence][0.1125000140816]> // 0 kts gusts
+            <[float64][turbulence][0.15]> // 12 kts gusts
             <[float64][thermal_activity][0.72]> // 23°C
         >
         <[tmsettings_clouds][clouds][]
