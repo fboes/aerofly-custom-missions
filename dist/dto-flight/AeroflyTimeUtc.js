@@ -4,6 +4,11 @@ import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
  */
 export class AeroflyTimeUtc {
     /**
+     * @property {Date} time of flight plan. Relevant is the UTC part, so
+     *    consider setting this date in UTC.
+     */
+    time;
+    /**
      * @param {Date} time of flight plan. Relevant is the UTC part, so
      *    consider setting this date in UTC.
      */

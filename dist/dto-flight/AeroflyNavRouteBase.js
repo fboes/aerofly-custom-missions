@@ -2,6 +2,26 @@ import { Convert } from "../node/Convert.js";
 import { AeroflyConfigurationNode, AeroflyConfigurationNodeComment } from "../node/AeroflyConfigurationNode.js";
 export class AeroflyNavRouteBase {
     /**
+     * @property {AeroflyNavRouteType} type like "origin", "departure_runway", "departure", "waypoint", "arrival", "approach", "destination_runway" or "destination"
+     */
+    type;
+    /**
+     * @property {string} identifier alphanumeric identifier, e.g. "SEA", "PDX", "RWY16L", "FIX1"
+     */
+    identifier;
+    /**
+     * @property {number} longitude WGS84
+     */
+    longitude;
+    /**
+     * @property {number} latitude WGS84
+     */
+    latitude;
+    /**
+     * @property {?bigint} uid unique identifier for the waypoint, must match Aerofly FS internal UID if used in an existing mission, can be null for new waypoints
+     */
+    uid;
+    /**
      * @param {AeroflyNavRouteType} type like "origin", "departure_runway", "departure", "waypoint", "arrival", "approach", "destination_runway" or "destination"
      * @param {string} identifier alphanumeric identifier, e.g. "SEA", "PDX", "RWY16L", "FIX1"
      * @param {number} longitude WGS84

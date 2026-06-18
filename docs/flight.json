@@ -19,6 +19,12 @@
     "runway": "",
     "altitude_ft": 9072.275604893097
   },
+  "fuelLoadSetting": {
+    "aircraft": "c172",
+    "fuelMass": 80,
+    "payloadMass": 90,
+    "configuration": "Keep"
+  },
   "timeUtc": {
     "time": "2026-03-01T21:20:36.000Z"
   },
@@ -124,11 +130,7 @@
     ],
     "cruiseAltitude_ft": 32000.001024
   },
-  "fuelLoadSetting": {
-    "aircraft": "c172",
-    "fuelMass": 80,
-    "payloadMass": 90,
-    "configuration": "Keep"
-  },
-  "visibility_meter": 7999.994999999999
+  "visibility_meter": 7999.994999999999,
+  "_missionTitle": "Mission title",
+  "_missionBriefing": "Additional text, which will only be visible internally"
 }

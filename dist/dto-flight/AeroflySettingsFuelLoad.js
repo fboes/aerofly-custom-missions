@@ -2,6 +2,24 @@ import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
 import { Convert } from "../node/Convert.js";
 export class AeroflySettingsFuelLoad {
     /**
+     * @property {string} aircraft  aerofly aircraft name (e.g. "c172")
+     */
+    aircraft;
+    /**
+     * @property {number} fuelMass in kg
+     */
+    fuelMass;
+    /**
+     * @property {number} payloadMass in kg
+     */
+    payloadMass;
+    /**
+     * @property {AeroflySettingsFuelLoadConfiguration} configuration "Keep"
+     * to keep the current fuel load configuration, "Invalid" to set an invalid
+     * fuel load configuration (e.g. fuel mass exceeds maximum takeoff weight)
+     */
+    configuration;
+    /**
      * @param {string} aircraft  aerofly aircraft name (e.g. "c172")
      * @param {number} fuelMass in kg
      * @param {number} payloadMass in kg

@@ -1,11 +1,15 @@
 export class AeroflyConfigurationNode {
+    type;
+    name;
+    value;
+    _comment;
+    children = [];
+    space = "\n";
     constructor(type, name, value = "", _comment = "") {
         this.type = type;
         this.name = name;
         this.value = value;
         this._comment = _comment;
-        this.children = [];
-        this.space = "\n";
     }
     append(...nodes) {
         this.children.push(...nodes);
@@ -76,10 +80,7 @@ export class AeroflyConfigurationNode {
     }
 }
 export class AeroflyConfigurationNodeSpacer extends AeroflyConfigurationNode {
-    constructor() {
-        super(...arguments);
-        this.space = `\n// ${"-".repeat(77)}\n`;
-    }
+    space = `\n// ${"-".repeat(77)}\n`;
 }
 export class AeroflyConfigurationNodeComment extends AeroflyConfigurationNode {
     toString(indent = 0) {

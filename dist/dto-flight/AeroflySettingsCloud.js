@@ -1,6 +1,14 @@
 import { AeroflyConfigurationNode, AeroflyConfigurationNodeComment } from "../node/AeroflyConfigurationNode.js";
 export class AeroflySettingsCloud {
     /**
+     * @property {number} density as normalized value [0,1], e.g. 0.5 for 50% cloud cover
+     */
+    density;
+    /**
+     * @property {number} height in 10,000 ft AGL, e.g. 0.5 for 5,000 ft AGL
+     */
+    height;
+    /**
      * @param {number} density as normalized value [0,1], e.g. 0.5 for 50% cloud cover
      * @param {number} height in 10,000 ft AGL, e.g. 0.5 for 5,000 ft AGL
      */

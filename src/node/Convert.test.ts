@@ -1,7 +1,7 @@
 import { describe, it } from "node:test";
 import { strict as assert } from "node:assert";
 
-import { AeroflyMatrix3Float, Convert } from "./Convert.js";
+import { type AeroflyMatrix3Float, Convert } from "./Convert.js";
 
 describe("Convert", () => {
     it("should convert feet to meters correctly", () => {

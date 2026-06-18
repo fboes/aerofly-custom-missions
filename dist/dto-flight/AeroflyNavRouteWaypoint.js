@@ -1,6 +1,22 @@
 import { Convert } from "../node/Convert.js";
+import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
 import { AeroflyNavRouteBase } from "./AeroflyNavRouteBase.js";
 export class AeroflyNavRouteWaypoint extends AeroflyNavRouteBase {
+    identifier;
+    longitude;
+    latitude;
+    /**
+     * @property {?number} navaidFrequency if the waypoint is a navaid, its frequency in Hz
+     */
+    navaidFrequency;
+    /**
+     * @property {number | null} altitude in meter, null if not set
+     */
+    altitude;
+    /**
+     * @property {boolean} flyOver if true, the waypoint is meant to be flown over, otherwise it can be used as a fly-by waypoint
+     */
+    flyOver;
     /**
      * @param {string} identifier alphanumeric identifier, e.g. "SEA", "PDX", "RWY16L", "FIX1"
      * @param {number} longitude WGS84

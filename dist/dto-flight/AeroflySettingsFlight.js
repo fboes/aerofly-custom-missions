@@ -1,26 +1,39 @@
 import { Convert } from "../node/Convert.js";
 import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
 export class AeroflySettingsFlight {
+    longitude;
+    latitude;
+    altitude_meter;
+    heading_degree;
+    speed_kts;
+    gear = 1;
+    /**
+     * Throttle is supposed to be set to
+     * - 0 on "ColdAndDark", "BeforeStart", "Parking", "OnGround" and "Takeoff" configuration
+     * - 0.4 on "ShortFinal" and "Final" configuration
+     * - 0.6 on "Cruise" configuration
+     */
+    throttle = 0;
+    /**
+     * Flaps is supposed to be set to 1 on "ShortFinal" and "Final" configurations
+     */
+    flaps = 0;
+    configuration = "Parking";
+    onGround = true;
+    /**
+     * Airport is supposed to be set on any configurations but "Cruise" and "Keep"
+     */
+    airport;
+    /**
+     * Runway is supposed to be set on "Takeoff", "ShortFinal" and "Final" configurations
+     */
+    runway;
     constructor(longitude, latitude, altitude_meter, heading_degree, speed_kts = 0, { gear = 1, throttle = 0, flaps = 0, configuration = "OnGround", onGround = true, airport = "", runway = "", } = {}) {
         this.longitude = longitude;
         this.latitude = latitude;
         this.altitude_meter = altitude_meter;
         this.heading_degree = heading_degree;
         this.speed_kts = speed_kts;
-        this.gear = 1;
-        /**
-         * Throttle is supposed to be set to
-         * - 0 on "ColdAndDark", "BeforeStart", "Parking", "OnGround" and "Takeoff" configuration
-         * - 0.4 on "ShortFinal" and "Final" configuration
-         * - 0.6 on "Cruise" configuration
-         */
-        this.throttle = 0;
-        /**
-         * Flaps is supposed to be set to 1 on "ShortFinal" and "Final" configurations
-         */
-        this.flaps = 0;
-        this.configuration = "Parking";
-        this.onGround = true;
         this.configuration = configuration;
         this.setConfiguration(configuration);
         if (gear !== undefined) {

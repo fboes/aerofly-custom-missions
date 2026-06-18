@@ -1,6 +1,19 @@
 import { Convert } from "../node/Convert.js";
+import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
 import { AeroflyNavRouteBase } from "./AeroflyNavRouteBase.js";
 class AeroflyNavRouteRunway extends AeroflyNavRouteBase {
+    /**
+     * @property {?number} direction_degree runway direction in degrees, null if not set
+     */
+    direction_degree;
+    /**
+     * @property {number | null} elevation in meters, null if not set
+     */
+    elevation;
+    /**
+     * @property {number | null} runwayLength in meters, null if not set
+     */
+    runwayLength;
     constructor(type, identifier, longitude, latitude, { direction_degree = null, elevation = null, elevation_ft = null, runwayLength = null, uid = null, } = {}) {
         super(type, identifier, longitude, latitude, { uid });
         this.elevation = elevation;

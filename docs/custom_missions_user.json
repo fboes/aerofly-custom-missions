@@ -2,6 +2,77 @@
   {
     "tutorialName": "c172",
     "title": "Landing practice #1: Concord / Buchanan Field",
+    "description": "It is a gusty, clear early morning, and you are 8 NM to the north of the towered airport Concord / Buchanan Field (27ft). As the wind is 11 kts from 190°, the main landing runway is 19L (191° / 844m). Fly the pattern and land safely.\n\n- Local tower / CTAF frequency: 123.90\n- Local navigational aids: VOR/DME CCR (117.00) 3.4 NM to the north",
+    "localizedTexts": [
+      {
+        "language": "de",
+        "title": "Landeübung #1: Concord / Buchanan Field",
+        "description": "Es ist ein böiger, klarer früher Morgen, und du bist 8 Seemeilen nördlich des turmhohen Flughafens Concord / Buchanan Field (27 Fuß). Da der Wind 11 Knoten aus 190° erreicht, beträgt die Hauptlandebahn 19L (191° / 844m). Fliege das Muster und lande sicher.\n\n- Lokaler Tower / CTAF-Frequenz: 123,90\n- Lokale Navigationshilfen: VOR/DME CCR (117,00) 3,4 Seemeilen nördlich"
+      }
+    ],
+    "tags": [
+      "approach",
+      "pattern"
+    ],
+    "isFeatured": true,
+    "difficulty": 1,
+    "flightSetting": "cruise",
+    "aircraft": {
+      "name": "c172",
+      "livery": "default",
+      "icao": "C172"
+    },
+    "fuelMass": 80,
+    "payloadMass": 90,
+    "callsign": "N51911",
+    "origin": {
+      "icao": "KCCR",
+      "longitude": -122.0736009331662,
+      "latitude": 38.122300745843944,
+      "dir": 174.37511511143452,
+      "alt": 1066.799965862401
+    },
+    "destination": {
+      "icao": "KMVY",
+      "longitude": -70.6139,
+      "latitude": 41.3934,
+      "dir": 221,
+      "alt": 20
+    },
+    "distance": 1400,
+    "duration": 7200,
+    "isScheduled": true,
+    "finish": {
+      "longitude": 0,
+      "latitude": 1,
+      "dir": 2,
+      "name": "finish"
+    },
+    "conditions": {
+      "time": "2024-06-14T13:15:38.000Z",
+      "wind": {
+        "direction": 190,
+        "speed": 11,
+        "gusts": 22
+      },
+      "turbulenceStrength": 1,
+      "thermalStrength": 0.5184,
+      "visibility": 14484.096000000001,
+      "clouds": [
+        {
+          "cover": 0.1,
+          "base": 1523.9999512320016
+        },
+        {
+          "cover": 0.2,
+          "base": 2285.9999268480024
+        },
+        {
+          "cover": 0.1,
+          "base": 2895.599907340803
+        }
+      ]
+    },
     "checkpoints": [
       {
         "type": "origin",
@@ -55,77 +126,6 @@
         "frequency": null,
         "flyOver": false
       }
-    ],
-    "description": "It is a gusty, clear early morning, and you are 8 NM to the north of the towered airport Concord / Buchanan Field (27ft). As the wind is 11 kts from 190°, the main landing runway is 19L (191° / 844m). Fly the pattern and land safely.\n\n- Local tower / CTAF frequency: 123.90\n- Local navigational aids: VOR/DME CCR (117.00) 3.4 NM to the north",
-    "localizedTexts": [
-      {
-        "language": "de",
-        "title": "Landeübung #1: Concord / Buchanan Field",
-        "description": "Es ist ein böiger, klarer früher Morgen, und du bist 8 Seemeilen nördlich des turmhohen Flughafens Concord / Buchanan Field (27 Fuß). Da der Wind 11 Knoten aus 190° erreicht, beträgt die Hauptlandebahn 19L (191° / 844m). Fliege das Muster und lande sicher.\n\n- Lokaler Tower / CTAF-Frequenz: 123,90\n- Lokale Navigationshilfen: VOR/DME CCR (117,00) 3,4 Seemeilen nördlich"
-      }
-    ],
-    "tags": [
-      "approach",
-      "pattern"
-    ],
-    "isFeatured": true,
-    "difficulty": 1,
-    "flightSetting": "cruise",
-    "aircraft": {
-      "name": "c172",
-      "livery": "default",
-      "icao": "C172"
-    },
-    "callsign": "N51911",
-    "fuelMass": 80,
-    "payloadMass": 90,
-    "origin": {
-      "icao": "KCCR",
-      "longitude": -122.0736009331662,
-      "latitude": 38.122300745843944,
-      "dir": 174.37511511143452,
-      "alt": 1066.799965862401
-    },
-    "destination": {
-      "icao": "KMVY",
-      "longitude": -70.6139,
-      "latitude": 41.3934,
-      "dir": 221,
-      "alt": 20
-    },
-    "distance": 1400,
-    "duration": 7200,
-    "isScheduled": true,
-    "finish": {
-      "longitude": 0,
-      "latitude": 1,
-      "dir": 2,
-      "name": "finish"
-    },
-    "conditions": {
-      "clouds": [
-        {
-          "cover": 0.1,
-          "base": 1523.9999512320016
-        },
-        {
-          "cover": 0.2,
-          "base": 2285.9999268480024
-        },
-        {
-          "cover": 0.1,
-          "base": 2895.599907340803
-        }
-      ],
-      "time": "2024-06-14T13:15:38.000Z",
-      "wind": {
-        "direction": 190,
-        "speed": 11,
-        "gusts": 22
-      },
-      "turbulenceStrength": 1,
-      "thermalStrength": 0.5184,
-      "visibility": 14484.096000000001
-    }
+    ]
   }
 ]

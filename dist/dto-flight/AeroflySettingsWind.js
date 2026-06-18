@@ -4,6 +4,22 @@ import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
  */
 export class AeroflySettingsWind {
     /**
+     * @property {number} speed_kts in knots
+     */
+    speed_kts;
+    /**
+     * @property {number} directionInDegree in degree
+     */
+    directionInDegree;
+    /**
+     * @property {number} gust_kts in knots
+     */
+    gust_kts;
+    /**
+     * @property {number} temperature_celsius in degree Celsius, e.g. 14 for 14°C
+     */
+    temperature_celsius;
+    /**
      * @param {number} speed_kts in knots
      * @param {number} directionInDegree in degree
      * @param {number} gust_kts in knots

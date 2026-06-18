@@ -1,6 +1,6 @@
 import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
 import { Convert } from "../node/Convert.js";
-import { AeroflyNavRouteBase, AeroflyNavRouteType } from "./AeroflyNavRouteBase.js";
+import { AeroflyNavRouteBase, type AeroflyNavRouteType } from "./AeroflyNavRouteBase.js";
 
 class AeroflyNavRouteAirport extends AeroflyNavRouteBase {
     /**

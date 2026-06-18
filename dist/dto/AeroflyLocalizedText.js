@@ -5,6 +5,30 @@ import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
  */
 export class AeroflyLocalizedText {
     /**
+     * @property {string} language ISO 639-1 like
+     * - br
+     * - cn
+     * - de
+     * - es
+     * - fr
+     * - id
+     * - it
+     * - jp
+     * - kr
+     * - pl
+     * - sv
+     * - tr
+     */
+    language;
+    /**
+     * @property {string} title of this flight plan
+     */
+    title;
+    /**
+     * @property {string} description text, mission briefing, etc
+     */
+    description;
+    /**
      * @param {string} language ISO 639-1 like
      * - br
      * - cn

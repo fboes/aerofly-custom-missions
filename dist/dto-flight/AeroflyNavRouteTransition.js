@@ -1,6 +1,23 @@
 import { Convert } from "../node/Convert.js";
+import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
 import { AeroflyNavRouteBase } from "./AeroflyNavRouteBase.js";
 class AeroflyNavRouteTransition extends AeroflyNavRouteBase {
+    /**
+     * @property {string} airport ICAO code of the airport this transition belongs to, e.g. "SEA", "PDX"
+     */
+    airport;
+    /**
+     * @property {string} transition name, e.g. "SID1", "STAR1", "APP1"
+     */
+    transition;
+    /**
+     * @property {?bigint} transitionUid unique identifier for the transition, can be null if not set
+     */
+    transitionUid;
+    /**
+     * @property {?number} elevation in meters, null if not set
+     */
+    elevation;
     constructor(type, identifier, airport, options = {}) {
         super(type, identifier, 0, 0, options);
         this.airport = airport;

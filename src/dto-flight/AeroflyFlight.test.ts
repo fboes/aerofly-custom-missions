@@ -1,5 +1,6 @@
 import { describe, it } from "node:test";
 import fs from "node:fs";
+import path from "node:path";
 import { strict as assert } from "node:assert";
 import { assertValidAeroflyStructure } from "../check/TestHelpers.js";
 
@@ -72,16 +73,21 @@ describe("AeroflyFlight", () => {
             {
                 fuelLoadSetting: new AeroflySettingsFuelLoad("c172", 80, 90, "Keep"),
                 visibility: 0.533333,
+                _missionTitle: "Mission title",
+                _missionBriefing: "Additional text, which will only be visible internally",
             },
         );
 
+        assert.ok(flight._missionTitle);
+        assert.ok(flight._missionBriefing);
+
         const fileContent = flight.toString();
-        fs.writeFileSync("docs/flight.mcf", fileContent);
+        fs.writeFileSync(path.join(import.meta.dirname, "../..", "docs/flight.mcf"), fileContent);
 
         const xmlContent = flight.toXmlString();
-        fs.writeFileSync("docs/flight.xml", xmlContent);
+        fs.writeFileSync(path.join(import.meta.dirname, "../..", "docs/flight.xml"), xmlContent);
 
-        fs.writeFileSync("docs/flight.json", JSON.stringify(flight, null, 2));
+        fs.writeFileSync(path.join(import.meta.dirname, "../..", "docs/flight.json"), JSON.stringify(flight, null, 2));
 
         assertValidAeroflyStructure(fileContent);
         assert.ok(fileContent.includes("c172"));

@@ -41,6 +41,14 @@ export declare class AeroflyFlight {
      */
     visibility_meter: number;
     /**
+     * @property {string} _missionTitle unofficial property to store mission title in. For internal use only, will not be exported in MCF / XML.
+     */
+    _missionTitle: string;
+    /**
+     * @property {string} _missionBriefing unofficial property to store mission briefing in. For internal use only, will not be exported in MCF / XML.
+     */
+    _missionBriefing: string;
+    /**
      *
      * @param {AeroflySettingsAircraft} aircraft settings for the mission
      * @param {AeroflySettingsFlight} flightSetting flight settings for the mission
@@ -53,6 +61,8 @@ export declare class AeroflyFlight {
      * @param {number} [options.visibility_meter] visibility in meter, 9999 for unlimited visibility, default is 9999
      * @param {number} [options.visibility] visibility in normalized value [0,1], where 0 means 0 meter visibility and 1 unlimited visibility, default is 0
      * @param {number} [options.visibility_sm] visibility in statute miles, 10 SM for unlimited visibility, default is 0
+     * @param {string} [options._missionTitle] unofficial property to store mission title in. For internal use only, will not be exported in MCF / XML.
+     * @param {string} [options._missionBriefing] unofficial property to store mission briefing in. For internal use only, will not be exported in MCF / XML.
      */
     constructor(
         aircraft: AeroflySettingsAircraft,
@@ -61,7 +71,14 @@ export declare class AeroflyFlight {
         wind: AeroflySettingsWind,
         clouds: AeroflySettingsCloud[],
         navigation: AeroflyNavigationConfig,
-        { fuelLoadSetting, visibility_meter, visibility, visibility_sm }?: Partial<AeroflyFlight>,
+        {
+            fuelLoadSetting,
+            visibility_meter,
+            visibility,
+            visibility_sm,
+            _missionTitle,
+            _missionBriefing,
+        }?: Partial<AeroflyFlight>,
     );
     /**
      * @returns {number} visibility in statute miles, 10 SM for unlimited visibility

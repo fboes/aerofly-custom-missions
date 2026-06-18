@@ -1,7 +1,53 @@
+import { AeroflyNavigationConfig } from "./AeroflyNavigationConfig.js";
 import { AeroflySettingsAircraft } from "./AeroflySettingsAircraft.js";
+import { AeroflySettingsCloud } from "./AeroflySettingsCloud.js";
+import { AeroflySettingsFlight } from "./AeroflySettingsFlight.js";
 import { AeroflySettingsFuelLoad } from "./AeroflySettingsFuelLoad.js";
+import { AeroflyTimeUtc } from "./AeroflyTimeUtc.js";
+import { AeroflySettingsWind } from "./AeroflySettingsWind.js";
 import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
 export class AeroflyFlight {
+    /**
+     * @property {AeroflySettingsAircraft} aircraft settings for the mission
+     */
+    aircraft;
+    /**
+     * @property {AeroflySettingsFlight} flight settings for the mission
+     */
+    flightSetting;
+    /**
+     * @property {AeroflySettingsFuelLoad} fuelLoadSetting fuel load settings for the mission
+     */
+    fuelLoadSetting;
+    /**
+     * @property {AeroflyTimeUtc} timeUtc time settings for the mission
+     */
+    timeUtc;
+    /**
+     * @property {AeroflySettingsWind} wind settings for the mission
+     */
+    wind;
+    /**
+     * @property {AeroflySettingsCloud[]} clouds cloud settings for the mission.
+     * Aerofly supports up to 3 cloud layers, so only the first 3 elements of this array will be used.
+     */
+    clouds;
+    /**
+     * @property {AeroflyNavigationConfig} navigation navigation settings for the mission
+     */
+    navigation;
+    /**
+     * @property {number} visibility_meter visibility in meter, 9999 for unlimited visibility
+     */
+    visibility_meter;
+    /**
+     * @property {string} _missionTitle unofficial property to store mission title in. For internal use only, will not be exported in MCF / XML.
+     */
+    _missionTitle;
+    /**
+     * @property {string} _missionBriefing unofficial property to store mission briefing in. For internal use only, will not be exported in MCF / XML.
+     */
+    _missionBriefing;
     /**
      *
      * @param {AeroflySettingsAircraft} aircraft settings for the mission
@@ -15,8 +61,10 @@ export class AeroflyFlight {
      * @param {number} [options.visibility_meter] visibility in meter, 9999 for unlimited visibility, default is 9999
      * @param {number} [options.visibility] visibility in normalized value [0,1], where 0 means 0 meter visibility and 1 unlimited visibility, default is 0
      * @param {number} [options.visibility_sm] visibility in statute miles, 10 SM for unlimited visibility, default is 0
+     * @param {string} [options._missionTitle] unofficial property to store mission title in. For internal use only, will not be exported in MCF / XML.
+     * @param {string} [options._missionBriefing] unofficial property to store mission briefing in. For internal use only, will not be exported in MCF / XML.
      */
-    constructor(aircraft, flightSetting, timeUtc, wind, clouds, navigation, { fuelLoadSetting = new AeroflySettingsFuelLoad(), visibility_meter = 9999, visibility = 0, visibility_sm = 0, } = {}) {
+    constructor(aircraft, flightSetting, timeUtc, wind, clouds, navigation, { fuelLoadSetting = new AeroflySettingsFuelLoad(), visibility_meter = 9999, visibility = 0, visibility_sm = 0, _missionTitle = "", _missionBriefing = "", } = {}) {
         this.aircraft = aircraft;
         this.flightSetting = flightSetting;
         this.timeUtc = timeUtc;
@@ -25,6 +73,8 @@ export class AeroflyFlight {
         this.navigation = navigation;
         this.fuelLoadSetting = fuelLoadSetting;
         this.visibility_meter = visibility_meter;
+        this._missionTitle = _missionTitle;
+        this._missionBriefing = _missionBriefing;
         if (visibility_sm > 0) {
             this.visibility_sm = visibility_sm;
         }

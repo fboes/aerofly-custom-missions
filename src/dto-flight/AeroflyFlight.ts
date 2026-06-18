@@ -50,6 +50,16 @@ export class AeroflyFlight {
     visibility_meter: number;
 
     /**
+     * @property {string} _missionTitle unofficial property to store mission title in. For internal use only, will not be exported in MCF / XML.
+     */
+    _missionTitle: string;
+
+    /**
+     * @property {string} _missionBriefing unofficial property to store mission briefing in. For internal use only, will not be exported in MCF / XML.
+     */
+    _missionBriefing: string;
+
+    /**
      *
      * @param {AeroflySettingsAircraft} aircraft settings for the mission
      * @param {AeroflySettingsFlight} flightSetting flight settings for the mission
@@ -62,6 +72,8 @@ export class AeroflyFlight {
      * @param {number} [options.visibility_meter] visibility in meter, 9999 for unlimited visibility, default is 9999
      * @param {number} [options.visibility] visibility in normalized value [0,1], where 0 means 0 meter visibility and 1 unlimited visibility, default is 0
      * @param {number} [options.visibility_sm] visibility in statute miles, 10 SM for unlimited visibility, default is 0
+     * @param {string} [options._missionTitle] unofficial property to store mission title in. For internal use only, will not be exported in MCF / XML.
+     * @param {string} [options._missionBriefing] unofficial property to store mission briefing in. For internal use only, will not be exported in MCF / XML.
      */
     constructor(
         aircraft: AeroflySettingsAircraft,
@@ -75,6 +87,8 @@ export class AeroflyFlight {
             visibility_meter = 9999,
             visibility = 0,
             visibility_sm = 0,
+            _missionTitle = "",
+            _missionBriefing = "",
         }: Partial<AeroflyFlight> = {},
     ) {
         this.aircraft = aircraft;
@@ -85,6 +99,8 @@ export class AeroflyFlight {
         this.navigation = navigation;
         this.fuelLoadSetting = fuelLoadSetting;
         this.visibility_meter = visibility_meter;
+        this._missionTitle = _missionTitle;
+        this._missionBriefing = _missionBriefing;
 
         if (visibility_sm > 0) {
             this.visibility_sm = visibility_sm;

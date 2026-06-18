@@ -1,5 +1,8 @@
 import { AeroflyConfigurationNode, AeroflyConfigurationNodeComment } from "../node/AeroflyConfigurationNode.js";
+import { AeroflyLocalizedText } from "./AeroflyLocalizedText.js";
+import { AeroflyMissionCheckpoint } from "./AeroflyMissionCheckpoint.js";
 import { AeroflyMissionConditions } from "./AeroflyMissionConditions.js";
+import { AeroflyMissionTargetPlane } from "./AeroflyMissionTargetPlane.js";
 export const feetPerMeter = 3.28084;
 export const meterPerStatuteMile = 1609.344;
 /**
@@ -11,6 +14,86 @@ export const meterPerStatuteMile = 1609.344;
  * for this file via the `toString()` method.
  */
 export class AeroflyMission {
+    /**
+     * @property {?string} tutorialName will create a link to a tutorial page at https://www.aerofly.com/aircraft-tutorials/
+     */
+    tutorialName;
+    /**
+     * @property {string} title of this flight plan
+     */
+    title;
+    /**
+     * @property {string} description text, mission briefing, etc
+     */
+    description;
+    /**
+     * @property {AeroflyLocalizedText[]} localizedTexts for title and description
+     */
+    localizedTexts;
+    /**
+     * @property {string[]} tags free-text tags
+     */
+    tags;
+    /**
+     * @property {?boolean} isFeatured makes this mission pop up in "Challenges"
+     */
+    isFeatured;
+    /**
+     * @property {?number} difficulty values between 0.00 and 2.00 have been encountered, but they seem to be without limit
+     */
+    difficulty;
+    /**
+     * @property {"cold_and_dark"|"before_start"|"taxi"|"takeoff"|"cruise"|"approach"|"landing"|"winch_launch"|"aerotow"|"pushback"} flightSetting of aircraft, like "taxi", "cruise"
+     */
+    flightSetting;
+    /**
+     * @property {object} aircraft for this mission
+     */
+    aircraft;
+    /**
+     * @property {?number} fuelMass in kg
+     */
+    fuelMass;
+    /**
+     * @property {?number} payloadMass in kg
+     */
+    payloadMass;
+    /**
+     * @property {string} callsign of aircraft, uppercased
+     */
+    callsign;
+    /**
+     * @property {object} origin position of aircraft, as well as name of starting airport. Position does not have match airport.
+     */
+    origin;
+    /**
+     * @property {object} destination position of aircraft, as well as name of destination airport. Position does not have match airport.
+     */
+    destination;
+    /**
+     * @property {?number} distance in meters
+     */
+    distance;
+    /**
+     * @property {?number} duration in seconds
+     */
+    duration;
+    /**
+     * @property {?boolean} isScheduled marks this flight as "Scheduled flight".
+     */
+    isScheduled;
+    /**
+     * @property {?AeroflyMissionTargetPlane} finish as finish condition
+     */
+    finish;
+    /**
+     * @property {AeroflyMissionConditions} conditions like time and weather for mission
+     */
+    conditions;
+    /**
+     * @property {AeroflyMissionConditions} checkpoints form the actual flight plan
+     */
+    checkpoints;
     /**
      * @param {string} title of this flight plan
      * @param {object} [additionalAttributes] allows to set additional attributes on creation

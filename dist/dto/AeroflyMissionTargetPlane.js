@@ -5,6 +5,26 @@ import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
  */
 export class AeroflyMissionTargetPlane {
     /**
+     * @property {number} longitude easting, using the World Geodetic
+     *    System 1984 (WGS 84) [WGS84] datum, with longitude and latitude units
+     *    of decimal degrees; [-180,180]
+     */
+    longitude;
+    /**
+     * @property {number} latitude northing, using the World Geodetic
+     *    System 1984 (WGS 84) [WGS84] datum, with longitude and latitude units
+     *    of decimal degrees; -90..90
+     */
+    latitude;
+    /**
+     * @property {number} dir in degree
+     */
+    dir;
+    /**
+     * @property {string} name of property
+     */
+    name;
+    /**
      *
      * @param {number} longitude easting, using the World Geodetic
      *    System 1984 (WGS 84) [WGS84] datum, with longitude and latitude units

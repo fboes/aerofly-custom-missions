@@ -11,6 +11,31 @@ import { AeroflyMissionConditionsCloud } from "./AeroflyMissionConditionsCloud.j
  */
 export class AeroflyMissionConditions {
     /**
+     * @property {Date} time of flight plan. Relevant is the UTC part, so
+     *    consider setting this date in UTC.
+     */
+    time;
+    /**
+     * @property {object} wind state
+     */
+    wind;
+    /**
+     * @property {number} turbulenceStrength normalized value [0,1]
+     */
+    turbulenceStrength;
+    /**
+     * @property {number} thermalStrength normalized value [0,1]
+     */
+    thermalStrength;
+    /**
+     * @property {number} visibility in meters
+     */
+    visibility;
+    /**
+     * @property {AeroflyMissionConditionsCloud[]} clouds for the whole flight
+     */
+    clouds = [];
+    /**
      * @param {object} additionalAttributes allows to set additional attributes on creation
      * @param {Date} [additionalAttributes.time]  of flight plan. Relevant is the UTC part, so
      *    consider setting this date in UTC.
@@ -27,10 +52,6 @@ export class AeroflyMissionConditions {
         speed: 0,
         gusts: 0,
     }, turbulenceStrength = 0, thermalStrength = 0, visibility = 25_000, visibility_sm = 0, temperature = 0, clouds = [], } = {}) {
-        /**
-         * @property {AeroflyMissionConditionsCloud[]} clouds for the whole flight
-         */
-        this.clouds = [];
         this.time = time;
         this.wind = wind;
         this.turbulenceStrength = turbulenceStrength;

@@ -1,6 +1,15 @@
 import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
 import { Convert } from "../node/Convert.js";
+import { AeroflyNavRouteBase } from "./AeroflyNavRouteBase.js";
 export class AeroflyNavigationConfig {
+    /**
+     * @property {number} cruiseAltitude in meters
+     */
+    cruiseAltitude;
+    /**
+     * @property {AeroflyNavRouteBase[]} waypoints in order of flight, if used in an array will set the array index
+     */
+    waypoints;
     /**
      * @param {number} cruiseAltitude in meters
      * @param {AeroflyNavRouteBase[]} waypoints in order of flight, if used in an array will set the array index

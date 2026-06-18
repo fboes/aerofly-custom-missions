@@ -1,6 +1,7 @@
 import { AeroflyMission } from "./AeroflyMission.js";
 import { strict as assert } from "node:assert";
 import fs from "node:fs";
+import path from "node:path";
 import { assertIncludes, assertValidAeroflyStructure } from "../check/TestHelpers.js";
 import { describe, it } from "node:test";
 import { AeroflyLocalizedText } from "./AeroflyLocalizedText.js";
@@ -166,9 +167,9 @@ Landeübung #1: Concord / Buchanan Field`, `Es ist ein böiger, klarer früher M
         //console.log(missionList.getElement().toXmlString());
         const file = new AeroflyMissionsList([mission]);
         const fileContent = file.toString();
-        fs.writeFileSync("docs/custom_missions_user.tmc", fileContent);
+        fs.writeFileSync(path.join(import.meta.dirname, "../..", "docs/custom_missions_user.tmc"), fileContent);
         const xmlContent = file.toXmlString();
-        fs.writeFileSync("docs/custom_missions_user.xml", xmlContent);
-        fs.writeFileSync("docs/custom_missions_user.json", JSON.stringify(file, null, 2));
+        fs.writeFileSync(path.join(import.meta.dirname, "../..", "docs/custom_missions_user.xml"), xmlContent);
+        fs.writeFileSync(path.join(import.meta.dirname, "../..", "docs/custom_missions_user.json"), JSON.stringify(file, null, 2));
     });
 });

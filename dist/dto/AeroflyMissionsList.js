@@ -10,6 +10,10 @@ import { AeroflyMission } from "./AeroflyMission.js";
  */
 export class AeroflyMissionsList {
     /**
+     * @property {AeroflyMission[]} missions in this mission list
+     */
+    missions;
+    /**
      * @param {AeroflyMission[]} missions in this mission list
      */
     constructor(missions = []) {

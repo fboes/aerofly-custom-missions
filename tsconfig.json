@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
-    /* Visit https://aka.ms/tsconfig.json to read more about this file */
-    "target": "es2021",
+    "target": "es2022",
     "module": "nodenext",
     "rootDir": "./src",
     "outDir": "./dist",
@@ -14,6 +13,8 @@
     "skipLibCheck": true,
     "declarationMap": true,
     "declaration": true,
-    "declarationDir": "./types"
+    "declarationDir": "./types",
+    "types": ["node"],
+    "verbatimModuleSyntax": true
   }
 }

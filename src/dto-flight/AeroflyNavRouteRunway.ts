@@ -1,6 +1,6 @@
-import { AeroflyVector3Float, Convert } from "../node/Convert.js";
+import { type AeroflyVector3Float, Convert } from "../node/Convert.js";
 import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
-import { AeroflyNavRouteBase, AeroflyNavRouteType } from "./AeroflyNavRouteBase.js";
+import { AeroflyNavRouteBase, type AeroflyNavRouteType } from "./AeroflyNavRouteBase.js";
 
 class AeroflyNavRouteRunway extends AeroflyNavRouteBase {
     /**

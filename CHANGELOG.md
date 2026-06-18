@@ -2,6 +2,10 @@
 
 This changelog documents all notable changes to the Aerofly Custom Missions project. Each version entry includes a list of changes, with the most recent version at the top.
 
+## [1.11.0] - 2026-06-18
+
+- Added unofficial `_missionTitle` and `_missionBriefing` property to `AeroflyFlight`
+
 ## [1.10.0] - 2026-05-28
 
 - Changed turbulence formula

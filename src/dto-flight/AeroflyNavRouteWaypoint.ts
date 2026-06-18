@@ -1,4 +1,4 @@
-import { Convert, AeroflyVector3Float } from "../node/Convert.js";
+import { Convert, type AeroflyVector3Float } from "../node/Convert.js";
 import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
 import { AeroflyNavRouteBase } from "./AeroflyNavRouteBase.js";
 

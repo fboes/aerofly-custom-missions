@@ -1,6 +1,11 @@
+import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
 import { Convert } from "../node/Convert.js";
 import { AeroflyNavRouteBase } from "./AeroflyNavRouteBase.js";
 class AeroflyNavRouteAirport extends AeroflyNavRouteBase {
+    /**
+     * @property {number | null} elevation in meters, null if not set
+     */
+    elevation;
     /**
      * @param {AeroflyNavRouteType} type like "origin", "departure_runway", "departure", "waypoint", "arrival", "approach", "destination_runway" or "destination"
      * @param {string} identifier alphanumeric identifier, e.g. "SEA", "PDX", "RWY16L", "FIX1"

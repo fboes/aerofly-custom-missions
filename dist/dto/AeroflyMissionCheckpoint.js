@@ -10,6 +10,58 @@ import { feetPerMeter } from "./AeroflyMission.js";
  */
 export class AeroflyMissionCheckpoint {
     /**
+     * @property {"origin"|"departure_runway"|"departure"|"waypoint"|"arrival"|"approach"|"destination_runway"|"destination"} type of checkpoint, like "departure_runway"
+     */
+    type;
+    /**
+     * @property {string} name ICAO code for airport, runway designator, navaid
+     *    designator, fix name, or custom name
+     */
+    name;
+    /**
+     * @property {number} longitude easting, using the World Geodetic
+     *    System 1984 (WGS 84) [WGS84] datum, with longitude and latitude units
+     *    of decimal degrees; [-180,180]
+     */
+    longitude;
+    /**
+     * @property {number} latitude northing, using the World Geodetic
+     *    System 1984 (WGS 84) [WGS84] datum, with longitude and latitude units
+     *    of decimal degrees; -90..90
+     */
+    latitude;
+    /**
+     * @property {number} altitude The height in meters above or below the WGS
+     *    84 reference ellipsoid
+     */
+    altitude;
+    /**
+     * @property {?boolean} altitudeConstraint The altitude given in `altitude`
+     *    will be interpreted as mandatory flight plan altitude instead of
+     *    suggestion.
+     */
+    altitudeConstraint;
+    /**
+     * @property {?number} direction of runway, in degree
+     */
+    direction;
+    /**
+     * @property {?number} slope of runway
+     */
+    slope;
+    /**
+     * @property {?number} length of runway, in meters
+     */
+    length;
+    /**
+     * @property {?number} frequency of runways or navigational aids, in Hz; multiply by 1000 for kHz, 1_000_000 for MHz
+     */
+    frequency;
+    /**
+     * @property {?boolean} flyOver if waypoint is meant to be flown over
+     */
+    flyOver;
+    /**
      * @param {string} name ICAO code for airport, runway designator, navaid
      *    designator, fix name, or custom name
      * @param {"origin"|"departure_runway"|"departure"|"waypoint"|"arrival"|"approach"|"destination_runway"|"destination"} type Type of checkpoint, like "departure_runway"
