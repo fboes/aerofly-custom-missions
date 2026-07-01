@@ -11,20 +11,27 @@ export class AeroflyNavigationConfig {
      */
     waypoints;
     /**
+     *
+     */
+    _cruiseSpeed_kts;
+    /**
      * @param {number} cruiseAltitude in meters
      * @param {AeroflyNavRouteBase[]} waypoints in order of flight, if used in an array will set the array index
+     * @param {number|undefined} _cruiseSpeed_kts in knots
      */
-    constructor(cruiseAltitude, waypoints = []) {
+    constructor(cruiseAltitude, waypoints = [], _cruiseSpeed_kts = undefined) {
         this.cruiseAltitude = cruiseAltitude;
         this.waypoints = waypoints;
+        this._cruiseSpeed_kts = _cruiseSpeed_kts;
     }
     /**
      * @param {number}  cruiseAltitude_ft in feet
      * @param {AeroflyNavRouteBase[]} waypoints in order of flight, if used in an array will set the array index
+     * @param {number|undefined} _cruiseSpeed_kts in knots
      * @returns {AeroflyNavigationConfig} with cruise altitude converted to meters
      */
-    static createInFeet(cruiseAltitude_ft, waypoints = []) {
-        return new AeroflyNavigationConfig(Convert.convertFeetToMeter(cruiseAltitude_ft), waypoints);
+    static createInFeet(cruiseAltitude_ft, waypoints = [], _cruiseSpeed_kts = undefined) {
+        return new AeroflyNavigationConfig(Convert.convertFeetToMeter(cruiseAltitude_ft), waypoints, _cruiseSpeed_kts);
     }
     /**
      * @returns {number} cruise altitude in feet

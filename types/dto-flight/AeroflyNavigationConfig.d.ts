@@ -10,16 +10,26 @@ export declare class AeroflyNavigationConfig {
      */
     waypoints: AeroflyNavRouteBase[];
     /**
+     *
+     */
+    _cruiseSpeed_kts: number | undefined;
+    /**
      * @param {number} cruiseAltitude in meters
      * @param {AeroflyNavRouteBase[]} waypoints in order of flight, if used in an array will set the array index
+     * @param {number|undefined} _cruiseSpeed_kts in knots
      */
-    constructor(cruiseAltitude: number, waypoints?: AeroflyNavRouteBase[]);
+    constructor(cruiseAltitude: number, waypoints?: AeroflyNavRouteBase[], _cruiseSpeed_kts?: number | undefined);
     /**
      * @param {number}  cruiseAltitude_ft in feet
      * @param {AeroflyNavRouteBase[]} waypoints in order of flight, if used in an array will set the array index
+     * @param {number|undefined} _cruiseSpeed_kts in knots
      * @returns {AeroflyNavigationConfig} with cruise altitude converted to meters
      */
-    static createInFeet(cruiseAltitude_ft: number, waypoints?: AeroflyNavRouteBase[]): AeroflyNavigationConfig;
+    static createInFeet(
+        cruiseAltitude_ft: number,
+        waypoints?: AeroflyNavRouteBase[],
+        _cruiseSpeed_kts?: number | undefined,
+    ): AeroflyNavigationConfig;
     /**
      * @returns {number} cruise altitude in feet
      */
