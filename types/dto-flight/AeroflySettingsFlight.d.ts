@@ -1,5 +1,5 @@
-import { type AeroflyVector3Float, type AeroflyMatrix3Float } from "../node/Convert.js";
 import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
+import { type AeroflyVector3Float, type AeroflyMatrix3Float } from "../node/Convert.js";
 export type AeroflySettingsFlightConfiguration =
     | "Keep"
     | "ColdAndDark"

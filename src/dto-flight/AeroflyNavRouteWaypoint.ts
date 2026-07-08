@@ -1,4 +1,10 @@
-import { Convert, type AeroflyVector3Float } from "../node/Convert.js";
+import {
+    convertFeetToMeter,
+    convertLonLatToVector,
+    convertMeterToFeet,
+    convertVectorToLonLat,
+    type AeroflyVector3Float,
+} from "../node/Convert.js";
 import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
 import { AeroflyNavRouteBase } from "./AeroflyNavRouteBase.js";
 
@@ -64,11 +70,11 @@ export class AeroflyNavRouteWaypoint extends AeroflyNavRouteBase {
      * @returns {number | null} altitude in feet, null if not set
      */
     get altitude_ft(): number | null {
-        return this.altitude !== null ? Convert.convertMeterToFeet(this.altitude) : null;
+        return this.altitude !== null ? convertMeterToFeet(this.altitude) : null;
     }
 
     set altitude_ft(altitude_ft: number | null) {
-        this.altitude = altitude_ft !== null ? Convert.convertFeetToMeter(altitude_ft) : null;
+        this.altitude = altitude_ft !== null ? convertFeetToMeter(altitude_ft) : null;
     }
 
     get navaidFrequency_khz(): number | null {
@@ -91,11 +97,11 @@ export class AeroflyNavRouteWaypoint extends AeroflyNavRouteBase {
      * @returns {AeroflyVector3Float} to use in Aerofly FS4's `main.mcf`
      */
     get position(): AeroflyVector3Float {
-        return Convert.convertLonLatToVector(this.longitude, this.latitude, this.altitude || 0);
+        return convertLonLatToVector(this.longitude, this.latitude, this.altitude || 0);
     }
 
     set position(position: AeroflyVector3Float) {
-        const { longitude, latitude, altitude_meter } = Convert.convertVectorToLonLat(position);
+        const { longitude, latitude, altitude_meter } = convertVectorToLonLat(position);
         this.longitude = longitude;
         this.latitude = latitude;
         this.altitude = altitude_meter;

@@ -1,5 +1,5 @@
 import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
-import { Convert } from "../node/Convert.js";
+import { convertKgToLb, convertLbToKg } from "../node/Convert.js";
 
 export type AeroflySettingsFuelLoadConfiguration = "Keep" | "Invalid";
 
@@ -47,19 +47,19 @@ export class AeroflySettingsFuelLoad {
     }
 
     get fuelMass_lb(): number {
-        return Convert.convertKgToLb(this.fuelMass);
+        return convertKgToLb(this.fuelMass);
     }
 
     set fuelMass_lb(fuelMass_lb: number) {
-        this.fuelMass = Convert.convertLbToKg(fuelMass_lb);
+        this.fuelMass = convertLbToKg(fuelMass_lb);
     }
 
     get payloadMass_lb(): number {
-        return Convert.convertKgToLb(this.payloadMass);
+        return convertKgToLb(this.payloadMass);
     }
 
     set payloadMass_lb(payloadMass_lb: number) {
-        this.payloadMass = Convert.convertLbToKg(payloadMass_lb);
+        this.payloadMass = convertLbToKg(payloadMass_lb);
     }
 
     getElement(): AeroflyConfigurationNode {

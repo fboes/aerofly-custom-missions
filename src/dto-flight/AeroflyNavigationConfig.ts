@@ -1,5 +1,5 @@
 import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
-import { Convert } from "../node/Convert.js";
+import { convertFeetToMeter, convertMeterToFeet } from "../node/Convert.js";
 import { AeroflyNavRouteBase } from "./AeroflyNavRouteBase.js";
 
 export class AeroflyNavigationConfig {
@@ -44,18 +44,18 @@ export class AeroflyNavigationConfig {
         waypoints: AeroflyNavRouteBase[] = [],
         _cruiseSpeed_kts: number | undefined = undefined,
     ): AeroflyNavigationConfig {
-        return new AeroflyNavigationConfig(Convert.convertFeetToMeter(cruiseAltitude_ft), waypoints, _cruiseSpeed_kts);
+        return new AeroflyNavigationConfig(convertFeetToMeter(cruiseAltitude_ft), waypoints, _cruiseSpeed_kts);
     }
 
     /**
      * @returns {number} cruise altitude in feet
      */
     get cruiseAltitude_ft(): number {
-        return Convert.convertMeterToFeet(this.cruiseAltitude);
+        return convertMeterToFeet(this.cruiseAltitude);
     }
 
     set cruiseAltitude_ft(cruiseAltitude_ft: number) {
-        this.cruiseAltitude = Convert.convertFeetToMeter(cruiseAltitude_ft);
+        this.cruiseAltitude = convertFeetToMeter(cruiseAltitude_ft);
     }
 
     /**

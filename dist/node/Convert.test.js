@@ -1,17 +1,17 @@
 import { describe, it } from "node:test";
 import { strict as assert } from "node:assert";
-import { Convert } from "./Convert.js";
+import { convertDegreeToMatrix, convertFeetToMeter, convertLonLatToVector, convertMatrixToDegree, convertMeterToFeet, convertVectorToLonLat, } from "./Convert.js";
 describe("Convert", () => {
     it("should convert feet to meters correctly", () => {
         const feet = 1000;
         const expectedMeters = 304.8;
-        const actualMeters = Convert.convertFeetToMeter(feet);
+        const actualMeters = convertFeetToMeter(feet);
         assert.strictEqual(actualMeters, expectedMeters, `Expected ${feet} feet to be ${expectedMeters} meters, got ${actualMeters} meters`);
     });
     it("should convert meters to feet correctly", () => {
         const meters = 500;
         const expectedFeet = 1640.4199;
-        const actualFeet = Convert.convertMeterToFeet(meters);
+        const actualFeet = convertMeterToFeet(meters);
         assert.strictEqual(actualFeet.toPrecision(4), expectedFeet.toPrecision(4), `Expected ${meters} meters to be ${expectedFeet} feet, got ${actualFeet} feet`);
     });
     it("should convert longitude / latitude to vector and back correctly", () => {
@@ -19,23 +19,23 @@ describe("Convert", () => {
         const latitude = 47.4502;
         const expectedLongitude = -122.3088;
         const expectedLatitude = 47.4502;
-        const vector = Convert.convertLonLatToVector(longitude, latitude, 0);
-        const lonLat = Convert.convertVectorToLonLat(vector);
+        const vector = convertLonLatToVector(longitude, latitude, 0);
+        const lonLat = convertVectorToLonLat(vector);
         assert.strictEqual(lonLat.longitude.toFixed(4), expectedLongitude.toFixed(4), `Expected longitude to be ${expectedLongitude.toFixed(4)}, got ${lonLat.longitude.toFixed(4)}`);
         assert.strictEqual(lonLat.latitude.toFixed(4), expectedLatitude.toFixed(4), `Expected latitude to be ${expectedLatitude.toFixed(4)}, got ${lonLat.latitude.toFixed(4)}`);
     });
     it("should convert heading degree to orientation matrix and back correctly", () => {
         const orientationMatrix = [0, -1, 0, 1, 0, 0, 0, 0, 1];
         const expectedHeadingDegree = 90;
-        const actualHeadingDegree = Convert.convertMatrixToDegree(orientationMatrix);
+        const actualHeadingDegree = convertMatrixToDegree(orientationMatrix);
         assert.strictEqual(actualHeadingDegree.toFixed(4), expectedHeadingDegree.toFixed(4), `Expected heading degree to be ${expectedHeadingDegree.toFixed(4)}, got ${actualHeadingDegree.toFixed(4)}`);
     });
     it("should convert heading degree to orientation matrix and back correctly", () => {
         const heading_degree = 90;
         const expectedHeadingDegree = 90;
-        const orientationMatrix = Convert.convertDegreeToMatrix(heading_degree);
+        const orientationMatrix = convertDegreeToMatrix(heading_degree);
         console.log("Orientation Matrix:", orientationMatrix);
-        const actualHeadingDegree = Convert.convertMatrixToDegree(orientationMatrix);
+        const actualHeadingDegree = convertMatrixToDegree(orientationMatrix);
         assert.strictEqual(actualHeadingDegree.toFixed(4), expectedHeadingDegree.toFixed(4), `Expected heading degree to be ${expectedHeadingDegree.toFixed(4)}, got ${actualHeadingDegree.toFixed(4)}`);
     });
     it("should show the orientation at Tellruide correctly", () => {
@@ -44,7 +44,7 @@ describe("Convert", () => {
             -0.206738179058507, -0.207947329711721, -0.710293000184874, 0.672489228132418,
         ];
         const expectedHeadingDegree = 117.3585;
-        const actualHeadingDegree = Convert.convertMatrixToDegree(orientationMatrix);
+        const actualHeadingDegree = convertMatrixToDegree(orientationMatrix);
         assert.strictEqual(actualHeadingDegree.toFixed(4), expectedHeadingDegree.toFixed(4), `Expected heading degree to be ${expectedHeadingDegree.toFixed(4)}, got ${actualHeadingDegree.toFixed(4)}`);
     });
 });

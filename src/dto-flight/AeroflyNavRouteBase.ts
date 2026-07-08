@@ -1,4 +1,4 @@
-import { Convert, type AeroflyVector3Float } from "../node/Convert.js";
+import { convertLonLatToVector, convertVectorToLonLat, type AeroflyVector3Float } from "../node/Convert.js";
 import { AeroflyConfigurationNode, AeroflyConfigurationNodeComment } from "../node/AeroflyConfigurationNode.js";
 
 export type AeroflyNavRouteType =
@@ -63,11 +63,11 @@ export class AeroflyNavRouteBase {
      * @returns {AeroflyVector3Float} to use in Aerofly FS4's `main.mcf`
      */
     get position(): AeroflyVector3Float {
-        return Convert.convertLonLatToVector(this.longitude, this.latitude, 0);
+        return convertLonLatToVector(this.longitude, this.latitude, 0);
     }
 
     set position(position: AeroflyVector3Float) {
-        const latLonAlt = Convert.convertVectorToLonLat(position);
+        const latLonAlt = convertVectorToLonLat(position);
         this.longitude = latLonAlt.longitude;
         this.latitude = latLonAlt.latitude;
     }

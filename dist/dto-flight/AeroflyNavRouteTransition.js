@@ -1,4 +1,4 @@
-import { Convert } from "../node/Convert.js";
+import { convertFeetToMeter, convertMeterToFeet } from "../node/Convert.js";
 import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
 import { AeroflyNavRouteBase } from "./AeroflyNavRouteBase.js";
 class AeroflyNavRouteTransition extends AeroflyNavRouteBase {
@@ -29,10 +29,10 @@ class AeroflyNavRouteTransition extends AeroflyNavRouteBase {
      * @returns {number | null} elevation in feet, null if not set
      */
     get elevation_ft() {
-        return this.elevation !== null ? Convert.convertMeterToFeet(this.elevation) : null;
+        return this.elevation !== null ? convertMeterToFeet(this.elevation) : null;
     }
     set elevation_ft(elevation_ft) {
-        this.elevation = elevation_ft !== null ? Convert.convertFeetToMeter(elevation_ft) : null;
+        this.elevation = elevation_ft !== null ? convertFeetToMeter(elevation_ft) : null;
     }
     /**
      * @returns {AeroflyVector3Float} deliberately empty

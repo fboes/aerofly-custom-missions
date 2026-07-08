@@ -1,5 +1,5 @@
 import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
-import { Convert } from "../node/Convert.js";
+import { convertFeetToMeter, convertMeterToFeet } from "../node/Convert.js";
 import { AeroflyNavRouteBase } from "./AeroflyNavRouteBase.js";
 export class AeroflyNavigationConfig {
     /**
@@ -31,16 +31,16 @@ export class AeroflyNavigationConfig {
      * @returns {AeroflyNavigationConfig} with cruise altitude converted to meters
      */
     static createInFeet(cruiseAltitude_ft, waypoints = [], _cruiseSpeed_kts = undefined) {
-        return new AeroflyNavigationConfig(Convert.convertFeetToMeter(cruiseAltitude_ft), waypoints, _cruiseSpeed_kts);
+        return new AeroflyNavigationConfig(convertFeetToMeter(cruiseAltitude_ft), waypoints, _cruiseSpeed_kts);
     }
     /**
      * @returns {number} cruise altitude in feet
      */
     get cruiseAltitude_ft() {
-        return Convert.convertMeterToFeet(this.cruiseAltitude);
+        return convertMeterToFeet(this.cruiseAltitude);
     }
     set cruiseAltitude_ft(cruiseAltitude_ft) {
-        this.cruiseAltitude = Convert.convertFeetToMeter(cruiseAltitude_ft);
+        this.cruiseAltitude = convertFeetToMeter(cruiseAltitude_ft);
     }
     /**
      * @returns {AeroflyConfigurationNode[]} indexed checkpoints

@@ -1,5 +1,14 @@
-import { type AeroflyVector3Float, type AeroflyMatrix3Float, Convert } from "../node/Convert.js";
 import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
+import {
+    type AeroflyVector3Float,
+    type AeroflyMatrix3Float,
+    convertFeetToMeter,
+    convertLonLatToVector,
+    convertVectorToLonLat,
+    convertDegreeToMatrix,
+    convertMatrixToDegree,
+    convertMeterToFeet,
+} from "../node/Convert.js";
 
 export type AeroflySettingsFlightConfiguration =
     | "Keep"
@@ -86,7 +95,7 @@ export class AeroflySettingsFlight {
         return new AeroflySettingsFlight(
             longitude,
             latitude,
-            Convert.convertFeetToMeter(altitude_ft),
+            convertFeetToMeter(altitude_ft),
             heading_degree,
             speed_kts,
             additionalAttributes,
@@ -142,11 +151,11 @@ export class AeroflySettingsFlight {
      * @returns {AeroflyVector3Float} position vector to use in Aerofly FS4's `main.mcf`
      */
     get position(): AeroflyVector3Float {
-        return Convert.convertLonLatToVector(this.longitude, this.latitude, this.altitude_meter);
+        return convertLonLatToVector(this.longitude, this.latitude, this.altitude_meter);
     }
 
     set position(position: AeroflyVector3Float) {
-        const { longitude, latitude, altitude_meter } = Convert.convertVectorToLonLat(position);
+        const { longitude, latitude, altitude_meter } = convertVectorToLonLat(position);
         this.longitude = longitude;
         this.latitude = latitude;
         this.altitude_meter = altitude_meter;
@@ -167,22 +176,22 @@ export class AeroflySettingsFlight {
     }
 
     get orientation(): AeroflyMatrix3Float {
-        return Convert.convertDegreeToMatrix(this.heading_degree);
+        return convertDegreeToMatrix(this.heading_degree);
     }
 
     set orientation(orientation: AeroflyMatrix3Float) {
-        this.heading_degree = Convert.convertMatrixToDegree(orientation);
+        this.heading_degree = convertMatrixToDegree(orientation);
     }
 
     /**
      * @returns {number} altitude in feet AGL
      */
     get altitude_ft(): number {
-        return Convert.convertMeterToFeet(this.altitude_meter);
+        return convertMeterToFeet(this.altitude_meter);
     }
 
     set altitude_ft(altitude_ft: number) {
-        this.altitude_meter = Convert.convertFeetToMeter(altitude_ft);
+        this.altitude_meter = convertFeetToMeter(altitude_ft);
     }
 
     /**

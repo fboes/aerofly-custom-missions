@@ -1,5 +1,5 @@
-import { Convert } from "../node/Convert.js";
 import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
+import { convertFeetToMeter, convertLonLatToVector, convertVectorToLonLat, convertDegreeToMatrix, convertMatrixToDegree, convertMeterToFeet, } from "../node/Convert.js";
 export class AeroflySettingsFlight {
     longitude;
     latitude;
@@ -52,7 +52,7 @@ export class AeroflySettingsFlight {
         this.runway = runway;
     }
     static createInFeet(longitude, latitude, altitude_ft, heading_degree, speed_kts = 0, additionalAttributes = {}) {
-        return new AeroflySettingsFlight(longitude, latitude, Convert.convertFeetToMeter(altitude_ft), heading_degree, speed_kts, additionalAttributes);
+        return new AeroflySettingsFlight(longitude, latitude, convertFeetToMeter(altitude_ft), heading_degree, speed_kts, additionalAttributes);
     }
     static createInCartesian(position, velocity, orientation, additionalAttributes = {}) {
         const flight = new AeroflySettingsFlight(0, 0, 0, 0, 0, additionalAttributes);
@@ -95,10 +95,10 @@ export class AeroflySettingsFlight {
      * @returns {AeroflyVector3Float} position vector to use in Aerofly FS4's `main.mcf`
      */
     get position() {
-        return Convert.convertLonLatToVector(this.longitude, this.latitude, this.altitude_meter);
+        return convertLonLatToVector(this.longitude, this.latitude, this.altitude_meter);
     }
     set position(position) {
-        const { longitude, latitude, altitude_meter } = Convert.convertVectorToLonLat(position);
+        const { longitude, latitude, altitude_meter } = convertVectorToLonLat(position);
         this.longitude = longitude;
         this.latitude = latitude;
         this.altitude_meter = altitude_meter;
@@ -116,19 +116,19 @@ export class AeroflySettingsFlight {
         this.speed_ms = 0;
     }
     get orientation() {
-        return Convert.convertDegreeToMatrix(this.heading_degree);
+        return convertDegreeToMatrix(this.heading_degree);
     }
     set orientation(orientation) {
-        this.heading_degree = Convert.convertMatrixToDegree(orientation);
+        this.heading_degree = convertMatrixToDegree(orientation);
     }
     /**
      * @returns {number} altitude in feet AGL
      */
     get altitude_ft() {
-        return Convert.convertMeterToFeet(this.altitude_meter);
+        return convertMeterToFeet(this.altitude_meter);
     }
     set altitude_ft(altitude_ft) {
-        this.altitude_meter = Convert.convertFeetToMeter(altitude_ft);
+        this.altitude_meter = convertFeetToMeter(altitude_ft);
     }
     /**
      * @returns {number} speed in meters per seconds
