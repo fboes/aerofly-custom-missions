@@ -47,19 +47,19 @@
         </clouds>
         <navigation type="tmnavigation_config">
             <Route type="tmnav_route">
-                <CruiseAltitude type="float64">9753.6</CruiseAltitude> <!-- 32001 ft -->
+                <CruiseAltitude type="float64">9753.6</CruiseAltitude> <!-- 32000 ft -->
                 <Ways type="pointer_list_tmnav_route_way">
                     <KEYW type="tmnav_route_origin" index="0">
                         <Identifier type="string8u">KEYW</Identifier>
                         <Position type="vector3_float64">831962.2473395835 -5744690.224311131 2634431.8120697998</Position> <!-- Lon -81.759556, Lat 24.556111 -->
                         <Uid type="uint64">5033935394767185920</Uid>
-                        <Elevation type="float64">0.9144</Elevation> <!-- Elevation 4 ft -->
+                        <Elevation type="float64">0.9144</Elevation> <!-- Elevation 3 ft -->
                     </KEYW>
                     <09 type="tmnav_route_departure_runway" index="1">
                         <Identifier type="string8u">09</Identifier>
                         <Position type="vector3_float64">831239.6121807017 -5744797.5451743435 2634425.9351001014</Position> <!-- Lon -81.766767, Lat 24.556053 -->
                         <Uid type="uint64">5033564859348430848</Uid>
-                        <Elevation type="float64">0.9144</Elevation> <!-- Elevation 4 ft -->
+                        <Elevation type="float64">0.9144</Elevation> <!-- Elevation 3 ft -->
                         <RunwayLength type="float64">1463.3448</RunwayLength> <!-- Runway length 4801 ft -->
                     </09>
                     <MTH type="tmnav_route_waypoint" index="2">
@@ -91,7 +91,7 @@
                         <Uid type="uint64">5109231054766956544</Uid>
                         <Airport type="string8u">KMIA</Airport>
                         <Direction type="vector3_float64">0 0 0</Direction>
-                        <Elevation type="float64">2.4384</Elevation> <!-- Elevation 9 ft -->
+                        <Elevation type="float64">2.4384</Elevation> <!-- Elevation 8 ft -->
                         <Transition type="string8u"></Transition>
                         <TransitionUid type="uint64">0</TransitionUid>
                     </L08L>
@@ -99,14 +99,14 @@
                         <Identifier type="string8u">08L</Identifier>
                         <Position type="vector3_float64">967964.1844961813 -5663741.310440378 2759419.1621422493</Position> <!-- Lon -80.301542, Lat 25.802897 -->
                         <Uid type="uint64">5108645015094833152</Uid>
-                        <Elevation type="float64">2.4384</Elevation> <!-- Elevation 9 ft -->
+                        <Elevation type="float64">2.4384</Elevation> <!-- Elevation 8 ft -->
                         <RunwayLength type="float64">2621.28</RunwayLength> <!-- Runway length 8600 ft -->
                     </08L>
                     <KMIA type="tmnav_route_destination" index="7">
                         <Identifier type="string8u">KMIA</Identifier>
                         <Position type="vector3_float64">969155.3700254696 -5663906.240326158 2758667.49173681</Position> <!-- Lon -80.290111, Lat 25.795361 -->
                         <Uid type="uint64">5109231054766614528</Uid>
-                        <Elevation type="float64">2.7432</Elevation> <!-- Elevation 10 ft -->
+                        <Elevation type="float64">2.7432</Elevation> <!-- Elevation 9 ft -->
                     </KMIA>
                 </Ways>
             </Route>

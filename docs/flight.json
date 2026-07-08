@@ -17,7 +17,7 @@
     "onGround": true,
     "airport": "KTEX",
     "runway": "",
-    "altitude_ft": 9072.275604893097
+    "altitude_ft": 9072.275314580287
   },
   "fuelLoadSetting": {
     "aircraft": "c172",
@@ -56,7 +56,7 @@
         "longitude": -81.75955555555561,
         "latitude": 24.55611111111108,
         "uid": "5033935394767185920",
-        "elevation_ft": 3.000000096
+        "elevation_ft": 3
       },
       {
         "type": "departure_runway",
@@ -65,8 +65,8 @@
         "latitude": 24.556052777777765,
         "uid": "5033564859348430848",
         "direction_degree": null,
-        "elevation_ft": 3.000000096,
-        "runwayLength_ft": 4801.000153632001
+        "elevation_ft": 3,
+        "runwayLength_ft": 4801
       },
       {
         "type": "waypoint",
@@ -107,7 +107,7 @@
         "airport": "KMIA",
         "transition": "",
         "transitionUid": null,
-        "elevation_ft": 8.000000256
+        "elevation_ft": 8
       },
       {
         "type": "destination_runway",
@@ -116,8 +116,8 @@
         "latitude": 25.80289722222224,
         "uid": "5108645015094833152",
         "direction_degree": null,
-        "elevation_ft": 8.000000256,
-        "runwayLength_ft": 8600.0002752
+        "elevation_ft": 8,
+        "runwayLength_ft": 8600
       },
       {
         "type": "destination",
@@ -125,10 +125,10 @@
         "longitude": -80.29011111111112,
         "latitude": 25.79536111111115,
         "uid": "5109231054766614528",
-        "elevation_ft": 9.000000287999999
+        "elevation_ft": 8.999999999999998
       }
     ],
-    "cruiseAltitude_ft": 32000.001024
+    "cruiseAltitude_ft": 32000
   },
   "visibility_meter": 7999.994999999999,
   "_missionTitle": "Mission title",

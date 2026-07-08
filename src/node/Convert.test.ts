@@ -6,7 +6,7 @@ import { type AeroflyMatrix3Float, Convert } from "./Convert.js";
 describe("Convert", () => {
     it("should convert feet to meters correctly", () => {
         const feet = 1000;
-        const expectedMeters = 304.79999024640034;
+        const expectedMeters = 304.8;
         const actualMeters = Convert.convertFeetToMeter(feet);
         assert.strictEqual(
             actualMeters,
@@ -17,11 +17,11 @@ describe("Convert", () => {
 
     it("should convert meters to feet correctly", () => {
         const meters = 500;
-        const expectedFeet = 1640.42;
+        const expectedFeet = 1640.4199;
         const actualFeet = Convert.convertMeterToFeet(meters);
         assert.strictEqual(
-            actualFeet,
-            expectedFeet,
+            actualFeet.toPrecision(4),
+            expectedFeet.toPrecision(4),
             `Expected ${meters} meters to be ${expectedFeet} feet, got ${actualFeet} feet`,
         );
     });

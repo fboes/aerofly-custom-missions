@@ -47,19 +47,19 @@
         >
         <[tmnavigation_config][navigation][]
             <[tmnav_route][Route][]
-                <[float64][CruiseAltitude][9753.6]> // 32001 ft
+                <[float64][CruiseAltitude][9753.6]> // 32000 ft
                 <[pointer_list_tmnav_route_way][Ways][]
                     <[tmnav_route_origin][KEYW][0]
                         <[string8u][Identifier][KEYW]>
                         <[vector3_float64][Position][831962.2473395835 -5744690.224311131 2634431.8120697998]> // Lon -81.759556, Lat 24.556111
                         <[uint64][Uid][5033935394767185920]>
-                        <[float64][Elevation][0.9144]> // Elevation 4 ft
+                        <[float64][Elevation][0.9144]> // Elevation 3 ft
                     >
                     <[tmnav_route_departure_runway][09][1]
                         <[string8u][Identifier][09]>
                         <[vector3_float64][Position][831239.6121807017 -5744797.5451743435 2634425.9351001014]> // Lon -81.766767, Lat 24.556053
                         <[uint64][Uid][5033564859348430848]>
-                        <[float64][Elevation][0.9144]> // Elevation 4 ft
+                        <[float64][Elevation][0.9144]> // Elevation 3 ft
                         <[float64][RunwayLength][1463.3448]> // Runway length 4801 ft
                     >
                     <[tmnav_route_waypoint][MTH][2]
@@ -91,7 +91,7 @@
                         <[uint64][Uid][5109231054766956544]>
                         <[string8u][Airport][KMIA]>
                         <[vector3_float64][Direction][0 0 0]>
-                        <[float64][Elevation][2.4384]> // Elevation 9 ft
+                        <[float64][Elevation][2.4384]> // Elevation 8 ft
                         <[string8u][Transition][]>
                         <[uint64][TransitionUid][0]>
                     >
@@ -99,14 +99,14 @@
                         <[string8u][Identifier][08L]>
                         <[vector3_float64][Position][967964.1844961813 -5663741.310440378 2759419.1621422493]> // Lon -80.301542, Lat 25.802897
                         <[uint64][Uid][5108645015094833152]>
-                        <[float64][Elevation][2.4384]> // Elevation 9 ft
+                        <[float64][Elevation][2.4384]> // Elevation 8 ft
                         <[float64][RunwayLength][2621.28]> // Runway length 8600 ft
                     >
                     <[tmnav_route_destination][KMIA][7]
                         <[string8u][Identifier][KMIA]>
                         <[vector3_float64][Position][969155.3700254696 -5663906.240326158 2758667.49173681]> // Lon -80.290111, Lat 25.795361
                         <[uint64][Uid][5109231054766614528]>
-                        <[float64][Elevation][2.7432]> // Elevation 10 ft
+                        <[float64][Elevation][2.7432]> // Elevation 9 ft
                     >
                 >
             >

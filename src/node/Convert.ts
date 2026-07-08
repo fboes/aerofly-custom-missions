@@ -75,6 +75,7 @@ export class Convert {
     }
 
     static convertMatrixToDegree(orientation: AeroflyMatrix3Float): number {
+        // TODO: https://www.aerofly.com/community/forum/index.php?thread/28025-custom-missions-file-livery-and-parking-position-property/&postID=184313#post184313
         const headingRad = Math.atan2(orientation[3], orientation[0]);
         let headingDeg = headingRad * (180 / Math.PI);
         // Normalize to [0, 360)
@@ -83,18 +84,18 @@ export class Convert {
     }
 
     static convertMeterToFeet(meter: number): number {
-        return meter * 3.28084;
+        return meter / 0.3048;
     }
 
     static convertFeetToMeter(feet: number): number {
-        return feet / 3.28084;
+        return feet * 0.3048;
     }
 
     static convertKgToLb(kg: number) {
-        return kg;
+        return kg / 0.45359237;
     }
 
     static convertLbToKg(lb: number) {
-        return lb;
+        return lb * 0.45359237;
     }
 }

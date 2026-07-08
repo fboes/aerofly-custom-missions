@@ -2,7 +2,11 @@
 
 This changelog documents all notable changes to the Aerofly Custom Missions project. Each version entry includes a list of changes, with the most recent version at the top.
 
-## [1.12.0] - 2026-07-08
+## [Unreleased]
+
+- Made unit conversions more precise
+
+## [1.12.0] - 2026-07-01
 
 - Added unofficial `_cruiseSpeed` property to `AeroflyNavigationConfig`
 
