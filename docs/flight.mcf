@@ -65,23 +65,27 @@
                     <[tmnav_route_waypoint][MTH][2]
                         <[string8u][Identifier][MTH]>
                         <[vector3_float64][Position][-2309470.142824746 -3651978.5471377173 4675755.385390146]> // Lon -122.308800, Lat 47.450200
-                        // <[uint64][Uid][]>
+                        <[uint64][Uid][2956153176169775104]> // Fallback UID, not matching Aerofly FS internal UID
                         <[float64][NavaidFrequency][260000]>
+                        <[uint64][NavaidUid][0]>
                         <[vector2_float64][Altitude][-1001 100001]> // unrestricted
                         <[bool][FlyOver][false]>
                     >
                     <[tmnav_route_waypoint][MNATE][3]
                         <[string8u][Identifier][MNATE]>
                         <[vector3_float64][Position][-2309470.142824746 -3651978.5471377173 4675755.385390146]> // Lon -122.308800, Lat 47.450200
-                        // <[uint64][Uid][]>
+                        <[uint64][Uid][2956153176169775104]> // Fallback UID, not matching Aerofly FS internal UID
+                        <[float64][NavaidFrequency][0]>
+                        <[uint64][NavaidUid][0]>
                         <[vector2_float64][Altitude][-1001 100001]> // unrestricted
                         <[bool][FlyOver][false]>
                     >
                     <[tmnav_route_waypoint][HST][4]
                         <[string8u][Identifier][HST]>
                         <[vector3_float64][Position][-2309470.142824746 -3651978.5471377173 4675755.385390146]> // Lon -122.308800, Lat 47.450200
-                        // <[uint64][Uid][]>
+                        <[uint64][Uid][2956153176169775104]> // Fallback UID, not matching Aerofly FS internal UID
                         <[float64][NavaidFrequency][108200000]>
+                        <[uint64][NavaidUid][0]>
                         <[vector2_float64][Altitude][-1001 100001]> // unrestricted
                         <[bool][FlyOver][false]>
                     >

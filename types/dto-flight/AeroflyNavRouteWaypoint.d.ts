@@ -10,6 +10,10 @@ export declare class AeroflyNavRouteWaypoint extends AeroflyNavRouteBase {
      */
     navaidFrequency: number | null;
     /**
+     * @property {?bigint} navaidUid if the waypoint is a navaid, its unique identifier, must match Aerofly FS internal UID if used in an existing mission
+     */
+    navaidUid: bigint | null;
+    /**
      * @property {number | null} altitude in meter, null if not set
      */
     altitude: number | null;
@@ -23,6 +27,9 @@ export declare class AeroflyNavRouteWaypoint extends AeroflyNavRouteBase {
      * @param {number} latitude WGS84
      * @param {object} [options] additional options for the waypoint
      * @param {?number} [options.navaidFrequency] if the waypoint is a navaid, its frequency in Hz
+     * @param {?number} [options.navaidFrequency_khz] if the waypoint is a navaid, its frequency in kHz, will override navaidFrequency in Hz if provided
+     * @param {?number} [options.navaidFrequency_mhz] if the waypoint is a navaid, its frequency in MHz, will override navaidFrequency in Hz if provided
+     * @param {?bigint} [options.navaidUid] if the waypoint is a navaid, its unique identifier, must match Aerofly FS internal UID if used in an existing mission
      * @param {number} [options.altitude] in meter
      * @param {?number} [options.altitude_ft] altitude in feet, will override altitude in meter if provided
      * @param {boolean} [options.flyOver] if true, the waypoint is meant to be flown over, otherwise it can be used as a fly-by waypoint
@@ -36,6 +43,7 @@ export declare class AeroflyNavRouteWaypoint extends AeroflyNavRouteBase {
             navaidFrequency,
             navaidFrequency_khz,
             navaidFrequency_mhz,
+            navaidUid,
             altitude,
             altitude_ft,
             flyOver,

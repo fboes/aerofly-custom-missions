@@ -1,5 +1,5 @@
 import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
-export type AeroflySettingsFuelLoadConfiguration = "Keep" | "Invalid";
+export type AeroflySettingsFuelLoadConfiguration = "Keep" | "Invalid" | "Custom";
 export declare class AeroflySettingsFuelLoad {
     /**
      * @property {string} aircraft  aerofly aircraft name (e.g. "c172")

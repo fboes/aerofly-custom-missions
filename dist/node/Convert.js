@@ -23,7 +23,7 @@ export function convertLonLatToVector(longitude, latitude, altitude_meter) {
 }
 /**
  * @param {AeroflyVector3Float} coordinates to convert
- * @returns {Object} as with longitude, latitude, altitude_meter
+ * @returns {object} as with longitude, latitude, altitude_meter
  */
 export function convertVectorToLonLat(coordinates) {
     // TODO: This implementation is not correct

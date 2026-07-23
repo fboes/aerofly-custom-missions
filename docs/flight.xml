@@ -65,23 +65,27 @@
                     <MTH type="tmnav_route_waypoint" index="2">
                         <Identifier type="string8u">MTH</Identifier>
                         <Position type="vector3_float64">-2309470.142824746 -3651978.5471377173 4675755.385390146</Position> <!-- Lon -122.308800, Lat 47.450200 -->
-                        <!-- Uid type="uint64"></Uid -->
+                        <Uid type="uint64">2956153176169775104</Uid> <!-- Fallback UID, not matching Aerofly FS internal UID -->
                         <NavaidFrequency type="float64">260000</NavaidFrequency>
+                        <NavaidUid type="uint64">0</NavaidUid>
                         <Altitude type="vector2_float64">-1001 100001</Altitude> <!-- unrestricted -->
                         <FlyOver type="bool">false</FlyOver>
                     </MTH>
                     <MNATE type="tmnav_route_waypoint" index="3">
                         <Identifier type="string8u">MNATE</Identifier>
                         <Position type="vector3_float64">-2309470.142824746 -3651978.5471377173 4675755.385390146</Position> <!-- Lon -122.308800, Lat 47.450200 -->
-                        <!-- Uid type="uint64"></Uid -->
+                        <Uid type="uint64">2956153176169775104</Uid> <!-- Fallback UID, not matching Aerofly FS internal UID -->
+                        <NavaidFrequency type="float64">0</NavaidFrequency>
+                        <NavaidUid type="uint64">0</NavaidUid>
                         <Altitude type="vector2_float64">-1001 100001</Altitude> <!-- unrestricted -->
                         <FlyOver type="bool">false</FlyOver>
                     </MNATE>
                     <HST type="tmnav_route_waypoint" index="4">
                         <Identifier type="string8u">HST</Identifier>
                         <Position type="vector3_float64">-2309470.142824746 -3651978.5471377173 4675755.385390146</Position> <!-- Lon -122.308800, Lat 47.450200 -->
-                        <!-- Uid type="uint64"></Uid -->
+                        <Uid type="uint64">2956153176169775104</Uid> <!-- Fallback UID, not matching Aerofly FS internal UID -->
                         <NavaidFrequency type="float64">108200000</NavaidFrequency>
+                        <NavaidUid type="uint64">0</NavaidUid>
                         <Altitude type="vector2_float64">-1001 100001</Altitude> <!-- unrestricted -->
                         <FlyOver type="bool">false</FlyOver>
                     </HST>

@@ -27,7 +27,7 @@ export declare class AeroflyNavRouteBase {
      */
     latitude: number;
     /**
-     * @property {?bigint} uid unique identifier for the waypoint, must match Aerofly FS internal UID if used in an existing mission, can be null for new waypoints
+     * @property {?bigint} uid unique identifier for the waypoint, must match Aerofly FS internal UID if used in an existing mission. Obviously the UID encodes the geographic position as well as the name of the waypoint.
      */
     uid: bigint | null;
     /**
@@ -36,7 +36,7 @@ export declare class AeroflyNavRouteBase {
      * @param {number} longitude WGS84
      * @param {number} latitude WGS84
      * @param {object} [options] additional options for the waypoint
-     * @param {?bigint} [options.uid] unique identifier for the waypoint, must match Aerofly FS internal UID if used in an existing mission, can be null for new waypoints
+     * @param {?bigint} [options.uid] unique identifier for the waypoint, must match Aerofly FS internal UID if used in an existing mission. Obviously the UID encodes the geographic position as well as the name of the waypoint.
      */
     constructor(
         type: AeroflyNavRouteType,
@@ -57,6 +57,28 @@ export declare class AeroflyNavRouteBase {
      */
     setPosition(position: AeroflyVector3Float): this;
     getElement(index?: number): AeroflyConfigurationNode;
+    /**
+     * @returns {bigint} 24 bit longitude
+     * @see https://www.aerofly.com/community/forum/index.php?thread/29490-navdata-coordinates-to-uid/
+     */
+    private encodeLongitude;
+    /**
+     * @returns {bigint} 24 bit latitude
+     * @see https://www.aerofly.com/community/forum/index.php?thread/29490-navdata-coordinates-to-uid/
+     */
+    private encodeLatitude;
+    /**
+     * @returns {number} 16 bit type
+     */
+    private encodeWaypointType;
+    /**
+     * @returns {bigint} Packs both into a single 64-bit value:
+     * - Bits 63..40 → longitude  (24 bit)
+     * - Bits 39..16 → latitude   (24 bit)
+     * - Bits 15..0  → payload    (16 bit)
+     * @see https://www.aerofly.com/community/forum/index.php?thread/29490-navdata-coordinates-to-uid/
+     */
+    getUidFallback(): bigint;
     toJSON(): this & {
         uid: string | null;
     };

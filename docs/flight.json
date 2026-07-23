@@ -74,6 +74,7 @@
         "longitude": -122.3088,
         "latitude": 47.4502,
         "uid": null,
+        "navaidUid": null,
         "flyOver": false,
         "altitude_ft": null,
         "navaidFrequency_khz": 260
@@ -84,6 +85,7 @@
         "longitude": -122.3088,
         "latitude": 47.4502,
         "uid": null,
+        "navaidUid": null,
         "flyOver": false,
         "altitude_ft": null,
         "navaidFrequency_khz": null
@@ -94,6 +96,7 @@
         "longitude": -122.3088,
         "latitude": 47.4502,
         "uid": null,
+        "navaidUid": null,
         "flyOver": false,
         "altitude_ft": null,
         "navaidFrequency_khz": 108200

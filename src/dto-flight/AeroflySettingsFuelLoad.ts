@@ -1,7 +1,7 @@
 import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
 import { convertKgToLb, convertLbToKg } from "../node/Convert.js";
 
-export type AeroflySettingsFuelLoadConfiguration = "Keep" | "Invalid";
+export type AeroflySettingsFuelLoadConfiguration = "Keep" | "Invalid" | "Custom";
 
 export class AeroflySettingsFuelLoad {
     /**
@@ -64,7 +64,11 @@ export class AeroflySettingsFuelLoad {
 
     getElement(): AeroflyConfigurationNode {
         return new AeroflyConfigurationNode("tmsettings_fuel_load", "fuel_load_setting")
-            .appendChild("fuel_load_configuration", "configuration", this.fuelMass > 0 ? "Keep" : this.configuration)
+            .appendChild(
+                "fuel_load_configuration",
+                "configuration",
+                this.fuelMass > 0 && this.configuration === "Invalid" ? "Custom" : this.configuration,
+            )
             .appendChild("string8u", "aircraft", this.aircraft)
             .appendChild("float64", "fuel_mass", this.fuelMass)
             .appendChild("float64", "payload_mass", this.payloadMass);

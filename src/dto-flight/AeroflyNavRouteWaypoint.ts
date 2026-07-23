@@ -15,6 +15,11 @@ export class AeroflyNavRouteWaypoint extends AeroflyNavRouteBase {
     navaidFrequency: number | null;
 
     /**
+     * @property {?bigint} navaidUid if the waypoint is a navaid, its unique identifier, must match Aerofly FS internal UID if used in an existing mission
+     */
+    navaidUid: bigint | null;
+
+    /**
      * @property {number | null} altitude in meter, null if not set
      */
     altitude: number | null;
@@ -30,6 +35,9 @@ export class AeroflyNavRouteWaypoint extends AeroflyNavRouteBase {
      * @param {number} latitude WGS84
      * @param {object} [options] additional options for the waypoint
      * @param {?number} [options.navaidFrequency] if the waypoint is a navaid, its frequency in Hz
+     * @param {?number} [options.navaidFrequency_khz] if the waypoint is a navaid, its frequency in kHz, will override navaidFrequency in Hz if provided
+     * @param {?number} [options.navaidFrequency_mhz] if the waypoint is a navaid, its frequency in MHz, will override navaidFrequency in Hz if provided
+     * @param {?bigint} [options.navaidUid] if the waypoint is a navaid, its unique identifier, must match Aerofly FS internal UID if used in an existing mission
      * @param {number} [options.altitude] in meter
      * @param {?number} [options.altitude_ft] altitude in feet, will override altitude in meter if provided
      * @param {boolean} [options.flyOver] if true, the waypoint is meant to be flown over, otherwise it can be used as a fly-by waypoint
@@ -43,6 +51,7 @@ export class AeroflyNavRouteWaypoint extends AeroflyNavRouteBase {
             navaidFrequency = null,
             navaidFrequency_khz = null,
             navaidFrequency_mhz = null,
+            navaidUid = null,
             altitude = null,
             altitude_ft = null,
             flyOver = false,
@@ -51,6 +60,7 @@ export class AeroflyNavRouteWaypoint extends AeroflyNavRouteBase {
     ) {
         super("waypoint", identifier, longitude, latitude, { uid });
         this.navaidFrequency = navaidFrequency;
+        this.navaidUid = navaidUid;
         this.altitude = altitude;
 
         if (altitude_ft !== null) {
@@ -110,11 +120,9 @@ export class AeroflyNavRouteWaypoint extends AeroflyNavRouteBase {
     getElement(index: number = 0): AeroflyConfigurationNode {
         const element = super.getElement(index);
 
-        if (this.navaidFrequency) {
-            element.appendChild("float64", "NavaidFrequency", this.navaidFrequency);
-        }
-
         element
+            .appendChild("float64", "NavaidFrequency", this.navaidFrequency ?? 0)
+            .appendChild("uint64", "NavaidUid", this.navaidUid ?? BigInt(0))
             .appendChild(
                 "vector2_float64",
                 "Altitude",
@@ -134,6 +142,7 @@ export class AeroflyNavRouteWaypoint extends AeroflyNavRouteBase {
             altitude_ft: this.altitude_ft,
             navaidFrequency: undefined,
             navaidFrequency_khz: this.navaidFrequency_khz,
+            navaidUid: this.navaidUid !== null ? this.navaidUid.toString() : null,
         };
     }
 }

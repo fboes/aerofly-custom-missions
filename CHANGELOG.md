@@ -2,9 +2,10 @@
 
 This changelog documents all notable changes to the Aerofly Custom Missions project. Each version entry includes a list of changes, with the most recent version at the top.
 
-## [Unreleased]
+## [1.13.0] - 2026-07-23
 
 - Made unit conversions more precise
+- Added correct UID generator
 
 ## [1.12.0] - 2026-07-01
 

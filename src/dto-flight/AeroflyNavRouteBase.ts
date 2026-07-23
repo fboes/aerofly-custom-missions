@@ -1,5 +1,5 @@
 import { convertLonLatToVector, convertVectorToLonLat, type AeroflyVector3Float } from "../node/Convert.js";
-import { AeroflyConfigurationNode, AeroflyConfigurationNodeComment } from "../node/AeroflyConfigurationNode.js";
+import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
 
 export type AeroflyNavRouteType =
     | "origin"
@@ -33,7 +33,7 @@ export class AeroflyNavRouteBase {
     latitude: number;
 
     /**
-     * @property {?bigint} uid unique identifier for the waypoint, must match Aerofly FS internal UID if used in an existing mission, can be null for new waypoints
+     * @property {?bigint} uid unique identifier for the waypoint, must match Aerofly FS internal UID if used in an existing mission. Obviously the UID encodes the geographic position as well as the name of the waypoint.
      */
     uid: bigint | null;
 
@@ -43,7 +43,7 @@ export class AeroflyNavRouteBase {
      * @param {number} longitude WGS84
      * @param {number} latitude WGS84
      * @param {object} [options] additional options for the waypoint
-     * @param {?bigint} [options.uid] unique identifier for the waypoint, must match Aerofly FS internal UID if used in an existing mission, can be null for new waypoints
+     * @param {?bigint} [options.uid] unique identifier for the waypoint, must match Aerofly FS internal UID if used in an existing mission. Obviously the UID encodes the geographic position as well as the name of the waypoint.
      */
     constructor(
         type: AeroflyNavRouteType,
@@ -91,13 +91,74 @@ export class AeroflyNavRouteBase {
                 this.position,
                 `Lon ${this.longitude.toFixed(6)}, Lat ${this.latitude.toFixed(6)}`,
             )
-            .append(
-                this.uid
-                    ? new AeroflyConfigurationNode("uint64", "Uid", this.uid)
-                    : new AeroflyConfigurationNodeComment("uint64", "Uid", ""),
+            .appendChild(
+                "uint64",
+                "Uid",
+                this.uid ?? this.getUidFallback(),
+                this.uid ? "" : "Fallback UID, not matching Aerofly FS internal UID",
             );
 
         return element;
+    }
+
+    /**
+     * @returns {bigint} 24 bit longitude
+     * @see https://www.aerofly.com/community/forum/index.php?thread/29490-navdata-coordinates-to-uid/
+     */
+    private encodeLongitude(): bigint {
+        let scaled = this.longitude / 180;
+        scaled = 65536.0 * (0.5 + 0.5 * scaled); // 16 bit
+        return BigInt(Math.round(256.0 * scaled + 0.5)); // 24 bit
+    }
+
+    /**
+     * @returns {bigint} 24 bit latitude
+     * @see https://www.aerofly.com/community/forum/index.php?thread/29490-navdata-coordinates-to-uid/
+     */
+    private encodeLatitude(): bigint {
+        const worldGridConstantA = 2.3311223704144;
+
+        let scaled = this.latitude / 180;
+        scaled = Math.tan(worldGridConstantA * scaled) / worldGridConstantA;
+        scaled = 65536.0 * (0.5 + 0.5 * scaled); // 16 bit
+        return BigInt(Math.round(256.0 * scaled + 0.5)); // 24 bit
+    }
+
+    /**
+     * @returns {number} 16 bit type
+     */
+    private encodeWaypointType(): number {
+        // Type code (airport (0500) / runway (0800) / SID (4400) / STAR (4800) / Approach (4C00) / RNAV waypoint (C000) / airways (4000)
+        switch (this.type) {
+            case "origin":
+            case "destination":
+                return 0x0500;
+            case "departure_runway":
+            case "destination_runway":
+                return 0x0800;
+            case "departure":
+                return 0x4400;
+            case "arrival":
+                return 0x4800;
+            case "approach":
+                return 0x4c00;
+        }
+        return 0;
+    }
+
+    /**
+     * @returns {bigint} Packs both into a single 64-bit value:
+     * - Bits 63..40 → longitude  (24 bit)
+     * - Bits 39..16 → latitude   (24 bit)
+     * - Bits 15..0  → payload    (16 bit)
+     * @see https://www.aerofly.com/community/forum/index.php?thread/29490-navdata-coordinates-to-uid/
+     */
+    getUidFallback(): bigint {
+        return (
+            (this.encodeLongitude() << 40n) |
+            (this.encodeLatitude() << 16n) |
+            (BigInt(this.encodeWaypointType()) & 0xffffn)
+        );
     }
 
     toJSON() {

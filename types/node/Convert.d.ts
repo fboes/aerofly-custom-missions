@@ -13,7 +13,7 @@ export declare function convertLonLatToVector(
 ): AeroflyVector3Float;
 /**
  * @param {AeroflyVector3Float} coordinates to convert
- * @returns {Object} as with longitude, latitude, altitude_meter
+ * @returns {object} as with longitude, latitude, altitude_meter
  */
 export declare function convertVectorToLonLat(coordinates: AeroflyVector3Float): {
     longitude: number;
