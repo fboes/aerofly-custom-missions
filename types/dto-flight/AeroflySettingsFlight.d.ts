@@ -1,5 +1,10 @@
 import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
-import { type AeroflyVector3Float, type AeroflyMatrix3Float } from "../node/Convert.js";
+import {
+    AeroflyMatrix3Float,
+    AeroflyVector3Float,
+    type AeroflyMatrix3FloatArray,
+    type AeroflyVector3FloatArray,
+} from "../node/AeroflyTypes.js";
 export type AeroflySettingsFlightConfiguration =
     | "Keep"
     | "ColdAndDark"
@@ -55,9 +60,9 @@ export declare class AeroflySettingsFlight {
         additionalAttributes?: Partial<AeroflySettingsFlight>,
     ): AeroflySettingsFlight;
     static createInCartesian(
-        position: AeroflyVector3Float,
-        velocity: AeroflyVector3Float,
-        orientation: AeroflyMatrix3Float,
+        position: AeroflyVector3FloatArray,
+        velocity: AeroflyVector3FloatArray,
+        orientation: AeroflyMatrix3FloatArray,
         additionalAttributes?: Partial<AeroflySettingsFlight>,
     ): AeroflySettingsFlight;
     /**

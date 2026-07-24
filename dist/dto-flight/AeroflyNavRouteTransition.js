@@ -1,6 +1,7 @@
 import { convertFeetToMeter, convertMeterToFeet } from "../node/Convert.js";
 import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
 import { AeroflyNavRouteBase } from "./AeroflyNavRouteBase.js";
+import { AeroflyVector3Float } from "../node/AeroflyTypes.js";
 class AeroflyNavRouteTransition extends AeroflyNavRouteBase {
     /**
      * @property {string} airport ICAO code of the airport this transition belongs to, e.g. "SEA", "PDX"
@@ -38,19 +39,19 @@ class AeroflyNavRouteTransition extends AeroflyNavRouteBase {
      * @returns {AeroflyVector3Float} deliberately empty
      */
     get position() {
-        return [0, 0, 0]; // sic!
+        return new AeroflyVector3Float(0, 0, 0); // sic!
     }
     /**
      * @returns {AeroflyVector3Float} deliberately empty
      */
     get direction() {
-        return [0, 0, 0]; // sic!
+        return new AeroflyVector3Float(0, 0, 0); // sic!
     }
     getElement(index = 0) {
         const element = super.getElement(index);
         element
             .appendChild("string8u", "Airport", this.airport)
-            .appendChild("vector3_float64", "Direction", this.direction)
+            .appendChild("vector3_float64", "Direction", this.direction.toArray())
             .appendChild("float64", "Elevation", this.elevation ?? 0, `Elevation ${this.elevation_ft !== null ? Math.ceil(this.elevation_ft) + " ft" : "unknown"}`)
             .appendChild("string8u", "Transition", this.transition)
             .appendChild("uint64", "TransitionUid", this.transitionUid ?? 0);
@@ -86,7 +87,7 @@ export class AeroflyNavRouteArrival extends AeroflyNavRouteTransition {
         const element = super.getElement(index);
         element
             .appendChild("string8u", "Airport", this.airport)
-            .appendChild("vector3_float64", "Direction", this.direction)
+            .appendChild("vector3_float64", "Direction", this.direction.toArray())
             .appendChild("float64", "Elevation", this.elevation ?? 0, `Elevation ${this.elevation_ft !== null ? Math.ceil(this.elevation_ft) + " ft" : "unknown"}`);
         return element;
     }

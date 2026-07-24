@@ -9,7 +9,7 @@
         <flight_setting type="tmsettings_flight">
             <position type="vector3_float64">-1548480.2914129882 -4793879.340758891 3903103.47375716</position> <!-- Lon -107.901076, Lat 37.953812, 9073 ft -->
             <velocity type="vector3_float64">0 0 0</velocity> <!-- 0 kts -->
-            <orientation type="matrix3_float64">-0.4595563612734764 -0.8881486085183504 0 0.8881486085183504 -0.4595563612734764 0 0 0 1</orientation> <!-- 117° heading -->
+            <orientation type="matrix3_float64">-0.4319264385609424 -0.48418840234394955 -0.7609212460614266 0.8687335474152472 -0.45006838984503683 -0.20673767933692305 -0.24236661335130477 -0.7503332829469246 0.6150271451202048</orientation> <!-- 195° heading -->
             <gear type="float64">1</gear>
             <throttle type="float64">0</throttle>
             <flaps type="float64">0</flaps>

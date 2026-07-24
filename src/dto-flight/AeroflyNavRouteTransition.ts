@@ -1,6 +1,7 @@
-import { convertFeetToMeter, convertMeterToFeet, type AeroflyVector3Float } from "../node/Convert.js";
+import { convertFeetToMeter, convertMeterToFeet } from "../node/Convert.js";
 import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
 import { AeroflyNavRouteBase, type AeroflyNavRouteType } from "./AeroflyNavRouteBase.js";
+import { AeroflyVector3Float } from "../node/AeroflyTypes.js";
 
 class AeroflyNavRouteTransition extends AeroflyNavRouteBase {
     /**
@@ -52,14 +53,14 @@ class AeroflyNavRouteTransition extends AeroflyNavRouteBase {
      * @returns {AeroflyVector3Float} deliberately empty
      */
     get position(): AeroflyVector3Float {
-        return [0, 0, 0]; // sic!
+        return new AeroflyVector3Float(0, 0, 0); // sic!
     }
 
     /**
      * @returns {AeroflyVector3Float} deliberately empty
      */
     get direction(): AeroflyVector3Float {
-        return [0, 0, 0]; // sic!
+        return new AeroflyVector3Float(0, 0, 0); // sic!
     }
 
     getElement(index: number = 0): AeroflyConfigurationNode {
@@ -67,7 +68,7 @@ class AeroflyNavRouteTransition extends AeroflyNavRouteBase {
 
         element
             .appendChild("string8u", "Airport", this.airport)
-            .appendChild("vector3_float64", "Direction", this.direction)
+            .appendChild("vector3_float64", "Direction", this.direction.toArray())
             .appendChild(
                 "float64",
                 "Elevation",
@@ -115,7 +116,7 @@ export class AeroflyNavRouteArrival extends AeroflyNavRouteTransition {
 
         element
             .appendChild("string8u", "Airport", this.airport)
-            .appendChild("vector3_float64", "Direction", this.direction)
+            .appendChild("vector3_float64", "Direction", this.direction.toArray())
             .appendChild(
                 "float64",
                 "Elevation",

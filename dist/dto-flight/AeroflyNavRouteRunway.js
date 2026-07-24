@@ -1,6 +1,7 @@
-import { convertFeetToMeter, convertMeterToFeet } from "../node/Convert.js";
+import { convertDirectionToHeading, convertFeetToMeter, convertMeterToFeet } from "../node/Convert.js";
 import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
 import { AeroflyNavRouteBase } from "./AeroflyNavRouteBase.js";
+import { AeroflyVector3Float } from "../node/AeroflyTypes.js";
 class AeroflyNavRouteRunway extends AeroflyNavRouteBase {
     /**
      * @property {?number} direction_degree runway direction in degrees, null if not set
@@ -45,16 +46,15 @@ class AeroflyNavRouteRunway extends AeroflyNavRouteBase {
      * @returns {AeroflyVector3Float | null} runway direction, null if not set
      */
     get direction() {
-        // TODO: calculate direction vector from direction_degree
-        return this.direction_degree !== null ? [0, 0, 0] : null;
+        return this.direction_degree !== null ? new AeroflyVector3Float(0, 0, 0) : null; // TODO: Get direction vector
     }
     set direction(direction) {
-        this.direction_degree = 0; // TODO: calculate direction_degree from direction vector
+        this.direction_degree = convertDirectionToHeading(direction, this.position);
     }
     getElement(index = 0) {
         const element = super.getElement(index);
         if (this.direction !== null) {
-            element.appendChild("vector3_float64", "Direction", this.direction, `Runway direction ${Math.round(this.direction_degree ?? 0)}°`);
+            element.appendChild("vector3_float64", "Direction", this.direction.toArray(), `Runway direction ${Math.round(this.direction_degree ?? 0)}°`);
         }
         if (this.elevation !== null) {
             element.appendChild("float64", "Elevation", this.elevation, this.elevation_ft ? `Elevation ${Math.ceil(this.elevation_ft)} ft` : undefined);

@@ -2,14 +2,14 @@ import { describe, it } from "node:test";
 import { strict as assert } from "node:assert";
 
 import {
-    convertDegreeToMatrix,
+    convertHeadingToOrientation,
     convertFeetToMeter,
     convertLonLatToVector,
-    convertMatrixToDegree,
+    convertOrientationToHeading,
     convertMeterToFeet,
     convertVectorToLonLat,
-    type AeroflyMatrix3Float,
 } from "./Convert.js";
+import { AeroflyMatrix3Float, AeroflyVector3Float } from "./AeroflyTypes.js";
 
 describe("Convert", () => {
     it("should convert feet to meters correctly", () => {
@@ -54,45 +54,124 @@ describe("Convert", () => {
         );
     });
 
-    it("should convert heading degree to orientation matrix and back correctly", () => {
-        const orientationMatrix: AeroflyMatrix3Float = [0, -1, 0, 1, 0, 0, 0, 0, 1];
-        const expectedHeadingDegree = 90;
+    it("should convert orientation matrix to heading degree", () => {
+        const positionKEYW = new AeroflyVector3Float(831922.0452075421, -5744695.679418418, 2634432.6068597846);
+        const positionYSSY = new AeroflyVector3Float(-4640429.92586909, 2553500.8064244, -3541489.45541516);
 
-        const actualHeadingDegree = convertMatrixToDegree(orientationMatrix);
-        assert.strictEqual(
-            actualHeadingDegree.toFixed(4),
-            expectedHeadingDegree.toFixed(4),
-            `Expected heading degree to be ${expectedHeadingDegree.toFixed(4)}, got ${actualHeadingDegree.toFixed(4)}`,
-        );
-    });
+        const testCases = [
+            {
+                orientation: new AeroflyMatrix3Float(
+                    -0.0668066264395785,
+                    0.431792064197595,
+                    0.899495685348041,
+                    -0.98941528906399,
+                    -0.145060537051883,
+                    -0.00385050082983023,
+                    0.128818711490931,
+                    -0.890232022500988,
+                    0.43691267512355,
+                ),
+                position: positionKEYW,
+                heading: 0,
+            },
+            {
+                orientation: new AeroflyMatrix3Float(
+                    0.985978516472605,
+                    0.166832368887515,
+                    -0.00365044461148948,
+                    -0.066064640816506,
+                    0.41034317377044,
+                    0.90953501470465,
+                    0.153237816116869,
+                    -0.896540819166301,
+                    0.41561127424596,
+                ),
+                position: positionKEYW,
+                heading: 90,
+            },
 
-    it("should convert heading degree to orientation matrix and back correctly", () => {
-        const heading_degree = 90;
-        const expectedHeadingDegree = 90;
-
-        const orientationMatrix = convertDegreeToMatrix(heading_degree);
-        console.log("Orientation Matrix:", orientationMatrix);
-
-        const actualHeadingDegree = convertMatrixToDegree(orientationMatrix);
-        assert.strictEqual(
-            actualHeadingDegree.toFixed(4),
-            expectedHeadingDegree.toFixed(4),
-            `Expected heading degree to be ${expectedHeadingDegree.toFixed(4)}, got ${actualHeadingDegree.toFixed(4)}`,
-        );
-    });
-
-    it("should show the orientation at Tellruide correctly", () => {
-        const orientationMatrix: AeroflyMatrix3Float = [
-            -0.449510470601295, -0.541223404385256, -0.710645877610949, 0.868733701939534, -0.450067862031944,
-            -0.206738179058507, -0.207947329711721, -0.710293000184874, 0.672489228132418,
+            {
+                orientation: new AeroflyMatrix3Float(
+                    -0.465135059130883,
+                    -0.885151853036744,
+                    0.0124729239927332,
+                    -0.489418463305539,
+                    0.268872261996669,
+                    0.829564508946978,
+                    -0.737644185595572,
+                    0.379755057628484,
+                    -0.558271575187768,
+                ),
+                position: positionYSSY,
+                heading: 90,
+            },
         ];
-        const expectedHeadingDegree = 117.3585;
 
-        const actualHeadingDegree = convertMatrixToDegree(orientationMatrix);
-        assert.strictEqual(
-            actualHeadingDegree.toFixed(4),
-            expectedHeadingDegree.toFixed(4),
-            `Expected heading degree to be ${expectedHeadingDegree.toFixed(4)}, got ${actualHeadingDegree.toFixed(4)}`,
-        );
+        for (const testCase of testCases) {
+            const calculatedHeading = convertOrientationToHeading(testCase.orientation, testCase.position);
+            const message = `Expected heading to be ${testCase.heading.toFixed(4)}, got ${calculatedHeading.toFixed(4)}`;
+            assert.strictEqual(Math.round(calculatedHeading) % 360, Math.round(testCase.heading) % 360, message);
+        }
+    });
+
+    it("should convert heading degree to orientation matrix (ignoring pitch, roll, yaw, etc.)", () => {
+        const positionKEYW = new AeroflyVector3Float(831922.0452075421, -5744695.679418418, 2634432.6068597846);
+        const positionYSSY = new AeroflyVector3Float(-4640429.92586909, 2553500.8064244, -3541489.45541516);
+
+        const testCases = [
+            {
+                orientation: new AeroflyMatrix3Float(
+                    -0.0668066264395785,
+                    0.431792064197595,
+                    0.899495685348041,
+                    -0.98941528906399,
+                    -0.145060537051883,
+                    -0.00385050082983023,
+                    0.128818711490931,
+                    -0.890232022500988,
+                    0.43691267512355,
+                ),
+                position: positionKEYW,
+                heading: 0,
+            },
+            {
+                orientation: new AeroflyMatrix3Float(
+                    0.985978516472605,
+                    0.166832368887515,
+                    -0.00365044461148948,
+                    -0.066064640816506,
+                    0.41034317377044,
+                    0.90953501470465,
+                    0.153237816116869,
+                    -0.896540819166301,
+                    0.41561127424596,
+                ),
+                position: positionKEYW,
+                heading: 90,
+            },
+
+            {
+                orientation: new AeroflyMatrix3Float(
+                    -0.465135059130883,
+                    -0.885151853036744,
+                    0.0124729239927332,
+                    -0.489418463305539,
+                    0.268872261996669,
+                    0.829564508946978,
+                    -0.737644185595572,
+                    0.379755057628484,
+                    -0.558271575187768,
+                ),
+                position: positionYSSY,
+                heading: 90,
+            },
+        ];
+
+        for (const testCase of testCases) {
+            const calculatedOrientation = convertHeadingToOrientation(testCase.heading, testCase.position);
+            const calculatedHeading = convertOrientationToHeading(calculatedOrientation, testCase.position);
+
+            assert.strictEqual(calculatedHeading, testCase.heading);
+        }
     });
 });

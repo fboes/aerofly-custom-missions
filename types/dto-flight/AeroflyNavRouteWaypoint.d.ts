@@ -1,6 +1,6 @@
-import { type AeroflyVector3Float } from "../node/Convert.js";
 import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
 import { AeroflyNavRouteBase } from "./AeroflyNavRouteBase.js";
+import type { AeroflyVector3Float } from "../node/AeroflyTypes.js";
 export declare class AeroflyNavRouteWaypoint extends AeroflyNavRouteBase {
     identifier: string;
     longitude: number;

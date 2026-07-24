@@ -1,12 +1,16 @@
 import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
 import {
-    type AeroflyVector3Float,
-    type AeroflyMatrix3Float,
+    AeroflyMatrix3Float,
+    AeroflyVector3Float,
+    type AeroflyMatrix3FloatArray,
+    type AeroflyVector3FloatArray,
+} from "../node/AeroflyTypes.js";
+import {
     convertFeetToMeter,
     convertLonLatToVector,
     convertVectorToLonLat,
-    convertDegreeToMatrix,
-    convertMatrixToDegree,
+    convertHeadingToOrientation,
+    convertOrientationToHeading,
     convertMeterToFeet,
 } from "../node/Convert.js";
 
@@ -103,15 +107,15 @@ export class AeroflySettingsFlight {
     }
 
     static createInCartesian(
-        position: AeroflyVector3Float,
-        velocity: AeroflyVector3Float,
-        orientation: AeroflyMatrix3Float,
+        position: AeroflyVector3FloatArray,
+        velocity: AeroflyVector3FloatArray,
+        orientation: AeroflyMatrix3FloatArray,
         additionalAttributes: Partial<AeroflySettingsFlight> = {},
     ): AeroflySettingsFlight {
         const flight = new AeroflySettingsFlight(0, 0, 0, 0, 0, additionalAttributes);
-        flight.position = position;
-        flight.velocity = velocity;
-        flight.orientation = orientation;
+        flight.position = AeroflyVector3Float.fromArray(position);
+        flight.velocity = AeroflyVector3Float.fromArray(velocity);
+        flight.orientation = AeroflyMatrix3Float.fromArray(orientation);
         return flight;
     }
 
@@ -167,7 +171,7 @@ export class AeroflySettingsFlight {
     get velocity(): AeroflyVector3Float {
         const speed = this.speed_ms;
         const heading_rad = this.heading_degree * (Math.PI / 180);
-        return [Math.cos(heading_rad) * speed, Math.sin(heading_rad) * speed, 0];
+        return new AeroflyVector3Float(Math.cos(heading_rad) * speed, Math.sin(heading_rad) * speed, 0);
     }
 
     set velocity(velocity: AeroflyVector3Float) {
@@ -176,11 +180,11 @@ export class AeroflySettingsFlight {
     }
 
     get orientation(): AeroflyMatrix3Float {
-        return convertDegreeToMatrix(this.heading_degree);
+        return convertHeadingToOrientation(this.heading_degree, this.position);
     }
 
     set orientation(orientation: AeroflyMatrix3Float) {
-        this.heading_degree = convertMatrixToDegree(orientation);
+        this.heading_degree = convertOrientationToHeading(orientation, this.position);
     }
 
     /**
@@ -210,14 +214,14 @@ export class AeroflySettingsFlight {
             .appendChild(
                 "vector3_float64",
                 "position",
-                this.position,
+                this.position.toArray(),
                 `Lon ${this.longitude.toFixed(6)}, Lat ${this.latitude.toFixed(6)}, ${Math.ceil(this.altitude_ft)} ft`,
             )
-            .appendChild("vector3_float64", "velocity", this.velocity, `${Math.round(this.speed_kts)} kts`)
+            .appendChild("vector3_float64", "velocity", this.velocity.toArray(), `${Math.round(this.speed_kts)} kts`)
             .appendChild(
                 "matrix3_float64",
                 "orientation",
-                this.orientation,
+                this.orientation.toArray(),
                 `${Math.round(this.heading_degree)}° heading`,
             )
             .appendChild("float64", "gear", this.gear)

@@ -1,5 +1,4 @@
-export type AeroflyVector3Float = [number, number, number];
-export type AeroflyMatrix3Float = [number, number, number, number, number, number, number, number, number];
+import { AeroflyVector3Float, AeroflyMatrix3Float } from "./AeroflyTypes.js";
 /**
  * @param {number} longitude in degrees
  * @param {number} latitude in degrees
@@ -21,17 +20,42 @@ export declare function convertVectorToLonLat(coordinates: AeroflyVector3Float):
     altitude_meter: number;
 };
 /**
+ * This method receives a heading in degrees and a position vector, and calculates the orientation matrix.
+ * The orientation matrix is calculated based on the heading and the position of the aircraft.
  * @param {number} heading_degree in deg
+ * @param {AeroflyVector3Float} position as vector
  * @returns {AeroflyMatrix3Float} for Aerofly
  */
-export declare function convertDegreeToMatrix(heading_degree: number): AeroflyMatrix3Float;
+export declare function convertHeadingToOrientation(
+    heading_degree: number,
+    position: AeroflyVector3Float,
+): AeroflyMatrix3Float;
 /**
- * @param {AeroflyMatrix3Float} orientation as Matrxi
+ * This method receives an orientation matrix and a position vector, and calculates the heading in degrees.
+ * The heading is calculated based on the direction of the aircraft in relation to the north direction.
+ * @param {AeroflyMatrix3Float} orientation as matrix
+ * @param {AeroflyVector3Float} position as vector
  * @returns {number} heading in degrees
  * @see https://www.aerofly.com/community/forum/index.php?thread/28025-custom-missions-file-livery-and-parking-position-property/&postID=184313#post184313
  * @see
  */
-export declare function convertMatrixToDegree(orientation: AeroflyMatrix3Float): number;
+export declare function convertOrientationToHeading(
+    orientation: AeroflyMatrix3Float,
+    position: AeroflyVector3Float,
+): number;
+/**
+ * This method receives an orientation matrix and a position vector, and calculates the heading in degrees.
+ * The heading is calculated based on the direction of the aircraft in relation to the north direction.
+ * @param {AeroflyVector3Float} direction as vector
+ * @param {AeroflyVector3Float} position as vector
+ * @returns {number} heading in degrees
+ * @see https://www.aerofly.com/community/forum/index.php?thread/28025-custom-missions-file-livery-and-parking-position-property/&postID=184313#post184313
+ * @see
+ */
+export declare function convertDirectionToHeading(
+    direction: AeroflyVector3Float,
+    position: AeroflyVector3Float,
+): number;
 /**
  * @param {number} meter in meters
  * @returns {number} feet

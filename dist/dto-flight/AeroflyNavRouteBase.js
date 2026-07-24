@@ -1,5 +1,6 @@
 import { convertLonLatToVector, convertVectorToLonLat } from "../node/Convert.js";
 import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
+import { AeroflyVector3Float } from "../node/AeroflyTypes.js";
 export class AeroflyNavRouteBase {
     /**
      * @property {AeroflyNavRouteType} type like "origin", "departure_runway", "departure", "waypoint", "arrival", "approach", "destination_runway" or "destination"
@@ -53,13 +54,13 @@ export class AeroflyNavRouteBase {
      * @returns {this} for chaining
      */
     setPosition(position) {
-        this.position = position;
+        this.position = AeroflyVector3Float.fromArray(position);
         return this;
     }
     getElement(index = 0) {
         const element = new AeroflyConfigurationNode("tmnav_route_" + this.type, this.identifier, String(index))
             .appendChild("string8u", "Identifier", this.identifier)
-            .appendChild("vector3_float64", "Position", this.position, `Lon ${this.longitude.toFixed(6)}, Lat ${this.latitude.toFixed(6)}`)
+            .appendChild("vector3_float64", "Position", this.position.toArray(), `Lon ${this.longitude.toFixed(6)}, Lat ${this.latitude.toFixed(6)}`)
             .appendChild("uint64", "Uid", this.uid ?? this.getUidFallback(), this.uid ? "" : "Fallback UID, not matching Aerofly FS internal UID");
         return element;
     }

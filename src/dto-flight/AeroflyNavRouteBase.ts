@@ -1,5 +1,6 @@
-import { convertLonLatToVector, convertVectorToLonLat, type AeroflyVector3Float } from "../node/Convert.js";
+import { convertLonLatToVector, convertVectorToLonLat } from "../node/Convert.js";
 import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
+import { AeroflyVector3Float, type AeroflyVector3FloatArray } from "../node/AeroflyTypes.js";
 
 export type AeroflyNavRouteType =
     | "origin"
@@ -77,8 +78,8 @@ export class AeroflyNavRouteBase {
      * @param {AeroflyVector3Float} position to set longitude and latitude from
      * @returns {this} for chaining
      */
-    setPosition(position: AeroflyVector3Float): this {
-        this.position = position;
+    setPosition(position: AeroflyVector3FloatArray): this {
+        this.position = AeroflyVector3Float.fromArray(position);
         return this;
     }
 
@@ -88,7 +89,7 @@ export class AeroflyNavRouteBase {
             .appendChild(
                 "vector3_float64",
                 "Position",
-                this.position,
+                this.position.toArray(),
                 `Lon ${this.longitude.toFixed(6)}, Lat ${this.latitude.toFixed(6)}`,
             )
             .appendChild(

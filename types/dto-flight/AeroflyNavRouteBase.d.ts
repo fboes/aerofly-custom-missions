@@ -1,5 +1,5 @@
-import { type AeroflyVector3Float } from "../node/Convert.js";
 import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
+import { AeroflyVector3Float, type AeroflyVector3FloatArray } from "../node/AeroflyTypes.js";
 export type AeroflyNavRouteType =
     | "origin"
     | "departure_runway"
@@ -55,7 +55,7 @@ export declare class AeroflyNavRouteBase {
      * @param {AeroflyVector3Float} position to set longitude and latitude from
      * @returns {this} for chaining
      */
-    setPosition(position: AeroflyVector3Float): this;
+    setPosition(position: AeroflyVector3FloatArray): this;
     getElement(index?: number): AeroflyConfigurationNode;
     /**
      * @returns {bigint} 24 bit longitude

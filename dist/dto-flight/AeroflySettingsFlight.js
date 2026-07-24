@@ -1,5 +1,6 @@
 import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
-import { convertFeetToMeter, convertLonLatToVector, convertVectorToLonLat, convertDegreeToMatrix, convertMatrixToDegree, convertMeterToFeet, } from "../node/Convert.js";
+import { AeroflyMatrix3Float, AeroflyVector3Float, } from "../node/AeroflyTypes.js";
+import { convertFeetToMeter, convertLonLatToVector, convertVectorToLonLat, convertHeadingToOrientation, convertOrientationToHeading, convertMeterToFeet, } from "../node/Convert.js";
 export class AeroflySettingsFlight {
     longitude;
     latitude;
@@ -56,9 +57,9 @@ export class AeroflySettingsFlight {
     }
     static createInCartesian(position, velocity, orientation, additionalAttributes = {}) {
         const flight = new AeroflySettingsFlight(0, 0, 0, 0, 0, additionalAttributes);
-        flight.position = position;
-        flight.velocity = velocity;
-        flight.orientation = orientation;
+        flight.position = AeroflyVector3Float.fromArray(position);
+        flight.velocity = AeroflyVector3Float.fromArray(velocity);
+        flight.orientation = AeroflyMatrix3Float.fromArray(orientation);
         return flight;
     }
     /**
@@ -109,17 +110,17 @@ export class AeroflySettingsFlight {
     get velocity() {
         const speed = this.speed_ms;
         const heading_rad = this.heading_degree * (Math.PI / 180);
-        return [Math.cos(heading_rad) * speed, Math.sin(heading_rad) * speed, 0];
+        return new AeroflyVector3Float(Math.cos(heading_rad) * speed, Math.sin(heading_rad) * speed, 0);
     }
     set velocity(velocity) {
         // TODO: implement setting velocity vector and updating speed accordingly
         this.speed_ms = 0;
     }
     get orientation() {
-        return convertDegreeToMatrix(this.heading_degree);
+        return convertHeadingToOrientation(this.heading_degree, this.position);
     }
     set orientation(orientation) {
-        this.heading_degree = convertMatrixToDegree(orientation);
+        this.heading_degree = convertOrientationToHeading(orientation, this.position);
     }
     /**
      * @returns {number} altitude in feet AGL
@@ -141,9 +142,9 @@ export class AeroflySettingsFlight {
     }
     getElement() {
         return new AeroflyConfigurationNode("tmsettings_flight", "flight_setting")
-            .appendChild("vector3_float64", "position", this.position, `Lon ${this.longitude.toFixed(6)}, Lat ${this.latitude.toFixed(6)}, ${Math.ceil(this.altitude_ft)} ft`)
-            .appendChild("vector3_float64", "velocity", this.velocity, `${Math.round(this.speed_kts)} kts`)
-            .appendChild("matrix3_float64", "orientation", this.orientation, `${Math.round(this.heading_degree)}° heading`)
+            .appendChild("vector3_float64", "position", this.position.toArray(), `Lon ${this.longitude.toFixed(6)}, Lat ${this.latitude.toFixed(6)}, ${Math.ceil(this.altitude_ft)} ft`)
+            .appendChild("vector3_float64", "velocity", this.velocity.toArray(), `${Math.round(this.speed_kts)} kts`)
+            .appendChild("matrix3_float64", "orientation", this.orientation.toArray(), `${Math.round(this.heading_degree)}° heading`)
             .appendChild("float64", "gear", this.gear)
             .appendChild("float64", "throttle", this.throttle)
             .appendChild("float64", "flaps", this.flaps)

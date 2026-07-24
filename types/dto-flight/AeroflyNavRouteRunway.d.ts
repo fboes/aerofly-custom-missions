@@ -1,6 +1,6 @@
-import { type AeroflyVector3Float } from "../node/Convert.js";
 import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
 import { AeroflyNavRouteBase, type AeroflyNavRouteType } from "./AeroflyNavRouteBase.js";
+import { AeroflyVector3Float } from "../node/AeroflyTypes.js";
 declare class AeroflyNavRouteRunway extends AeroflyNavRouteBase {
     /**
      * @property {?number} direction_degree runway direction in degrees, null if not set
