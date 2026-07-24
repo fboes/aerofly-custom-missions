@@ -59,4 +59,26 @@ describe("AeroflySettingsFlight", () => {
         assert.ok(flight.flaps > 0, "Flaps extended");
         assert.strictEqual(flight.onGround, false);
     });
+
+    it("should convert between speed and velocity vector", () => {
+        const flight = new AeroflySettingsFlight(-122.3088, 47.4502, 1000, 90, 150);
+
+        assert.strictEqual(flight.speed_kts, 150);
+        assert.strictEqual(flight.speed_ms, 77.1666);
+
+        const velocity = flight.velocity;
+        assert.ok(velocity.x > 60);
+        assert.ok(velocity.y < -40);
+        assert.ok(velocity.z > 0);
+
+        // Reset speed
+        flight.speed_ms = 0;
+        assert.strictEqual(flight.speed_kts, 0);
+        assert.strictEqual(flight.speed_ms, 0);
+
+        // Set speed from velocity vector
+        flight.velocity = velocity;
+        assert.strictEqual(flight.speed_kts, 150);
+        assert.strictEqual(flight.speed_ms, 77.1666);
+    });
 });

@@ -24,10 +24,6 @@ export class AeroflyVector3Float {
         );
     }
 
-    dot(b: AeroflyVector3Float): number {
-        return this.x * b.x + this.y * b.y + this.z * b.z;
-    }
-
     static fromArray(array: AeroflyVector3FloatArray): AeroflyVector3Float {
         return new this(...array);
     }

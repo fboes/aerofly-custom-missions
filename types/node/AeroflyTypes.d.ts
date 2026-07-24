@@ -6,7 +6,6 @@ export declare class AeroflyVector3Float {
     constructor(x: number, y: number, z: number);
     normalize(): AeroflyVector3Float;
     cross(b: AeroflyVector3Float): AeroflyVector3Float;
-    dot(b: AeroflyVector3Float): number;
     static fromArray(array: AeroflyVector3FloatArray): AeroflyVector3Float;
     toArray(): AeroflyVector3FloatArray;
 }

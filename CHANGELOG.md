@@ -4,6 +4,9 @@ This changelog documents all notable changes to the Aerofly Custom Missions proj
 
 ## [Unreleased]
 
+- Fixed velocity vector conversion
+- Removed setting speed on setting flight configuration
+
 ## [1.13.1] - 2026-07-24
 
 - Fixed orientation / heading parsing

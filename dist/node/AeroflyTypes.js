@@ -17,9 +17,6 @@ export class AeroflyVector3Float {
     cross(b) {
         return new AeroflyVector3Float(this.y * b.z - this.z * b.y, this.z * b.x - this.x * b.z, this.x * b.y - this.y * b.x);
     }
-    dot(b) {
-        return this.x * b.x + this.y * b.y + this.z * b.z;
-    }
     static fromArray(array) {
         return new this(...array);
     }

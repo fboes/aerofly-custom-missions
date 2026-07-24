@@ -146,7 +146,6 @@ export class AeroflySettingsFlight {
                 break;
             default:
                 this.throttle = 0;
-                this.speed_kts = 0;
                 break;
         }
     }
@@ -170,13 +169,11 @@ export class AeroflySettingsFlight {
      */
     get velocity(): AeroflyVector3Float {
         const speed = this.speed_ms;
-        const heading_rad = this.heading_degree * (Math.PI / 180);
-        return new AeroflyVector3Float(Math.cos(heading_rad) * speed, Math.sin(heading_rad) * speed, 0);
+        return this.orientation.multiplyVector(new AeroflyVector3Float(speed, 0, 0));
     }
 
     set velocity(velocity: AeroflyVector3Float) {
-        // TODO: implement setting velocity vector and updating speed accordingly
-        this.speed_ms = 0;
+        this.speed_ms = Math.sqrt(velocity.x ** 2 + velocity.y ** 2 + velocity.z ** 2);
     }
 
     get orientation(): AeroflyMatrix3Float {
