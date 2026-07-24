@@ -2,11 +2,16 @@
 
 This changelog documents all notable changes to the Aerofly Custom Missions project. Each version entry includes a list of changes, with the most recent version at the top.
 
-## [1.13.0] - 2026-07-24
+## [Unreleased]
+
+## [1.13.1] - 2026-07-24
+
+- Fixed orientation / heading parsing
+
+## [1.13.0] - 2026-07-23
 
 - Made unit conversions more precise
 - Added correct UID generator
-- Fixed orientation / heading parsing
 
 ## [1.12.0] - 2026-07-01
 
