@@ -3,6 +3,7 @@ import { strict as assert } from "node:assert";
 import { assertValidAeroflyStructure } from "../check/TestHelpers.js";
 
 import { AeroflySettingsFlight } from "./AeroflySettingsFlight.js";
+import { AeroflyVector3Float } from "../node/AeroflyTypes.js";
 
 describe("AeroflySettingsFlight", () => {
     it("should create a valid AeroflySettingsFlight structure", () => {
@@ -80,5 +81,24 @@ describe("AeroflySettingsFlight", () => {
         flight.velocity = velocity;
         assert.strictEqual(flight.speed_kts, 150);
         assert.strictEqual(flight.speed_ms, 77.1666);
+    });
+
+    it("should do speed conversions via velocity vector", () => {
+        const flight = AeroflySettingsFlight.createInCartesian(
+            [-4646924.59497718, 2556979.15274179, -3546428.97506501],
+            [-110.439320197081, -200.807116210041, -0.0718194070334756],
+            [
+                -0.481903336592026, -0.876224329707522, -0.000313384868901136, -0.489418463331169, 0.268872261950077,
+                0.829564508946957, -0.726800345302635, 0.399923281120833, -0.558410805129626,
+            ],
+        );
+
+        //console.log(flight);
+        assert.ok(flight.speed_kts > 440 && flight.speed_kts < 450);
+
+        flight.velocity = new AeroflyVector3Float(-37.3451616025233, -31.2884803315497, 20.8118800101686);
+        console.log(flight);
+
+        //assert.ok(flight.speed_kts > 100 && flight.speed_kts < 110);
     });
 });
