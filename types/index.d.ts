@@ -15,7 +15,14 @@ export { AeroflySettingsCloud } from "./dto-flight/AeroflySettingsCloud.js";
 export { AeroflyNavigationConfig } from "./dto-flight/AeroflyNavigationConfig.js";
 export { AeroflyNavRouteBase } from "./dto-flight/AeroflyNavRouteBase.js";
 export { AeroflyNavRouteDestination, AeroflyNavRouteOrigin } from "./dto-flight/AeroflyNavRouteAirports.js";
-export { AeroflyNavRouteDepartureRunway, AeroflyNavRouteDestinationRunway, } from "./dto-flight/AeroflyNavRouteRunway.js";
-export { AeroflyNavRouteApproach, AeroflyNavRouteArrival, AeroflyNavRouteDeparture, } from "./dto-flight/AeroflyNavRouteTransition.js";
+export {
+    AeroflyNavRouteDepartureRunway,
+    AeroflyNavRouteDestinationRunway,
+} from "./dto-flight/AeroflyNavRouteRunway.js";
+export {
+    AeroflyNavRouteApproach,
+    AeroflyNavRouteArrival,
+    AeroflyNavRouteDeparture,
+} from "./dto-flight/AeroflyNavRouteTransition.js";
 export { AeroflyNavRouteWaypoint } from "./dto-flight/AeroflyNavRouteWaypoint.js";
 //# sourceMappingURL=index.d.ts.map

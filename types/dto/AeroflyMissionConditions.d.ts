@@ -57,7 +57,16 @@ export declare class AeroflyMissionConditions {
      * @param {?number} [additionalAttributes.temperature] in °C, will overwrite thermalStrength
      * @param {AeroflyMissionConditionsCloud[]} [additionalAttributes.clouds] for the whole flight
      */
-    constructor({ time, wind, turbulenceStrength, thermalStrength, visibility, visibility_sm, temperature, clouds, }?: Partial<AeroflyMissionConditions> & {
+    constructor({
+        time,
+        wind,
+        turbulenceStrength,
+        thermalStrength,
+        visibility,
+        visibility_sm,
+        temperature,
+        clouds,
+    }?: Partial<AeroflyMissionConditions> & {
         visibility_sm?: number;
         temperature?: number;
     });

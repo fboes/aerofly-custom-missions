@@ -1,6 +1,20 @@
 import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
-import { AeroflyMatrix3Float, AeroflyVector3Float, type AeroflyMatrix3FloatArray, type AeroflyVector3FloatArray } from "../node/AeroflyTypes.js";
-export type AeroflySettingsFlightConfiguration = "Keep" | "ColdAndDark" | "BeforeStart" | "Parking" | "OnGround" | "Takeoff" | "Cruise" | "ShortFinal" | "Final";
+import {
+    AeroflyMatrix3Float,
+    AeroflyVector3Float,
+    type AeroflyMatrix3FloatArray,
+    type AeroflyVector3FloatArray,
+} from "../node/AeroflyTypes.js";
+export type AeroflySettingsFlightConfiguration =
+    | "Keep"
+    | "ColdAndDark"
+    | "BeforeStart"
+    | "Parking"
+    | "OnGround"
+    | "Takeoff"
+    | "Cruise"
+    | "ShortFinal"
+    | "Final";
 export declare class AeroflySettingsFlight {
     longitude: number;
     latitude: number;
@@ -29,9 +43,28 @@ export declare class AeroflySettingsFlight {
      * Runway is supposed to be set on "Takeoff", "ShortFinal" and "Final" configurations
      */
     runway: string;
-    constructor(longitude: number, latitude: number, altitude_meter: number, heading_degree: number, speed_kts?: number, { gear, throttle, flaps, configuration, onGround, airport, runway, }?: Partial<AeroflySettingsFlight>);
-    static createInFeet(longitude: number, latitude: number, altitude_ft: number, heading_degree: number, speed_kts?: number, additionalAttributes?: Partial<AeroflySettingsFlight>): AeroflySettingsFlight;
-    static createInCartesian(position: AeroflyVector3FloatArray, velocity: AeroflyVector3FloatArray, orientation: AeroflyMatrix3FloatArray, additionalAttributes?: Partial<AeroflySettingsFlight>): AeroflySettingsFlight;
+    constructor(
+        longitude: number,
+        latitude: number,
+        altitude_meter: number,
+        heading_degree: number,
+        speed_kts?: number,
+        { gear, throttle, flaps, configuration, onGround, airport, runway }?: Partial<AeroflySettingsFlight>,
+    );
+    static createInFeet(
+        longitude: number,
+        latitude: number,
+        altitude_ft: number,
+        heading_degree: number,
+        speed_kts?: number,
+        additionalAttributes?: Partial<AeroflySettingsFlight>,
+    ): AeroflySettingsFlight;
+    static createInCartesian(
+        position: AeroflyVector3FloatArray,
+        velocity: AeroflyVector3FloatArray,
+        orientation: AeroflyMatrix3FloatArray,
+        additionalAttributes?: Partial<AeroflySettingsFlight>,
+    ): AeroflySettingsFlight;
     /**
      * @param {AeroflySettingsFlightConfiguration} configuration which will set other parameters like `gear`, `flaps` and `throttle` consistently
      */

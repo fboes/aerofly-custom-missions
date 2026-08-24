@@ -15,7 +15,13 @@ declare class AeroflyNavRouteAirport extends AeroflyNavRouteBase {
      * @param {?number} [options.elevation_ft] elevation in feet, null if not set
      * @param {?bigint} [options.uid] unique identifier for the waypoint, must match Aerofly FS internal UID if used in an existing mission, can be null for new waypoints
      */
-    constructor(type: AeroflyNavRouteType, identifier: string, longitude: number, latitude: number, { elevation, elevation_ft, uid }?: Partial<AeroflyNavRouteAirport>);
+    constructor(
+        type: AeroflyNavRouteType,
+        identifier: string,
+        longitude: number,
+        latitude: number,
+        { elevation, elevation_ft, uid }?: Partial<AeroflyNavRouteAirport>,
+    );
     /**
      * @returns {number | null} elevation in feet, null if not set
      */
@@ -28,13 +34,23 @@ export declare class AeroflyNavRouteOrigin extends AeroflyNavRouteAirport {
     /**
      * @inheritdoc
      */
-    constructor(identifier: string, longitude: number, latitude: number, { elevation, elevation_ft, uid }?: Partial<AeroflyNavRouteOrigin>);
+    constructor(
+        identifier: string,
+        longitude: number,
+        latitude: number,
+        { elevation, elevation_ft, uid }?: Partial<AeroflyNavRouteOrigin>,
+    );
 }
 export declare class AeroflyNavRouteDestination extends AeroflyNavRouteAirport {
     /**
      * @inheritdoc
      */
-    constructor(identifier: string, longitude: number, latitude: number, { elevation, elevation_ft, uid }?: Partial<AeroflyNavRouteDestination>);
+    constructor(
+        identifier: string,
+        longitude: number,
+        latitude: number,
+        { elevation, elevation_ft, uid }?: Partial<AeroflyNavRouteDestination>,
+    );
 }
 export {};
 //# sourceMappingURL=AeroflyNavRouteAirports.d.ts.map

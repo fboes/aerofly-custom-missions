@@ -64,7 +64,22 @@ export declare class AeroflyFlight {
      * @param {string} [options._missionTitle] unofficial property to store mission title in. For internal use only, will not be exported in MCF / XML.
      * @param {string} [options._missionBriefing] unofficial property to store mission briefing in. For internal use only, will not be exported in MCF / XML.
      */
-    constructor(aircraft: AeroflySettingsAircraft, flightSetting: AeroflySettingsFlight, timeUtc: AeroflyTimeUtc, wind: AeroflySettingsWind, clouds: AeroflySettingsCloud[], navigation: AeroflyNavigationConfig, { fuelLoadSetting, visibility_meter, visibility, visibility_sm, _missionTitle, _missionBriefing, }?: Partial<AeroflyFlight>);
+    constructor(
+        aircraft: AeroflySettingsAircraft,
+        flightSetting: AeroflySettingsFlight,
+        timeUtc: AeroflyTimeUtc,
+        wind: AeroflySettingsWind,
+        clouds: AeroflySettingsCloud[],
+        navigation: AeroflyNavigationConfig,
+        {
+            fuelLoadSetting,
+            visibility_meter,
+            visibility,
+            visibility_sm,
+            _missionTitle,
+            _missionBriefing,
+        }?: Partial<AeroflyFlight>,
+    );
     /**
      * @returns {number} visibility in statute miles, 10 SM for unlimited visibility
      */

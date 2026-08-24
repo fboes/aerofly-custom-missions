@@ -35,7 +35,21 @@ export declare class AeroflyNavRouteWaypoint extends AeroflyNavRouteBase {
      * @param {boolean} [options.flyOver] if true, the waypoint is meant to be flown over, otherwise it can be used as a fly-by waypoint
      * @param {?bigint} [options.uid] unique identifier for the waypoint, will be generated automatically if not provided
      */
-    constructor(identifier: string, longitude: number, latitude: number, { navaidFrequency, navaidFrequency_khz, navaidFrequency_mhz, navaidUid, altitude, altitude_ft, flyOver, uid, }?: Partial<AeroflyNavRouteWaypoint>);
+    constructor(
+        identifier: string,
+        longitude: number,
+        latitude: number,
+        {
+            navaidFrequency,
+            navaidFrequency_khz,
+            navaidFrequency_mhz,
+            navaidUid,
+            altitude,
+            altitude_ft,
+            flyOver,
+            uid,
+        }?: Partial<AeroflyNavRouteWaypoint>,
+    );
     /**
      * @returns {number | null} altitude in feet, null if not set
      */

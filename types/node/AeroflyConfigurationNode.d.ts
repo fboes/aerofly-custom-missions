@@ -5,9 +5,19 @@ export declare class AeroflyConfigurationNode {
     _comment: string;
     protected children: AeroflyConfigurationNode[];
     protected space: string;
-    constructor(type: string, name: string, value?: string | number | bigint | string[] | number[] | boolean, _comment?: string);
+    constructor(
+        type: string,
+        name: string,
+        value?: string | number | bigint | string[] | number[] | boolean,
+        _comment?: string,
+    );
     append(...nodes: AeroflyConfigurationNode[]): AeroflyConfigurationNode;
-    appendChild(type: string, name: string, value?: string | number | bigint | string[] | number[] | boolean, _comment?: string): this;
+    appendChild(
+        type: string,
+        name: string,
+        value?: string | number | bigint | string[] | number[] | boolean,
+        _comment?: string,
+    ): this;
     get valueAsString(): string;
     toString(indent?: number): string;
     protected aeroflyEscape(text: string): string;

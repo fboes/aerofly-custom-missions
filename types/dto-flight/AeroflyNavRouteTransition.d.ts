@@ -18,7 +18,12 @@ declare class AeroflyNavRouteTransition extends AeroflyNavRouteBase {
      * @property {?number} elevation in meters, null if not set
      */
     elevation: number | null;
-    constructor(type: AeroflyNavRouteType, identifier: string, airport: string, options?: Partial<AeroflyNavRouteTransition>);
+    constructor(
+        type: AeroflyNavRouteType,
+        identifier: string,
+        airport: string,
+        options?: Partial<AeroflyNavRouteTransition>,
+    );
     /**
      * @returns {number | null} elevation in feet, null if not set
      */

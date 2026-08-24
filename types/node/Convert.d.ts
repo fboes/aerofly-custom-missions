@@ -5,7 +5,11 @@ import { AeroflyVector3Float, AeroflyMatrix3Float } from "./AeroflyTypes.js";
  * @param {number} altitude_meter in meters
  * @returns {AeroflyVector3Float} for Aerofly
  */
-export declare function convertLonLatToVector(longitude: number, latitude: number, altitude_meter: number): AeroflyVector3Float;
+export declare function convertLonLatToVector(
+    longitude: number,
+    latitude: number,
+    altitude_meter: number,
+): AeroflyVector3Float;
 /**
  * @param {AeroflyVector3Float} coordinates to convert
  * @returns {object} as with longitude, latitude, altitude_meter
@@ -22,7 +26,10 @@ export declare function convertVectorToLonLat(coordinates: AeroflyVector3Float):
  * @param {AeroflyVector3Float} position as vector
  * @returns {AeroflyMatrix3Float} for Aerofly
  */
-export declare function convertHeadingToOrientation(heading_degree: number, position: AeroflyVector3Float): AeroflyMatrix3Float;
+export declare function convertHeadingToOrientation(
+    heading_degree: number,
+    position: AeroflyVector3Float,
+): AeroflyMatrix3Float;
 /**
  * This method receives an orientation matrix and a position vector, and calculates the heading in degrees.
  * The heading is calculated based on the direction of the aircraft in relation to the north direction.
@@ -32,7 +39,10 @@ export declare function convertHeadingToOrientation(heading_degree: number, posi
  * @see https://www.aerofly.com/community/forum/index.php?thread/28025-custom-missions-file-livery-and-parking-position-property/&postID=184313#post184313
  * @see
  */
-export declare function convertOrientationToHeading(orientation: AeroflyMatrix3Float, position: AeroflyVector3Float): number;
+export declare function convertOrientationToHeading(
+    orientation: AeroflyMatrix3Float,
+    position: AeroflyVector3Float,
+): number;
 /**
  * This method receives an orientation matrix and a position vector, and calculates the heading in degrees.
  * The heading is calculated based on the direction of the aircraft in relation to the north direction.
@@ -42,7 +52,10 @@ export declare function convertOrientationToHeading(orientation: AeroflyMatrix3F
  * @see https://www.aerofly.com/community/forum/index.php?thread/28025-custom-missions-file-livery-and-parking-position-property/&postID=184313#post184313
  * @see
  */
-export declare function convertDirectionToHeading(direction: AeroflyVector3Float, position: AeroflyVector3Float): number;
+export declare function convertDirectionToHeading(
+    direction: AeroflyVector3Float,
+    position: AeroflyVector3Float,
+): number;
 /**
  * @param {number} meter in meters
  * @returns {number} feet

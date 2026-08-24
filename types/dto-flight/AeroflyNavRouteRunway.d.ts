@@ -14,7 +14,13 @@ declare class AeroflyNavRouteRunway extends AeroflyNavRouteBase {
      * @property {number | null} runwayLength in meters, null if not set
      */
     runwayLength: number | null;
-    constructor(type: AeroflyNavRouteType, identifier: string, longitude: number, latitude: number, { direction_degree, elevation, elevation_ft, runwayLength, uid, }?: Partial<AeroflyNavRouteRunway>);
+    constructor(
+        type: AeroflyNavRouteType,
+        identifier: string,
+        longitude: number,
+        latitude: number,
+        { direction_degree, elevation, elevation_ft, runwayLength, uid }?: Partial<AeroflyNavRouteRunway>,
+    );
     /**
      * @returns {number | null} elevation in feet, null if not set
      */
