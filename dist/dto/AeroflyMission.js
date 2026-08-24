@@ -179,23 +179,27 @@ export class AeroflyMission {
     getElement() {
         if (!this.origin.icao) {
             const firstCheckpoint = this.checkpoints[0];
-            this.origin = {
-                icao: firstCheckpoint.name,
-                longitude: firstCheckpoint.longitude,
-                latitude: firstCheckpoint.latitude,
-                dir: this.origin.dir,
-                alt: firstCheckpoint.altitude,
-            };
+            if (firstCheckpoint) {
+                this.origin = {
+                    icao: firstCheckpoint.name,
+                    longitude: firstCheckpoint.longitude,
+                    latitude: firstCheckpoint.latitude,
+                    dir: this.origin.dir,
+                    alt: firstCheckpoint.altitude,
+                };
+            }
         }
         if (!this.destination.icao) {
             const lastCheckpoint = this.checkpoints[this.checkpoints.length - 1];
-            this.destination = {
-                icao: lastCheckpoint.name,
-                longitude: lastCheckpoint.longitude,
-                latitude: lastCheckpoint.latitude,
-                dir: lastCheckpoint.direction ?? 0,
-                alt: lastCheckpoint.altitude,
-            };
+            if (lastCheckpoint) {
+                this.destination = {
+                    icao: lastCheckpoint.name,
+                    longitude: lastCheckpoint.longitude,
+                    latitude: lastCheckpoint.latitude,
+                    dir: lastCheckpoint.direction ?? 0,
+                    alt: lastCheckpoint.altitude,
+                };
+            }
         }
         const element = new AeroflyConfigurationNode("tmmission_definition", "mission");
         element.appendChild("string8", "title", this.title);

@@ -20,17 +20,7 @@ export declare class AeroflyMatrix3Float {
     xz: number;
     yz: number;
     zz: number;
-    constructor(
-        xx: number,
-        yx: number,
-        zx: number,
-        xy: number,
-        yy: number,
-        zy: number,
-        xz: number,
-        yz: number,
-        zz: number,
-    );
+    constructor(xx: number, yx: number, zx: number, xy: number, yy: number, zy: number, xz: number, yz: number, zz: number);
     transpose(): AeroflyMatrix3Float;
     multiplyVector(v: AeroflyVector3Float): AeroflyVector3Float;
     static fromArray(array: AeroflyMatrix3FloatArray): AeroflyMatrix3Float;

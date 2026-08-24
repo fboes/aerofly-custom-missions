@@ -1,14 +1,6 @@
 import { AeroflyConfigurationNode } from "../node/AeroflyConfigurationNode.js";
 import { AeroflyVector3Float, type AeroflyVector3FloatArray } from "../node/AeroflyTypes.js";
-export type AeroflyNavRouteType =
-    | "origin"
-    | "departure_runway"
-    | "departure"
-    | "waypoint"
-    | "arrival"
-    | "approach"
-    | "destination_runway"
-    | "destination";
+export type AeroflyNavRouteType = "origin" | "departure_runway" | "departure" | "waypoint" | "arrival" | "approach" | "destination_runway" | "destination";
 export declare class AeroflyNavRouteBase {
     /**
      * @property {AeroflyNavRouteType} type like "origin", "departure_runway", "departure", "waypoint", "arrival", "approach", "destination_runway" or "destination"
@@ -38,13 +30,7 @@ export declare class AeroflyNavRouteBase {
      * @param {object} [options] additional options for the waypoint
      * @param {?bigint} [options.uid] unique identifier for the waypoint, must match Aerofly FS internal UID if used in an existing mission. Obviously the UID encodes the geographic position as well as the name of the waypoint.
      */
-    constructor(
-        type: AeroflyNavRouteType,
-        identifier: string,
-        longitude: number,
-        latitude: number,
-        { uid }?: Partial<AeroflyNavRouteBase>,
-    );
+    constructor(type: AeroflyNavRouteType, identifier: string, longitude: number, latitude: number, { uid }?: Partial<AeroflyNavRouteBase>);
     /**
      * @returns {AeroflyVector3Float} to use in Aerofly FS4's `main.mcf`
      */

@@ -25,11 +25,7 @@ export declare class AeroflyNavigationConfig {
      * @param {number|undefined} _cruiseSpeed_kts in knots
      * @returns {AeroflyNavigationConfig} with cruise altitude converted to meters
      */
-    static createInFeet(
-        cruiseAltitude_ft: number,
-        waypoints?: AeroflyNavRouteBase[],
-        _cruiseSpeed_kts?: number | undefined,
-    ): AeroflyNavigationConfig;
+    static createInFeet(cruiseAltitude_ft: number, waypoints?: AeroflyNavRouteBase[], _cruiseSpeed_kts?: number | undefined): AeroflyNavigationConfig;
     /**
      * @returns {number} cruise altitude in feet
      */

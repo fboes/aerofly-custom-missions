@@ -33,12 +33,7 @@ export declare class AeroflySettingsWind {
      * @param {number} thermalActivity normalized thermal activity value [0,1]
      * @returns {AeroflySettingsWind} a new instance of AeroflySettingsWind with the specified normalized values
      */
-    static createWithNormalizedValues(
-        strength: number,
-        directionInDegree: number,
-        turbulence?: number,
-        thermalActivity?: number,
-    ): AeroflySettingsWind;
+    static createWithNormalizedValues(strength: number, directionInDegree: number, turbulence?: number, thermalActivity?: number): AeroflySettingsWind;
     /**
      * @returns {number} the normalized strength value [0,1] for this wind, where 0 means no wind and 1 means 80 kts or more
      */

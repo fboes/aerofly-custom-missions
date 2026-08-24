@@ -110,8 +110,8 @@ It is a gusty, clear early morning, and you are 8 NM to the north of the towered
         });
         const missionList = new AeroflyMissionsList([mission]);
         assert.strictEqual(missionList.missions.length, 1);
-        assert.strictEqual(missionList.missions[0].aircraft.name, "c172");
-        assert.strictEqual(missionList.missions[0].aircraft.icao, "C172");
+        assert.strictEqual(missionList.missions[0]?.aircraft.name, "c172");
+        assert.strictEqual(missionList.missions[0]?.aircraft.icao, "C172");
         let missionListString = missionList.toString();
         assert.strictEqual(missionListString, missionList.toString());
         assertIncludes(missionListString, "[origin]");

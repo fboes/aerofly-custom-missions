@@ -27,12 +27,7 @@ export declare class AeroflySettingsFuelLoad {
      * to keep the current fuel load configuration, "Invalid" to set an invalid
      * fuel load configuration (e.g. fuel mass exceeds maximum takeoff weight)
      */
-    constructor(
-        aircraft?: string,
-        fuelMass?: number,
-        payloadMass?: number,
-        configuration?: AeroflySettingsFuelLoadConfiguration,
-    );
+    constructor(aircraft?: string, fuelMass?: number, payloadMass?: number, configuration?: AeroflySettingsFuelLoadConfiguration);
     get fuelMass_lb(): number;
     set fuelMass_lb(fuelMass_lb: number);
     get payloadMass_lb(): number;

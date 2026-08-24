@@ -19,17 +19,7 @@ export type AeroflyMissionAircraft = {
 /**
  * State of aircraft systems. Configures power settings, flap positions etc
  */
-export type AeroflyMissionSetting =
-    | "cold_and_dark"
-    | "before_start"
-    | "taxi"
-    | "takeoff"
-    | "cruise"
-    | "approach"
-    | "landing"
-    | "winch_launch"
-    | "aerotow"
-    | "pushback";
+export type AeroflyMissionSetting = "cold_and_dark" | "before_start" | "taxi" | "takeoff" | "cruise" | "approach" | "landing" | "winch_launch" | "aerotow" | "pushback";
 /**
  * Represents origin or destination conditions for flight
  * @property {string} icao uppercase ICAO airport ID
@@ -162,30 +152,7 @@ export declare class AeroflyMission {
      * @param {AeroflyMissionConditions} [additionalAttributes.conditions] like time and weather for mission
      * @param {AeroflyMissionCheckpoint[]} [additionalAttributes.checkpoints] form the actual flight plan
      */
-    constructor(
-        title: string,
-        {
-            tutorialName,
-            description,
-            localizedTexts,
-            tags,
-            isFeatured,
-            difficulty,
-            flightSetting,
-            aircraft,
-            callsign,
-            fuelMass,
-            payloadMass,
-            origin,
-            destination,
-            distance,
-            duration,
-            isScheduled,
-            finish,
-            conditions,
-            checkpoints,
-        }?: Partial<AeroflyMission>,
-    );
+    constructor(title: string, { tutorialName, description, localizedTexts, tags, isFeatured, difficulty, flightSetting, aircraft, callsign, fuelMass, payloadMass, origin, destination, distance, duration, isScheduled, finish, conditions, checkpoints, }?: Partial<AeroflyMission>);
     /**
      * @returns {AeroflyConfigurationNode[]} indexed checkpoints
      */
