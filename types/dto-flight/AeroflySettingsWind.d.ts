@@ -54,6 +54,16 @@ export declare class AeroflySettingsWind {
      */
     get thermalActivity(): number;
     set thermalActivity(thermalActivity: number);
+    /**
+     * Be aware that atmospheric pressure in Aerofly FS 4 cannot be altered
+     * @returns {number} atmospheric pressure in hPa
+     */
+    get pressure_hpa(): number;
+    /**
+     * Be aware that atmospheric pressure in Aerofly FS 4 cannot be altered
+     * @returns {number} atmospheric pressure in inHg
+     */
+    get pressure_inhg(): number;
     getElement(): AeroflyConfigurationNode;
     /**
      * @returns {string} to use in Aerofly FS4's `main.mcf`

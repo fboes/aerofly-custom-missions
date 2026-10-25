@@ -72,6 +72,20 @@ export class AeroflySettingsWind {
     set thermalActivity(thermalActivity) {
         this.temperature_celsius = thermalActivity * 25 + 5;
     }
+    /**
+     * Be aware that atmospheric pressure in Aerofly FS 4 cannot be altered
+     * @returns {number} atmospheric pressure in hPa
+     */
+    get pressure_hpa() {
+        return 1013.25;
+    }
+    /**
+     * Be aware that atmospheric pressure in Aerofly FS 4 cannot be altered
+     * @returns {number} atmospheric pressure in inHg
+     */
+    get pressure_inhg() {
+        return this.pressure_hpa * 0.02953;
+    }
     getElement() {
         return new AeroflyConfigurationNode("tmsettings_wind", "wind")
             .appendChild("float64", "strength", this.strength, `${Math.ceil(this.speed_kts)} kts`)

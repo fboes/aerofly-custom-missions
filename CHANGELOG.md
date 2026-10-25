@@ -4,6 +4,10 @@ This changelog documents all notable changes to the Aerofly Custom Missions proj
 
 ## [Unreleased]
 
+- Added pressure property (even though there is no pressure in Aerofly FS 4)
+
+## [1.14.1] - 2026-08-24
+
 - Safe guarding against empty arrays
 
 ## [1.14.0] - 2026-07-25
