@@ -29,6 +29,7 @@ class AeroflyNavRouteRunway extends AeroflyNavRouteBase {
             elevation = null,
             elevation_ft = null,
             runwayLength = null,
+            runwayLength_ft = null,
             uid = null,
         }: Partial<AeroflyNavRouteRunway> = {},
     ) {
@@ -39,6 +40,9 @@ class AeroflyNavRouteRunway extends AeroflyNavRouteBase {
         }
         this.direction_degree = direction_degree !== undefined ? direction_degree : null;
         this.runwayLength = runwayLength !== undefined ? runwayLength : null;
+        if (runwayLength_ft !== null) {
+            this.runwayLength_ft = runwayLength_ft;
+        }
     }
 
     /**

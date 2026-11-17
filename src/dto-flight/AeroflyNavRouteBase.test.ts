@@ -1,6 +1,6 @@
 import { describe, it } from "node:test";
 import { strict as assert } from "node:assert";
-import { AeroflyNavRouteDestination } from "../index.js";
+import { AeroflyNavRouteDestination, AeroflyNavRouteWaypoint } from "../index.js";
 
 describe("AeroflyNavRouteBase", () => {
     it("should create UIDs almost matching the ingame UIDs", () => {
@@ -35,6 +35,11 @@ describe("AeroflyNavRouteBase", () => {
                 assertUid: 16385782762532177152n,
                 ingameUid: 16385890514078663936n,
             },
+            {
+                wp: new AeroflyNavRouteWaypoint("MANIK", -8.616111, 40.691944),
+                assertUid: 8781875924331331584n,
+                ingameUid: 8781871526284410880n,
+            },
         ];
 
         for (const testCase of testCases) {
@@ -46,20 +51,23 @@ describe("AeroflyNavRouteBase", () => {
         }
     });
 
-    it("should unpack UIDs for airports to code 1280", () => {
+    it("should unpack UIDs to matching codes", () => {
         const unpackPayload = (packed: bigint) => {
             return Number(packed & 0xffffn);
         };
 
         const testCases = [
-            { uid: 5033914504046314752n, code: 1280, airport: "KEYW" },
-            { uid: 9200173076798702848n, code: 1280, airport: "EGLL" },
-            { uid: 16969826619723154688n, code: 1280, airport: "YSSY" },
-            { uid: 16385782762532177152n, code: 1280, airport: "RJTT" },
+            { uid: 5033914504046314752n, code: 1280, identifier: "KEYW" },
+            { uid: 9200173076798702848n, code: 1280, identifier: "EGLL" },
+            { uid: 16969826619723154688n, code: 1280, identifier: "YSSY" },
+            { uid: 16385782762532177152n, code: 1280, identifier: "RJTT" },
+            //{ uid: 8781875924331380736n, code: 0xc000, identifier: "MANIK" },
+            //{ uid: 8753863659312058368n, code: 0x1000, identifier: "LIS" },
+            //{ uid: 8760140771620103168n, code: 0x2400, identifier: "LAR" },
         ];
 
         for (const testCase of testCases) {
-            assert.strictEqual(unpackPayload(testCase.uid), testCase.code, testCase.airport);
+            assert.strictEqual(unpackPayload(testCase.uid), testCase.code, testCase.identifier);
         }
     });
 });

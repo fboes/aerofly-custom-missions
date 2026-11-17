@@ -130,6 +130,8 @@ export class AeroflyNavRouteBase {
      */
     private encodeWaypointType(): number {
         // Type code (airport (0500) / runway (0800) / SID (4400) / STAR (4800) / Approach (4C00) / RNAV waypoint (C000) / airways (4000)
+        // VOR (1000)
+        // NDB (2400)
         switch (this.type) {
             case "origin":
             case "destination":
@@ -144,7 +146,14 @@ export class AeroflyNavRouteBase {
             case "approach":
                 return 0x4c00;
         }
+
         return 0;
+
+        /*if (this instanceof AeroflyNavRouteWaypoint && this.navaidFrequency) {
+            return this.navaidFrequency < 1_000_000 ? 0x2400 : 0x1000;
+        }
+
+        return this.identifier.match(/^[A-Z]{5}$/) ? 0xc000 : 0;*/
     }
 
     /**

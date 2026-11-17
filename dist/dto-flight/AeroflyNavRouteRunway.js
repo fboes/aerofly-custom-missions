@@ -15,7 +15,7 @@ class AeroflyNavRouteRunway extends AeroflyNavRouteBase {
      * @property {number | null} runwayLength in meters, null if not set
      */
     runwayLength;
-    constructor(type, identifier, longitude, latitude, { direction_degree = null, elevation = null, elevation_ft = null, runwayLength = null, uid = null, } = {}) {
+    constructor(type, identifier, longitude, latitude, { direction_degree = null, elevation = null, elevation_ft = null, runwayLength = null, runwayLength_ft = null, uid = null, } = {}) {
         super(type, identifier, longitude, latitude, { uid });
         this.elevation = elevation;
         if (elevation_ft !== null) {
@@ -23,6 +23,9 @@ class AeroflyNavRouteRunway extends AeroflyNavRouteBase {
         }
         this.direction_degree = direction_degree !== undefined ? direction_degree : null;
         this.runwayLength = runwayLength !== undefined ? runwayLength : null;
+        if (runwayLength_ft !== null) {
+            this.runwayLength_ft = runwayLength_ft;
+        }
     }
     /**
      * @returns {number | null} elevation in feet, null if not set

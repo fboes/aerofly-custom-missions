@@ -19,7 +19,14 @@ declare class AeroflyNavRouteRunway extends AeroflyNavRouteBase {
         identifier: string,
         longitude: number,
         latitude: number,
-        { direction_degree, elevation, elevation_ft, runwayLength, uid }?: Partial<AeroflyNavRouteRunway>,
+        {
+            direction_degree,
+            elevation,
+            elevation_ft,
+            runwayLength,
+            runwayLength_ft,
+            uid,
+        }?: Partial<AeroflyNavRouteRunway>,
     );
     /**
      * @returns {number | null} elevation in feet, null if not set
