@@ -59,7 +59,7 @@ export class AeroflySettingsCloud {
         return "OVC";
     }
 
-    set density_code(density_code: AeroflySettingsCloudDensityCode) {
+    set density_code(density_code: AeroflySettingsCloudDensityCode | "VV") {
         switch (density_code) {
             case "FEW":
                 this.density = 1 / 8;
@@ -71,6 +71,7 @@ export class AeroflySettingsCloud {
                 this.density = 5 / 8;
                 break;
             case "OVC":
+            case "VV":
                 this.density = 1;
                 break;
             default:

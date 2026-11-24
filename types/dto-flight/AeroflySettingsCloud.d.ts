@@ -30,7 +30,7 @@ export declare class AeroflySettingsCloud {
      * CLR: 0, FEW: >0 to 1/8, SCT: >1/8 to 2/8, BKN: >2/8 to 7/8, OVC: >7/8 to 1
      */
     get density_code(): AeroflySettingsCloudDensityCode;
-    set density_code(density_code: AeroflySettingsCloudDensityCode);
+    set density_code(density_code: AeroflySettingsCloudDensityCode | "VV");
     /**
      * @param {number} index if used in an array will set the array index
      * @returns {AeroflyConfigurationNode[]} to use in Aerofly FS4's `main.mcf`

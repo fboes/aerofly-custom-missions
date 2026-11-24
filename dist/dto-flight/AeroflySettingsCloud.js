@@ -64,6 +64,7 @@ export class AeroflySettingsCloud {
                 this.density = 5 / 8;
                 break;
             case "OVC":
+            case "VV":
                 this.density = 1;
                 break;
             default:

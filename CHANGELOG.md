@@ -4,6 +4,12 @@ This changelog documents all notable changes to the Aerofly Custom Missions proj
 
 ## [Unreleased]
 
+## [1.4.3] - 2026-11-24
+
+- Added support for `VV` cloud code, at least for setting cloud values.
+
+## [1.4.2]
+
 - Added pressure property (even though there is no pressure in Aerofly FS 4)
 
 ## [1.14.1] - 2026-08-24
